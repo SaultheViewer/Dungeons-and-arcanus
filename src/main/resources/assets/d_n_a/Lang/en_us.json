@@ -1,0 +1,23 @@
+{
+  "item.d_n_a.ruby": "Ruby",
+  "item.d_n_a.raw_silver": "Raw silver",
+  "item.d_n_a.raw_mithril": "Raw mithril",
+  "item.d_n_a.mithril_ingot": "Mithril ingot",
+  "item.d_n_a.silver_ingot": "Silver ingot",
+  "item.d_n_a.oricalcium_gem": "Oricalcium gem",
+  "item.d_n_a.oricalcium_paste": "Oricalcium paste",
+
+  "block.d_n_a.silver_ore": "Silver ore",
+  "block.d_n_a.oricalcium_ore": "Oricalcium ore",
+  "block.d_n_a.mithril_ore": "Mithril ore",
+  "block.d_n_a.deepslate_silver_ore": "Deepslate Silver ore",
+  "block.d_n_a.deepslate_mithril_ore": "Deepslate Mithril ore",
+  "block.d_n_a.raw_silver_block": "Raw Silver block",
+  "block.d_n_a.oricalcium_block": "Oricalcium block",
+  "block.d_n_a.mithril_block": "Mithril block",
+
+
+  "creativetab.dungeons_and_arcanus": "Dungeons and Arcanus"
+
+
+}

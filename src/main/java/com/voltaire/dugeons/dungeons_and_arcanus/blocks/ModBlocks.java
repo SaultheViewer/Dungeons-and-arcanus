@@ -22,12 +22,29 @@ public class ModBlocks {
             DeferredRegister.create(ForgeRegistries.BLOCKS, Dungeons_and_arcanus.MOD_ID);
 // Remove both example blocks B4 publishing
     // add new blocks here
-    public static final  RegistryObject<Block> SUGAR_BLOCK = registerBlock( "test_block",
-            () -> new Block(BlockBehaviour.Properties.copy(Blocks.SAND)));
+    public static final  RegistryObject<Block> MITHRIL_BLOCK = registerBlock( "mithril_block",
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.DIAMOND_BLOCK)));
+    public static final  RegistryObject<Block> ORICALCIUM_BLOCK = registerBlock( "oricalcium_block",
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.EMERALD_BLOCK)));
+    public static final  RegistryObject<Block> RAW_SILVER_BLOCK = registerBlock( "raw_silver_block",
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.RAW_COPPER_BLOCK)));
 // ore blocks here
-public static final RegistryObject<Block> TEST_ORE = registerBlock("test_ore",
+public static final RegistryObject<Block> DEEPSLATE_MITHRIL_ORE = registerBlock("deepslate_mithril_ore",
+        () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE)
+                .strength(3.5f), UniformInt.of(3,6)));
+public static final RegistryObject<Block> DEEPSLATE_SILVER_ORE = registerBlock("deepslate_silver_ore",
+        () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE)
+                .strength(3.5f), UniformInt.of(3,6)));
+public static final RegistryObject<Block> MITHRIL_ORE = registerBlock("mithril_ore",
         () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.STONE)
                 .strength(2f), UniformInt.of(3,6)));
+public static final RegistryObject<Block> ORICALCIUM_ORE = registerBlock("oricalcium_ore",
+        () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.BLACKSTONE)
+                , UniformInt.of(3,6)));
+public static final RegistryObject<Block> SILVER_ORE = registerBlock("silver_ore",
+        () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.BLACKSTONE)
+                , UniformInt.of(3,6)));
+
 
      private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block){
         RegistryObject<T> toReturn =BLOCKS.register(name, block);
