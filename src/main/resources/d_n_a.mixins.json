@@ -1,7 +1,7 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "com.voltaire.dugeons.dungeons_and_arcanus.mixin",
+  "package": "com.voltaire.d_n_a.dungeons_and_arcanus.mixin",
   "compatibilityLevel": "JAVA_8",
   "refmap": "dungeons_and_arcanus.refmap.json",
   "mixins": [

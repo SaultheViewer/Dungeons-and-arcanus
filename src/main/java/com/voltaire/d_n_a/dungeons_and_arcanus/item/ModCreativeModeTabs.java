@@ -1,12 +1,11 @@
-package com.voltaire.dugeons.dungeons_and_arcanus.item;
+package com.voltaire.d_n_a.dungeons_and_arcanus.item;
 
-import com.voltaire.dugeons.dungeons_and_arcanus.Dungeons_and_arcanus;
-import com.voltaire.dugeons.dungeons_and_arcanus.blocks.ModBlocks;
+import com.voltaire.d_n_a.dungeons_and_arcanus.Dungeons_and_arcanus;
+import com.voltaire.d_n_a.dungeons_and_arcanus.blocks.ModBlocks;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;

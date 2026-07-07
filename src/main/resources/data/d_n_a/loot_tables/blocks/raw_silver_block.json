@@ -11,11 +11,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "d_n_a:test_block"
+          "name": "d_n_a:raw_silver_block"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "dungeons:blocks/test_block"
+  "random_sequence": "d_n_a:blocks/raw_silver_block"
 }

@@ -1,9 +1,10 @@
-package com.voltaire.dugeons.dungeons_and_arcanus;
+package com.voltaire.d_n_a.dungeons_and_arcanus;
 
 import com.mojang.logging.LogUtils;
-import com.voltaire.dugeons.dungeons_and_arcanus.blocks.ModBlocks;
-import com.voltaire.dugeons.dungeons_and_arcanus.item.ModCreativeModeTabs;
-import com.voltaire.dugeons.dungeons_and_arcanus.item.ModItems;
+import com.voltaire.d_n_a.dungeons_and_arcanus.blocks.ModBlocks;
+import com.voltaire.d_n_a.dungeons_and_arcanus.item.ModCreativeModeTabs;
+import com.voltaire.d_n_a.dungeons_and_arcanus.item.ModItems;
+
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
@@ -32,6 +33,7 @@ public class Dungeons_and_arcanus {
 
         ModItems.register(modEventBus);
         ModBlocks.register(modEventBus);
+
 
         modEventBus.addListener(this::commonSetup);
 

@@ -24,7 +24,7 @@
                   }
                 }
               ],
-              "name": "dungeons:test_ore"
+              "name": "d_n_a:mithril_ore"
             },
             {
               "type": "minecraft:item",
@@ -47,7 +47,7 @@
                   "function": "minecraft:explosion_decay"
                 }
               ],
-              "name": "minecraft:raw_copper"
+              "name": "d_n_a:raw_mithril"
             }
           ]
         }
@@ -55,5 +55,5 @@
       "rolls": 1.0
     }
   ],
-  "random_sequence": "dungeons:blocks/test_ore"
+  "random_sequence": "d_n_a:blocks/mithril_ore"
 }

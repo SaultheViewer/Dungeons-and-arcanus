@@ -1,4 +1,4 @@
-package com.voltaire.dugeons.dungeons_and_arcanus.item.custom;
+package com.voltaire.d_n_a.dungeons_and_arcanus.item.custom;
 
 import net.minecraft.world.item.Item;
 

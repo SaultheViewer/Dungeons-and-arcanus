@@ -1,7 +1,7 @@
-package com.voltaire.dugeons.dungeons_and_arcanus.blocks;
+package com.voltaire.d_n_a.dungeons_and_arcanus.blocks;
 
-import com.voltaire.dugeons.dungeons_and_arcanus.Dungeons_and_arcanus;
-import com.voltaire.dugeons.dungeons_and_arcanus.item.ModItems;
+import com.voltaire.d_n_a.dungeons_and_arcanus.Dungeons_and_arcanus;
+import com.voltaire.d_n_a.dungeons_and_arcanus.item.ModItems;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -28,6 +28,8 @@ public class ModBlocks {
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.EMERALD_BLOCK)));
     public static final  RegistryObject<Block> RAW_SILVER_BLOCK = registerBlock( "raw_silver_block",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.RAW_COPPER_BLOCK)));
+
+
 // ore blocks here
 public static final RegistryObject<Block> DEEPSLATE_MITHRIL_ORE = registerBlock("deepslate_mithril_ore",
         () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE)
@@ -42,7 +44,7 @@ public static final RegistryObject<Block> ORICALCIUM_ORE = registerBlock("orical
         () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.BLACKSTONE)
                 , UniformInt.of(3,6)));
 public static final RegistryObject<Block> SILVER_ORE = registerBlock("silver_ore",
-        () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.BLACKSTONE)
+        () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.STONE)
                 , UniformInt.of(3,6)));
 
 
