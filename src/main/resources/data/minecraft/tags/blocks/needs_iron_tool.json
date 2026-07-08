@@ -4,6 +4,9 @@
     "d_n_a:mithril_block",
     "d_n_a:raw_silver_block",
     "d_n_a:silver_ore",
-    "d_n_a:deepslate_silver_ore"
+    "d_n_a:deepslate_silver_ore",
+    "d_n_a:ruby_ore",
+    "d_n_a:ruby_block",
+    "d_n_a:silver_block"
   ]
 }

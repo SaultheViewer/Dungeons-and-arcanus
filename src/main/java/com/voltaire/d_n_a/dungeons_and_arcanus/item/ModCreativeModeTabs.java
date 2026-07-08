@@ -36,6 +36,9 @@ public class ModCreativeModeTabs {
                         pOutput.accept(ModBlocks.ORICALCIUM_ORE.get());
                         pOutput.accept(ModBlocks.RAW_SILVER_BLOCK.get());
                         pOutput.accept(ModBlocks.SILVER_ORE.get());
+                        pOutput.accept(ModBlocks.SILVER_BLOCK.get());
+                        pOutput.accept(ModBlocks.RUBY_BLOCK.get());
+                        pOutput.accept(ModBlocks.RUBY_ORE.get());
                         // example vanilla item inclusion
                         // pOutput.accept(Items.SUGAR);
                     })
