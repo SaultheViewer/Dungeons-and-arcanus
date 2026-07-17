@@ -1,0 +1,23 @@
+// 1.20.1	2026-07-16T20:53:40.1164983	Block States: d_n_a
+7a778dcfd0fa5f131b80a3cd893f81a6c02dc476 assets/d_n_a/models/block/deepslate_mithril_ore.json
+c61f43fedba609c1f7754a8d62108af727afbb9b assets/d_n_a/models/block/deepslate_silver_ore.json
+bf91a5d89a394a26b737a3491ffd5daf0cc86e7b assets/d_n_a/models/block/mithril_block.json
+3522f9761bbcd74765a60242837500e998b824ab assets/d_n_a/models/block/mithril_ore.json
+47dd9f11de6d3c844c1b53432536923576989da3 assets/d_n_a/models/block/oricalcium_block.json
+8dc022b013b2dd14e615e4974ef1e3225f45f2f8 assets/d_n_a/models/block/oricalcium_ore.json
+850abb9fa87b4196a0bfbdc7a1d77b86a6f16701 assets/d_n_a/models/block/raw_silver_block.json
+5ee34e184fe882bbf1d16b9be699846daf814d5a assets/d_n_a/models/block/ruby_block.json
+e1984bdb7c09b37a57b8f9ed19848dabf928ec79 assets/d_n_a/models/block/ruby_ore.json
+f016d3399e500fe7ca8378520e9e68fb72a0b5b6 assets/d_n_a/models/block/silver_block.json
+1d2bee09f15deb849841e61931abdcd3e4abf7eb assets/d_n_a/models/block/silver_ore.json
+6c3ce9ee6d45f214a1e57909e1b7718eabdaebb0 assets/d_n_a/models/item/deepslate_mithril_ore.json
+ee0c76cb6b85af604d050bcc6633367bf1c2184a assets/d_n_a/models/item/deepslate_silver_ore.json
+0bed8266b0c504b97c966845c07260aff17adc83 assets/d_n_a/models/item/mithril_block.json
+c0b974720981bb31651e08d5c373f30e1a99d5ad assets/d_n_a/models/item/mithril_ore.json
+7bda98777059a0290a1221594d1fff905f243693 assets/d_n_a/models/item/oricalcium_block.json
+242c02afb31fd22871921b0132f7af9b3083906c assets/d_n_a/models/item/oricalcium_ore.json
+3aca422ac9d74c00f5d252fa61aa68c28a14c1ff assets/d_n_a/models/item/raw_silver_block.json
+8d1494bdd05e7c495d533c8c763f55402e397ea3 assets/d_n_a/models/item/ruby_block.json
+470df33f67954bc9effa05ed772ca1f3d2f76275 assets/d_n_a/models/item/ruby_ore.json
+c29618d81e38a63aa00a3bf501d8535e2c7d0118 assets/d_n_a/models/item/silver_block.json
+731abdeaef7b6bcb87db5dbef0d8d12b6be4de6a assets/d_n_a/models/item/silver_ore.json

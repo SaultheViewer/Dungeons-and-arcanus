@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "o": {
+      "item": "d_n_a:oricalcium_gem"
+    }
+  },
+  "pattern": [
+    "ooo",
+    "ooo",
+    "ooo"
+  ],
+  "result": {
+    "item": "d_n_a:oricalcium_block"
+  },
+  "show_notification": true
+}

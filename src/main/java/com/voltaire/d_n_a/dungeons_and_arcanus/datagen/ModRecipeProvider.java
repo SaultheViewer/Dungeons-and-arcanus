@@ -37,65 +37,65 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .pattern("mmm")
                 .pattern("mmm")
                 .pattern("mmm")
-                .define("m", ModItems.MITHRIL_INGOT.get())
+                .define('m', ModItems.MITHRIL_INGOT.get())
                 .unlockedBy(getHasName(ModItems.MITHRIL_INGOT.get()), has(ModItems.MITHRIL_INGOT.get()))
                 .save(pWriter);
 
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ModItems.MITHRIL_INGOT.get(), "9")
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ModItems.MITHRIL_INGOT.get(), 9)
                 .requires(ModBlocks.MITHRIL_BLOCK.get())
-                .unlockedBy(getHasName(ModBlocks.MITHRIL_BLOCK.get(), has(ModBlocks.MITHRIL_BLOCK.get())))
+                .unlockedBy(getHasName(ModBlocks.MITHRIL_BLOCK.get()), has(ModBlocks.MITHRIL_BLOCK.get()))
                 .save(pWriter);
 
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.SILVER_BLOCK.get())
                 .pattern("sss")
                 .pattern("sss")
                 .pattern("sss")
-                .define("s", ModItems.SILVER_INGOT.get())
+                .define('s', ModItems.SILVER_INGOT.get())
                 .unlockedBy(getHasName(ModItems.SILVER_INGOT.get()), has(ModItems.SILVER_INGOT.get()))
                 .save(pWriter);
 
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ModItems.SILVER_INGOT.get(), "9")
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ModItems.SILVER_INGOT.get(), 9)
                 .requires(ModBlocks.SILVER_BLOCK.get())
-                .unlockedBy(getHasName(ModBlocks.SILVER_BLOCK.get(), has(ModBlocks.SILVER_BLOCK.get())))
+                .unlockedBy(getHasName(ModBlocks.SILVER_BLOCK.get()), has(ModBlocks.SILVER_BLOCK.get()))
                 .save(pWriter);
 
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.RAW_SILVER_BLOCK.get())
                 .pattern("RRR")
                 .pattern("RRR")
                 .pattern("RRR")
-                .define("R", ModItems.RAW_SILVER.get())
+                .define('R', ModItems.RAW_SILVER.get())
                 .unlockedBy(getHasName(ModItems.RAW_SILVER.get()), has(ModItems.RAW_SILVER.get()))
                 .save(pWriter);
 
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ModItems.RAW_SILVER.get(), "9")
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ModItems.RAW_SILVER.get(), 9)
                 .requires(ModBlocks.RAW_SILVER_BLOCK.get())
-                .unlockedBy(getHasName(ModBlocks.RAW_SILVER_BLOCK.get(), has(ModBlocks.RAW_SILVER_BLOCK.get())))
+                .unlockedBy(getHasName(ModBlocks.RAW_SILVER_BLOCK.get()), has(ModBlocks.RAW_SILVER_BLOCK.get()))
                 .save(pWriter);
 
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.RUBY_BLOCK.get())
                 .pattern("RRR")
                 .pattern("RRR")
                 .pattern("RRR")
-                .define("R", ModItems.RUBY.get())
+                .define('R', ModItems.RUBY.get())
                 .unlockedBy(getHasName(ModItems.RUBY.get()), has(ModItems.RUBY.get()))
                 .save(pWriter);
 
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ModItems.RUBY.get(), "9")
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ModItems.RUBY.get(), 9)
                 .requires(ModBlocks.RUBY_BLOCK.get())
-                .unlockedBy(getHasName(ModBlocks.RUBY_BLOCK.get(), has(ModBlocks.RUBY_BLOCK.get())))
+                .unlockedBy(getHasName(ModBlocks.RUBY_BLOCK.get()), has(ModBlocks.RUBY_BLOCK.get()))
                 .save(pWriter);
 
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.ORICALCIUM_BLOCK.get())
                 .pattern("ooo")
                 .pattern("ooo")
                 .pattern("ooo")
-                .define("o", ModItems.ORICALCIUM_GEM.get())
+                .define('o', ModItems.ORICALCIUM_GEM.get())
                 .unlockedBy(getHasName(ModItems.ORICALCIUM_GEM.get()), has(ModItems.ORICALCIUM_GEM.get()))
                 .save(pWriter);
 
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ModItems.ORICALCIUM_GEM.get(), "9")
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ModItems.ORICALCIUM_GEM.get(), 9)
                 .requires(ModBlocks.ORICALCIUM_BLOCK.get())
-                .unlockedBy(getHasName(ModBlocks.ORICALCIUM_BLOCK.get(), has(ModBlocks.ORICALCIUM_BLOCK.get())))
+                .unlockedBy(getHasName(ModBlocks.ORICALCIUM_BLOCK.get()), has(ModBlocks.ORICALCIUM_BLOCK.get()))
                 .save(pWriter);
 
     }

@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_oricalcium_gem": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "d_n_a:oricalcium_gem"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "d_n_a:oricalcium_block"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_oricalcium_gem",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "d_n_a:oricalcium_block"
+    ]
+  },
+  "sends_telemetry_event": false
+}

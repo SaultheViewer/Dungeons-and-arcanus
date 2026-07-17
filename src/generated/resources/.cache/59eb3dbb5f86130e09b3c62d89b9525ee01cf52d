@@ -1,0 +1,12 @@
+// 1.20.1	2026-07-16T20:33:10.4253044	Loot Tables
+f0123c1fe8fe6a97c6007430681d2b9b14d1870e data/d_n_a/loot_tables/blocks/deepslate_mithril_ore.json
+fbd59c6223d7b4ed6a48872edd5d1d41e87c7d9b data/d_n_a/loot_tables/blocks/deepslate_silver_ore.json
+d8324b52b856fdb75c3f131053d25518ed99db3d data/d_n_a/loot_tables/blocks/mithril_block.json
+e2dfd85f779f316899aee20a44acad49d1d937e6 data/d_n_a/loot_tables/blocks/mithril_ore.json
+aac85d985b3d2797f2422c3807050153ce4c2acd data/d_n_a/loot_tables/blocks/oricalcium_block.json
+e87ef0e0b608de35e2174146f0a21c78c6d1d948 data/d_n_a/loot_tables/blocks/oricalcium_ore.json
+e55e61f442d628e3197d99127a163f2d10d6a698 data/d_n_a/loot_tables/blocks/raw_silver_block.json
+310adb308e7fa054af409efb47faba32488f9a86 data/d_n_a/loot_tables/blocks/ruby_block.json
+7bfc80b4010788f226b0f404d89a74648671dbf0 data/d_n_a/loot_tables/blocks/ruby_ore.json
+7b634acce759ac19eb561dcbac0f0a83972ea3db data/d_n_a/loot_tables/blocks/silver_block.json
+3760dce548502c695e4d889519bcdff04ac651bd data/d_n_a/loot_tables/blocks/silver_ore.json

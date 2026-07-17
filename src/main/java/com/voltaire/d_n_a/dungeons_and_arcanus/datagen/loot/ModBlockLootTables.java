@@ -16,11 +16,12 @@ import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import net.minecraftforge.registries.RegistryObject;
 
-import java.util.Set;
+import java.util.Collections;
 
 public class ModBlockLootTables extends BlockLootSubProvider {
-    protected ModBlockLootTables(Set<Item> pExplosionResistant, FeatureFlagSet pEnabledFeatures) {
-        super(Set.of(), FeatureFlags.REGISTRY.allFlags());
+
+    public ModBlockLootTables() {
+        super(Collections.emptySet(), FeatureFlags.REGISTRY.allFlags());
     }
 
     @Override

@@ -24,6 +24,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
         //ores go here
         blockWithItem(ModBlocks.DEEPSLATE_MITHRIL_ORE);
+        blockWithItem(ModBlocks.MITHRIL_ORE);
         blockWithItem(ModBlocks.SILVER_ORE);
         blockWithItem(ModBlocks.DEEPSLATE_SILVER_ORE);
         blockWithItem(ModBlocks.RUBY_ORE);

@@ -7,6 +7,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.client.model.generators.ItemModelBuilder;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
+import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.RegistryObject;
 
@@ -17,19 +18,13 @@ public class ModItemModelProvider extends ItemModelProvider {
 
     @Override
     protected void registerModels() {
-        simpleItem(ModItems.MITHRIL_INGOT);
-        simpleItem(ModItems.RAW_MITHRIL);
-        simpleItem(ModItems.RUBY);
-        simpleItem(ModItems.RAW_SILVER);
-        simpleItem(ModItems.ORICALCIUM_GEM);
-        simpleItem(ModItems.ORICALCIUM_PASTE);
-        simpleItem(ModItems.SILVER_INGOT);
+        basicItem(ModItems.MITHRIL_INGOT.get());
+        basicItem(ModItems.RAW_MITHRIL.get());
+        basicItem(ModItems.RUBY.get());
+        basicItem(ModItems.RAW_SILVER.get());
+        basicItem(ModItems.ORICALCIUM_GEM.get());
+        basicItem(ModItems.ORICALCIUM_PASTE.get());
+        basicItem(ModItems.SILVER_INGOT.get());
 
-    }
-    //Basic Item method
-    private ItemModelBuilder simpleItem(RegistryObject<Item> item) {
-        return withExistingParent(item.getId().getPath(),
-                new ResourceLocation("item/generated")).texture("layer0",
-                new ResourceLocation(Dungeons_and_arcanus.MOD_ID, "item" + item.getId().getPath()));
     }
 }
