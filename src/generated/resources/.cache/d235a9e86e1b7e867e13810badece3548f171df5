@@ -1,4 +1,15 @@
-// 1.20.1	2026-07-16T20:53:40.1164983	Block States: d_n_a
+// 1.20.1	2026-07-17T10:22:00.3520381	Block States: d_n_a
+cfea1627eaf32b5dba8e6cddeff46824af1aca9b assets/d_n_a/blockstates/deepslate_mithril_ore.json
+17af9b23e8af835d6322b662a7fae238f2644a51 assets/d_n_a/blockstates/deepslate_silver_ore.json
+2934032301b2f8ee915b310c156d714342b3ddec assets/d_n_a/blockstates/mithril_block.json
+13ecfa0b982122b08b1047b22f14d17ff547dfb4 assets/d_n_a/blockstates/mithril_ore.json
+43f8cf19043d4bd355e814c29a8d04d403c1b7ff assets/d_n_a/blockstates/oricalcium_block.json
+6b4aee0cf7792ef1931dbc619ee6389f1b82691b assets/d_n_a/blockstates/oricalcium_ore.json
+9beb9810b5ddfb23c9f08fa288b600bbd02acba0 assets/d_n_a/blockstates/raw_silver_block.json
+f3c197f37bf5f22a38dd2e77aae67a03eab91db3 assets/d_n_a/blockstates/ruby_block.json
+96aeaf07bbc4479f8e39db64d732ff41f0c7c61e assets/d_n_a/blockstates/ruby_ore.json
+3ec8b32f435bf175a312a9ed372b8bb625c74753 assets/d_n_a/blockstates/silver_block.json
+03cc9d0c978e93a04c44cec10a54e4a847f56338 assets/d_n_a/blockstates/silver_ore.json
 7a778dcfd0fa5f131b80a3cd893f81a6c02dc476 assets/d_n_a/models/block/deepslate_mithril_ore.json
 c61f43fedba609c1f7754a8d62108af727afbb9b assets/d_n_a/models/block/deepslate_silver_ore.json
 bf91a5d89a394a26b737a3491ffd5daf0cc86e7b assets/d_n_a/models/block/mithril_block.json
