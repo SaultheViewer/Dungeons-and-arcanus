@@ -1,0 +1,14 @@
+{
+  "replace": false,
+  "values": [
+    "d_n_a:lush_chest",
+    "d_n_a:normal_chest",
+    "d_n_a:azure_chest",
+    "d_n_a:stone_chest",
+    "d_n_a:gold_chest",
+    "d_n_a:nether_chest",
+    "d_n_a:shadow_chest",
+    "d_n_a:ice_chest",
+    "d_n_a:coral_chest"
+  ]
+}

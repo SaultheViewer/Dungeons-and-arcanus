@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "facing=north": { "model": "d_n_a:block/nether_pot" },
+    "facing=east":  { "model": "d_n_a:block/nether_pot" ,"y": 90},
+    "facing=south": { "model": "d_n_a:block/nether_pot" ,"y": 180},
+    "facing=west":  { "model": "d_n_a:block/nether_pot" ,"y": 270}
+  }
+}

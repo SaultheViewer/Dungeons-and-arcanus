@@ -1,0 +1,7 @@
+{
+  "parent": "d_n_a:block/pc_pot_block",
+  "textures": {
+    "0": "d_n_a:block/normal_pot",
+    "particle": "d_n_a:block/normal_pot"
+  }
+}

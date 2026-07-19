@@ -1,12 +1,19 @@
 package com.voltaire.d_n_a.dungeons_and_arcanus.item;
 
 import com.voltaire.d_n_a.dungeons_and_arcanus.Dungeons_and_arcanus;
+import com.voltaire.d_n_a.dungeons_and_arcanus.item.custom.*;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
+import javax.annotation.Nullable;
+import java.util.List;
+import java.util.logging.Level;
 
 
 public class ModItems {
@@ -26,6 +33,30 @@ public class ModItems {
             () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> RUBY = ITEMS.register("ruby",
             () -> new Item(new Item.Properties()));
+
+    //PC ITEMS
+    public static final RegistryObject<Item> GOLD_LOCK = ITEMS.register("gold_lock",
+            () -> new Gold_Lock(new Item.Properties()));
+    public static final RegistryObject<Item> GOLD_KEY = ITEMS.register("gold_key",
+            () -> new Gold_key(new Item.Properties()));
+    public static final RegistryObject<Item> IRON_KEY = ITEMS.register("iron_key",
+            () -> new Iron_key(new Item.Properties()));
+    public static final RegistryObject<Item> IRON_LOCK = ITEMS.register("iron_lock",
+            () -> new Iron_Lock(new Item.Properties()));
+    public static final RegistryObject<Item> MIMIC_CORE = ITEMS.register("mimic_core",
+            () -> new Mimic_Core(new Item.Properties()));
+    public static final RegistryObject<Item> MIMIC_HAND_BELL = ITEMS.register("mimic_hand_bell",
+            () -> new Mimic_Hand_Bell(new Item.Properties()));
+    public static final RegistryObject<Item> MIMIC_KEY = ITEMS.register("mimic_key",
+            () -> new Mimic_key(new Item.Properties()));
+    public static final RegistryObject<Item> VOID_KEY = ITEMS.register("void_key",
+            () -> new Void_key(new Item.Properties()));
+    public static final RegistryObject<Item> PET_MIMIC_KEY = ITEMS.register("pet_mimic_key",
+            () -> new Pet_Mimic_key(new Item.Properties()));
+    public static final RegistryObject<Item> VOID_LOCK = ITEMS.register("void_lock",
+            () -> new Void_Lock(new Item.Properties()));
+
+
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);

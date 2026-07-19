@@ -2,6 +2,8 @@ package com.voltaire.d_n_a.dungeons_and_arcanus.blocks;
 
 import com.voltaire.d_n_a.dungeons_and_arcanus.Dungeons_and_arcanus;
 import com.voltaire.d_n_a.dungeons_and_arcanus.item.ModItems;
+import com.voltaire.d_n_a.dungeons_and_arcanus.registry.PCVoxelShapes;
+import com.voltaire.d_n_a.dungeons_and_arcanus.util.VoxelShaper;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -9,6 +11,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DropExperienceBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -53,10 +56,18 @@ public static final RegistryObject<Block> SILVER_ORE = registerBlock("silver_ore
 public static final RegistryObject<Block> RUBY_ORE = registerBlock("ruby_ore",
         () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.STONE)
                 , UniformInt.of(3,6)));
-
+//PC Blocks
+public static final RegistryObject<Block> NETHER_POT = BLOCKS.register("nether_pot",
+        () -> new PCPot(PCPotTypes.NETHER.settings(), PCVoxelShapes.POT_VOXELSHAPE));
+public static final RegistryObject<Block> NORMAL_POT = BLOCKS.register("normal_pot",
+        () -> new PCPot(PCPotTypes.NORMAL.settings(), PCVoxelShapes.POT_VOXELSHAPE));
+public static final RegistryObject<Block> LUSH_POT = BLOCKS.register("lush_pot",
+        () -> new PCPot(PCPotTypes.LUSH.settings(), PCVoxelShapes.POT_VOXELSHAPE));
+public static final RegistryObject<Block> ROCKY_POT = BLOCKS.register("rocky_pot",
+        () -> new PCPot(PCPotTypes.ROCKY.settings(), PCVoxelShapes.POT_VOXELSHAPE));
 
      private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block){
-        RegistryObject<T> toReturn =BLOCKS.register(name, block);
+        RegistryObject<T> toReturn = BLOCKS.register(name, block);
         registerBlockItem(name, toReturn);
         return toReturn;
      }

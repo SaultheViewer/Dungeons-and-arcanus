@@ -26,5 +26,16 @@ public class ModItemModelProvider extends ItemModelProvider {
         basicItem(ModItems.ORICALCIUM_PASTE.get());
         basicItem(ModItems.SILVER_INGOT.get());
 
+        basicItem(ModItems.GOLD_LOCK.get());
+        basicItem(ModItems.GOLD_KEY.get());
+        basicItem(ModItems.IRON_KEY.get());
+        basicItem(ModItems.IRON_LOCK.get());
+        basicItem(ModItems.MIMIC_CORE.get());
+        basicItem(ModItems.MIMIC_HAND_BELL.get());
+        basicItem(ModItems.MIMIC_KEY.get());
+        basicItem(ModItems.PET_MIMIC_KEY.get());
+        basicItem(ModItems.VOID_KEY.get());
+        basicItem(ModItems.VOID_LOCK.get());
+
     }
 }

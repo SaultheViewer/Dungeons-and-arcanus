@@ -39,8 +39,29 @@ public class ModCreativeModeTabs {
                         pOutput.accept(ModBlocks.SILVER_BLOCK.get());
                         pOutput.accept(ModBlocks.RUBY_BLOCK.get());
                         pOutput.accept(ModBlocks.RUBY_ORE.get());
+
+
                         // example vanilla item inclusion
                         // pOutput.accept(Items.SUGAR);
+
+                    })
+                    .build());
+    public static final RegistryObject<CreativeModeTab> PROABLY_CHESTS = CREATIVE_MODE_TABS.register("proably_chests",
+            () -> CreativeModeTab.builder().icon(() -> new ItemStack(ModItems.GOLD_LOCK.get()))
+                    .title(Component.translatable("creativetab.pc"))
+                    .displayItems((pParameters, pOutput) -> {
+
+                        pOutput.accept(ModItems.GOLD_LOCK.get());
+                        pOutput.accept(ModItems.GOLD_KEY.get());
+                        pOutput.accept(ModItems.IRON_KEY.get());
+                        pOutput.accept(ModItems.IRON_LOCK.get());
+                        pOutput.accept(ModItems.MIMIC_CORE.get());
+                        pOutput.accept(ModItems.MIMIC_HAND_BELL.get());
+                        pOutput.accept(ModItems.MIMIC_KEY.get());
+                        pOutput.accept(ModItems.PET_MIMIC_KEY.get());
+                        pOutput.accept(ModItems.VOID_KEY.get());
+                        pOutput.accept(ModItems.VOID_LOCK.get());
+
                     })
                     .build());
 
