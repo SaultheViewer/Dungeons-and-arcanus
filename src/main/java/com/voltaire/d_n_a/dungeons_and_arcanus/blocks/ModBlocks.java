@@ -23,6 +23,8 @@ import java.util.function.Supplier;
 public class ModBlocks {
     public static final DeferredRegister<Block> BLOCKS =
             DeferredRegister.create(ForgeRegistries.BLOCKS, Dungeons_and_arcanus.MOD_ID);
+    public static final DeferredRegister<Item> ITEMS =
+            DeferredRegister.create(ForgeRegistries.ITEMS, Dungeons_and_arcanus.MOD_ID);
 // Remove both example blocks B4 publishing
     // add new blocks here
     public static final  RegistryObject<Block> MITHRIL_BLOCK = registerBlock( "mithril_block",
@@ -66,6 +68,15 @@ public static final RegistryObject<Block> LUSH_POT = BLOCKS.register("lush_pot",
 public static final RegistryObject<Block> ROCKY_POT = BLOCKS.register("rocky_pot",
         () -> new PCPot(PCPotTypes.ROCKY.settings(), PCVoxelShapes.POT_VOXELSHAPE));
 
+    private static RegistryObject<Block> registerPot(String name, PCPotTypes type) {
+        RegistryObject<Block> block = BLOCKS.register(name, () -> new PCPot(type.settings(), PCVoxelShapes.POT_VOXELSHAPE));
+
+        ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
+
+        return block;
+    }
+
+
      private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block){
         RegistryObject<T> toReturn = BLOCKS.register(name, block);
         registerBlockItem(name, toReturn);
@@ -78,8 +89,10 @@ public static final RegistryObject<Block> ROCKY_POT = BLOCKS.register("rocky_pot
      }
 
 
+
     public static void register(IEventBus eventBus) {
         BLOCKS.register(eventBus);
+        ITEMS.register(eventBus);
 
 
     }
