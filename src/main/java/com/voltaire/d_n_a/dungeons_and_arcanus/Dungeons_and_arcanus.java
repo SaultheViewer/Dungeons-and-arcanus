@@ -2,6 +2,7 @@ package com.voltaire.d_n_a.dungeons_and_arcanus;
 
 import com.mojang.logging.LogUtils;
 import com.voltaire.d_n_a.dungeons_and_arcanus.blocks.ModBlocks;
+import com.voltaire.d_n_a.dungeons_and_arcanus.blocks.entity.ModBlockEntitys;
 import com.voltaire.d_n_a.dungeons_and_arcanus.item.ModCreativeModeTabs;
 import com.voltaire.d_n_a.dungeons_and_arcanus.item.ModItems;
 
@@ -33,6 +34,8 @@ public class Dungeons_and_arcanus {
 
         ModItems.register(modEventBus);
         ModBlocks.register(modEventBus);
+
+        ModBlockEntitys.register(modEventBus);
 
 
         modEventBus.addListener(this::commonSetup);

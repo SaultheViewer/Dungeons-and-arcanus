@@ -36,6 +36,8 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
         //custom blocks go here
 
+
+
     }
     private void blockWithItem(RegistryObject<Block> blockRegistryObject) {
         simpleBlockWithItem(blockRegistryObject.get(), cubeAll(blockRegistryObject.get()));

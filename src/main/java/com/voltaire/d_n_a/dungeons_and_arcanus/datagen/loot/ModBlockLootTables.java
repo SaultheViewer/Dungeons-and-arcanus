@@ -37,6 +37,7 @@ public class ModBlockLootTables extends BlockLootSubProvider {
         this.dropSelf(ModBlocks.NETHER_POT.get());
         this.dropSelf(ModBlocks.NORMAL_POT.get());
         this.dropSelf(ModBlocks.LUSH_POT.get());
+
         //ores
         this.add(ModBlocks.DEEPSLATE_MITHRIL_ORE.get(),
         block -> createCustomRarityDrops1(ModBlocks.DEEPSLATE_MITHRIL_ORE.get(), ModItems.RAW_MITHRIL.get()));

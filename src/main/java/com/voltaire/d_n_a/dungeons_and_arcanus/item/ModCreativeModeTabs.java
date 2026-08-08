@@ -41,6 +41,7 @@ public class ModCreativeModeTabs {
                         pOutput.accept(ModBlocks.RUBY_ORE.get());
 
 
+
                         // example vanilla item inclusion
                         // pOutput.accept(Items.SUGAR);
 
@@ -61,6 +62,10 @@ public class ModCreativeModeTabs {
                         pOutput.accept(ModItems.PET_MIMIC_KEY.get());
                         pOutput.accept(ModItems.VOID_KEY.get());
                         pOutput.accept(ModItems.VOID_LOCK.get());
+                        pOutput.accept(ModBlocks.LUSH_POT.get());
+                        pOutput.accept(ModBlocks.NORMAL_POT.get());
+                        pOutput.accept(ModBlocks.NETHER_POT.get());
+                        pOutput.accept(ModBlocks.ROCKY_POT.get());
 
                     })
                     .build());
