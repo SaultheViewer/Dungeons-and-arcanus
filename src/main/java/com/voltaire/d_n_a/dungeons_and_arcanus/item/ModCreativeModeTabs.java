@@ -18,13 +18,13 @@ public class ModCreativeModeTabs {
                     .title(Component.translatable("creativetab.dungeons_and_arcanus"))
                     .displayItems((pParameters, pOutput) -> {
                         //example item output remove when first item is added
-                         pOutput.accept(ModItems.RAW_MITHRIL.get());
-                         pOutput.accept(ModItems.RUBY.get());
-                         pOutput.accept(ModItems.MITHRIL_INGOT.get());
-                         pOutput.accept(ModItems.SILVER_INGOT.get());
-                         pOutput.accept(ModItems.ORICALCIUM_GEM.get());
-                         pOutput.accept(ModItems.ORICALCIUM_PASTE.get());
-                         pOutput.accept(ModItems.RAW_SILVER.get());
+                        pOutput.accept(ModItems.RAW_MITHRIL.get());
+                        pOutput.accept(ModItems.RUBY.get());
+                        pOutput.accept(ModItems.MITHRIL_INGOT.get());
+                        pOutput.accept(ModItems.SILVER_INGOT.get());
+                        pOutput.accept(ModItems.ORICALCIUM_GEM.get());
+                        pOutput.accept(ModItems.ORICALCIUM_PASTE.get());
+                        pOutput.accept(ModItems.RAW_SILVER.get());
 
 
                         //example block output

@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:loot_table",
-          "name": "probablychests:chests/rare_items"
+          "name": "dungeons_and_arcanus:chests/rare_items"
         }
       ]
     },
@@ -15,7 +15,7 @@
       "entries": [
         {
           "type": "minecraft:loot_table",
-          "name": "probablychests:chests/normal_items"
+          "name": "dungeons_and_arcanus:chests/normal_items"
         }
       ]
     },
@@ -24,7 +24,7 @@
       "entries": [
         {
           "type": "minecraft:loot_table",
-          "name": "probablychests:chests/nether_items"
+          "name": "dungeons_and_arcanus:chests/nether_items"
         }
       ]
     },
@@ -34,17 +34,17 @@
         {
           "type": "minecraft:loot_table",
           "weight": 1,
-          "name": "probablychests:chests/mining_items"
+          "name": "dungeons_and_arcanus:chests/mining_items"
         },
         {
           "type": "minecraft:loot_table",
           "weight": 10,
-          "name": "probablychests:chests/normal_items"
+          "name": "dungeons_and_arcanus:chests/normal_items"
         },
         {
           "type": "minecraft:loot_table",
           "weight": 1,
-          "name": "probablychests:chests/mixed_items"
+          "name": "dungeons_and_arcanus:chests/mixed_items"
         }
       ]
     }

@@ -8,17 +8,17 @@
         {
           "type": "minecraft:item",
           "weight": 30,
-          "name": "probablychests:mimic_core"
+          "name": "dungeons_and_arcanus:mimic_core"
         },
         {
           "type": "minecraft:item",
           "weight": 30,
-          "name": "probablychests:mimic_key_fragment"
+          "name": "dungeons_and_arcanus:mimic_key_fragment"
         },
         {
           "type": "minecraft:item",
           "weight": 10,
-          "name": "probablychests:gold_key"
+          "name": "dungeons_and_arcanus:gold_key"
         },
         {
           "type": "minecraft:empty",

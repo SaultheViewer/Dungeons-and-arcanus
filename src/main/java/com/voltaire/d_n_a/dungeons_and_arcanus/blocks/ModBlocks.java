@@ -1,6 +1,7 @@
 package com.voltaire.d_n_a.dungeons_and_arcanus.blocks;
 
 import com.voltaire.d_n_a.dungeons_and_arcanus.Dungeons_and_arcanus;
+import com.voltaire.d_n_a.dungeons_and_arcanus.blocks.custom.PC_PotTypes;
 import com.voltaire.d_n_a.dungeons_and_arcanus.blocks.custom.PotBlock;
 import com.voltaire.d_n_a.dungeons_and_arcanus.item.ModItems;
 import net.minecraft.util.valueproviders.UniformInt;
@@ -58,13 +59,13 @@ public static final RegistryObject<Block> RUBY_ORE = registerBlock("ruby_ore",
                 , UniformInt.of(3,6)));
 //pots
 public static final  RegistryObject<Block> LUSH_POT = registerBlock( "lush_pot",
-        () -> new PotBlock(BlockBehaviour.Properties.copy(Blocks.TERRACOTTA).strength(0f)));
+        () -> new PotBlock(PC_PotTypes.LUSH.setting()));
 public static final  RegistryObject<Block> NORMAL_POT = registerBlock( "normal_pot",
-        () -> new PotBlock(BlockBehaviour.Properties.copy(Blocks.TERRACOTTA).strength(0f)));
+        () -> new PotBlock(PC_PotTypes.NORMAL.setting()));
 public static final  RegistryObject<Block> NETHER_POT = registerBlock( "nether_pot",
-        () -> new PotBlock(BlockBehaviour.Properties.copy(Blocks.TERRACOTTA).strength(0f)));
+        () -> new PotBlock(PC_PotTypes.NETHER.setting()));
 public static final  RegistryObject<Block> ROCKY_POT = registerBlock( "rocky_pot",
-        () -> new PotBlock(BlockBehaviour.Properties.copy(Blocks.TERRACOTTA).strength(0f)));
+        () -> new PotBlock(PC_PotTypes.ROCKY.setting()));
 
 
 

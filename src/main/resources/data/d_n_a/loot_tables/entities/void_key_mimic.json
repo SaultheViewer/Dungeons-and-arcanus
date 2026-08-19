@@ -8,7 +8,7 @@
         {
           "type": "minecraft:item",
           "weight": 10,
-          "name": "probablychests:void_key"
+          "name": "dungeons_and_arcanus:void_key"
         },
         {
           "type": "minecraft:empty",
@@ -17,7 +17,7 @@
         {
           "type": "minecraft:item",
           "weight": 30,
-          "name": "probablychests:mimic_core",
+          "name": "dungeons_and_arcanus:mimic_core",
           "conditions": [
             {
               "condition": "minecraft:killed_by_player"
@@ -27,7 +27,7 @@
         {
           "type": "minecraft:item",
           "weight": 30,
-          "name": "probablychests:mimic_key_fragment",
+          "name": "dungeons_and_arcanus:mimic_key_fragment",
           "conditions": [
             {
               "condition": "minecraft:killed_by_player"

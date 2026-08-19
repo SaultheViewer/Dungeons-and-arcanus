@@ -64,7 +64,7 @@
 		"jump": {
 			"animation_length": 0.54167,
 			"bones": {
-				"PCChestBlock": {
+				"PC_ChestBlock": {
 					"rotation": {
 						"0.0": {
 							"vector": [0, 0, 0]
@@ -127,7 +127,7 @@
 			"loop": "hold_on_last_frame",
 			"animation_length": 0.16667,
 			"bones": {
-				"PCChestBlock": {
+				"PC_ChestBlock": {
 					"rotation": {
 						"0.0": {
 							"vector": [27.5, 0, 0],
@@ -157,7 +157,7 @@
 			"loop": true,
 			"animation_length": 1.73333,
 			"bones": {
-				"PCChestBlock": {
+				"PC_ChestBlock": {
 					"rotation": {
 						"0.0": {
 							"vector": [0, 0, 0]
@@ -432,7 +432,7 @@
 			"loop": true,
 			"animation_length": 0.04167,
 			"bones": {
-				"PCChestBlock": {
+				"PC_ChestBlock": {
 					"rotation": {
 						"vector": [0, 0, 0],
 						"easing": "easeInSine"
@@ -484,7 +484,7 @@
 			"loop": true,
 			"animation_length": 0.51,
 			"bones": {
-				"PCChestBlock": {
+				"PC_ChestBlock": {
 					"rotation": {
 						"0.0": {
 							"vector": [24.51599, 0, 0],

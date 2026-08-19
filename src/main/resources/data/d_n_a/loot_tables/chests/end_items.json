@@ -349,7 +349,7 @@
         {
           "type": "minecraft:item",
           "weight": 6,
-          "name": "probablychests:void_key",
+          "name": "dungeons_and_arcanus:void_key",
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -361,7 +361,7 @@
         {
           "type": "minecraft:item",
           "weight": 3,
-          "name": "probablychests:gold_key",
+          "name": "dungeons_and_arcanus:gold_key",
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -373,7 +373,7 @@
         {
           "type": "minecraft:item",
           "weight": 3,
-          "name": "probablychests:void_lock",
+          "name": "dungeons_and_arcanus:void_lock",
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -429,7 +429,7 @@
         {
           "type": "minecraft:item",
           "weight": 3,
-          "name": "probablychests:pet_mimic_key",
+          "name": "dungeons_and_arcanus:pet_mimic_key",
           "functions": [
             {
               "function": "minecraft:set_count",

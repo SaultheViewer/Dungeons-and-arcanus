@@ -3,7 +3,7 @@
 	"minecraft:geometry": [
 		{
 			"description": {
-				"identifier": "geometry.PCChestBlock",
+				"identifier": "geometry.PC_ChestBlock",
 				"texture_width": 128,
 				"texture_height": 128,
 				"visible_bounds_width": 3,
@@ -12,12 +12,12 @@
 			},
 			"bones": [
 				{
-					"name": "PCChestBlock",
+					"name": "PC_ChestBlock",
 					"pivot": [0, 0, -6.5]
 				},
 				{
 					"name": "Lid",
-					"parent": "PCChestBlock",
+					"parent": "PC_ChestBlock",
 					"pivot": [0, 7, 6.5],
 					"rotation": [-42.5, 0, 0],
 					"cubes": [
@@ -29,7 +29,7 @@
 				},
 				{
 					"name": "Base",
-					"parent": "PCChestBlock",
+					"parent": "PC_ChestBlock",
 					"pivot": [0, 7, 6.5],
 					"cubes": [
 						{"origin": [-7, 0, -6.5], "size": [14, 7, 13], "uv": [0, 43]},

@@ -1,6 +1,6 @@
 package com.voltaire.d_n_a.dungeons_and_arcanus.worldgen;
 
-import com.voltaire.d_n_a.dungeons_and_arcanus.Dungeons_and_arcanus;
+import com.voltaire.d_n_a.dungeons_and_arcanus.dungeons_and_arcanus;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
@@ -44,6 +44,6 @@ public class ModBiomeModifiers {
                 GenerationStep.Decoration.UNDERGROUND_ORES));
     }
     private static ResourceKey<BiomeModifier> registerKey(String name) {
-        return ResourceKey.create(ForgeRegistries.Keys.BIOME_MODIFIERS, new ResourceLocation(Dungeons_and_arcanus.MOD_ID, name));
+        return ResourceKey.create(ForgeRegistries.Keys.BIOME_MODIFIERS, new ResourceLocation(dungeons_and_arcanus.MOD_ID, name));
     }
 }

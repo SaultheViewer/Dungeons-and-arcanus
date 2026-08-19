@@ -32,7 +32,7 @@
         {
           "type": "minecraft:item",
           "weight": 98,
-          "name": "probablychests:mimic_key_fragment",
+          "name": "dungeons_and_arcanus:mimic_key_fragment",
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -48,7 +48,7 @@
         {
           "type": "minecraft:item",
           "weight": 8,
-          "name": "probablychests:mimic_core",
+          "name": "dungeons_and_arcanus:mimic_core",
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -60,7 +60,7 @@
         {
           "type": "minecraft:item",
           "weight": 4,
-          "name": "probablychests:mimic_key",
+          "name": "dungeons_and_arcanus:mimic_key",
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -72,7 +72,7 @@
         {
           "type": "minecraft:item",
           "weight": 6,
-          "name": "probablychests:iron_lock",
+          "name": "dungeons_and_arcanus:iron_lock",
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -99,7 +99,7 @@
         {
           "type": "minecraft:item",
           "weight": 15,
-          "name": "probablychests:gold_key",
+          "name": "dungeons_and_arcanus:gold_key",
           "functions": [
             {
               "function": "minecraft:set_count",
