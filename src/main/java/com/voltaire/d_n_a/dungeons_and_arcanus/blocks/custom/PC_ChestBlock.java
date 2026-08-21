@@ -3,7 +3,12 @@ package com.voltaire.d_n_a.dungeons_and_arcanus.blocks.custom;
 import com.voltaire.d_n_a.dungeons_and_arcanus.Dungeons_and_arcanus;
 import com.voltaire.d_n_a.dungeons_and_arcanus.blocks.entity.PC_BaseChestBlockEntity;
 import com.voltaire.d_n_a.dungeons_and_arcanus.item.ModItems;
+import com.voltaire.d_n_a.dungeons_and_arcanus.registry.PCProperties;
+import com.voltaire.d_n_a.dungeons_and_arcanus.registry.PCSounds;
 import com.voltaire.d_n_a.dungeons_and_arcanus.util.MimicCreationUtils;
+import com.voltaire.d_n_a.dungeons_and_arcanus.utils.PCChestState;
+import com.voltaire.d_n_a.dungeons_and_arcanus.utils.PCConfig;
+import com.voltaire.d_n_a.dungeons_and_arcanus.utils.PCLockedState;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -35,6 +40,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.pathfinder.PathComputationType;
@@ -322,7 +328,7 @@ public class PC_ChestBlock extends BaseEntityBlock implements SimpleWaterloggedB
         }
 
         // 7. Open GUI
-        if (player instanceof ServerPlayer serverPlayer && chest.canPlayerUse(player)) {
+        if (player instanceof ServerPlayer serverPlayer && chest.canOpen(player)) {
             player.openMenu(chest);
             player.awardStat(Stats.CUSTOM.get(Stats.OPEN_CHEST));
         }

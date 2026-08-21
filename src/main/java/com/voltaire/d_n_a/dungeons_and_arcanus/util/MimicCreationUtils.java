@@ -2,10 +2,12 @@ package com.voltaire.d_n_a.dungeons_and_arcanus.util;
 
 
 import com.voltaire.d_n_a.dungeons_and_arcanus.Dungeons_and_arcanus;
-import com.voltaire.d_n_a.dungeons_and_arcanus.Entity.Tamable_Pet_With_Inv;
+import com.voltaire.d_n_a.dungeons_and_arcanus.Entity.Tameable_Pet_With_Inv;
+import com.voltaire.d_n_a.dungeons_and_arcanus.Entity.ai.ChestMimicPet;
 import com.voltaire.d_n_a.dungeons_and_arcanus.blocks.custom.PCChestTypes;
 import com.voltaire.d_n_a.dungeons_and_arcanus.blocks.custom.PC_ChestBlock;
 import com.voltaire.d_n_a.dungeons_and_arcanus.blocks.entity.PC_BaseChestBlockEntity;
+import com.voltaire.d_n_a.dungeons_and_arcanus.interfaces.PlayerEntityAccess;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
@@ -45,9 +47,9 @@ public class MimicCreationUtils {
     public static void createMimicEntity(boolean isPetMimic, BlockPos pos, BlockState state, Level level, PC_BaseChestBlockEntity chest, Player player, PCChestTypes type) {
         if (!chest.hasMadeMimic) {
             chest.hasMadeMimic = true;
-            Tamable_Pet_With_Inv mimic;
+            Tameable_Pet_With_Inv mimic;
             if (isPetMimic) {
-                mimic = new PCChestMimicPet(type.getPetMimicType(), level);
+                mimic = new ChestMimicPet(type.getPetMimicType(), level);
                 mimic.setOwner(player);
                 mimic.setTarget(null);
                 mimic.setSitting(false);
@@ -89,8 +91,8 @@ public class MimicCreationUtils {
         }
     }
 
-    public static void convertPetMimicToHostile(Level level, PCChestTypes type, Tamable_Pet_With_Inv other) {
-        Tamable_Pet_With_Inv mimic = new PCChestMimic(type.getMimicType(), level);
+    public static void convertPetMimicToHostile(Level level, PCChestTypes type, Tameable_Pet_With_Inv other) {
+        Tameable_Pet_With_Inv mimic = new PCChestMimic(type.getMimicType(), level);
         mimic.setType(type);
         mimic.copyPosition(other);
 
@@ -108,9 +110,9 @@ public class MimicCreationUtils {
         level.addFreshEntity(mimic);
     }
 
-    public static void convertHostileMimicToPet(Level level, Tamable_Pet_With_Inv other, Player player) {
+    public static void convertHostileMimicToPet(Level level, Tameable_Pet_With_Inv other, Player player) {
         PCChestTypes type = other.getChestType();
-        Tamable_Pet_With_Inv mimic = new PCChestMimicPet(type.getPetMimicType(), level);
+        Tameable_Pet_With_Inv mimic = new PCChestMimicPet(type.getPetMimicType(), level);
         mimic.setOwner(player);
         mimic.setTamed(true);
         mimic.setTarget(null);

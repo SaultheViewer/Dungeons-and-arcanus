@@ -41,7 +41,7 @@ public class ModPlaceFeatures {
 
 
     private static ResourceKey<PlacedFeature> registerKey(String name) {
-        return ResourceKey.create(Registries.PLACED_FEATURE, new ResourceLocation(dungeons_and_arcanus.MOD_ID, name));
+        return ResourceKey.create(Registries.PLACED_FEATURE, new ResourceLocation(Dungeons_and_arcanus.MOD_ID, name));
     }
 
     private static void register(BootstapContext<PlacedFeature> context, ResourceKey<PlacedFeature> key, Holder<ConfiguredFeature<?, ?>> configuration,

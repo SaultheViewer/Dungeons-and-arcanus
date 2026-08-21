@@ -1,6 +1,6 @@
 package com.voltaire.d_n_a.dungeons_and_arcanus.Entity.ai;
 
-import com.voltaire.d_n_a.dungeons_and_arcanus.Entity.Tamable_Pet_With_Inv;
+import com.voltaire.d_n_a.dungeons_and_arcanus.Entity.Tameable_Pet_With_Inv;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.PathfinderMob;
@@ -10,7 +10,7 @@ import net.minecraft.world.level.pathfinder.Path;
 
 import java.util.EnumSet;
 
-public class PCMeleeAttackGoal extends Goal {
+public class PCMeleAttackGoal extends Goal {
 
     protected final PathfinderMob mob;
     private final double speed;
@@ -24,11 +24,11 @@ public class PCMeleeAttackGoal extends Goal {
     private final int attackIntervalTicks = 20;
     private long lastUpdateTime;
     private static final long MAX_ATTACK_TIME = 20L;
-    protected final Tamable_Pet_With_Inv mimic;
+    protected final Tameable_Pet_With_Inv mimic;
 
-    public PCMeleeAttackGoal(PathfinderMob mob, double speed, boolean pauseWhenMobIdle) {
+    public PCMeleAttackGoal(PathfinderMob mob, double speed, boolean pauseWhenMobIdle) {
         this.mob = mob;
-        this.mimic = (Tamable_Pet_With_Inv) mob;
+        this.mimic = (Tameable_Pet_With_Inv) mob;
         this.speed = speed;
         this.pauseWhenMobIdle = pauseWhenMobIdle;
         this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK, Goal.Flag.JUMP));

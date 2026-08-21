@@ -1,8 +1,12 @@
 package com.voltaire.d_n_a.dungeons_and_arcanus.Entity;
 
+import com.voltaire.d_n_a.dungeons_and_arcanus.Entity.ai.ChestMimicPet;
 import com.voltaire.d_n_a.dungeons_and_arcanus.Entity.ai.MimicMoveControl;
 import com.voltaire.d_n_a.dungeons_and_arcanus.blocks.custom.PCChestTypes;
+import com.voltaire.d_n_a.dungeons_and_arcanus.interfaces.PlayerEntityAccess;
 import com.voltaire.d_n_a.dungeons_and_arcanus.item.ModItems;
+import com.voltaire.d_n_a.dungeons_and_arcanus.registry.PCSounds;
+import com.voltaire.d_n_a.dungeons_and_arcanus.screenhandlers.PCMimicScreenHandler;
 import com.voltaire.d_n_a.dungeons_and_arcanus.util.MimicCreationUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -22,6 +26,7 @@ import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.Container;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.MenuProvider;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -46,7 +51,7 @@ import javax.annotation.Nullable;
 import java.util.EnumSet;
 import java.util.UUID;
 
-public abstract class Tamable_Pet_With_Inv extends TamableAnimal implements Container, net.minecraft.world.entity.NeutralMob, MenuProvider {
+public abstract class Tameable_Pet_With_Inv extends TamableAnimal implements Container, net.minecraft.world.entity.NeutralMob, MenuProvider {
 
     public final net.minecraft.world.SimpleContainer inventory = new net.minecraft.world.SimpleContainer(54);
     public boolean interacting;
@@ -56,17 +61,17 @@ public abstract class Tamable_Pet_With_Inv extends TamableAnimal implements Cont
 
     // Data parameters
     private static final EntityDataAccessor<Integer> MIMIC_STATE =
-            SynchedEntityData.defineId(Tamable_Pet_With_Inv.class, EntityDataSerializers.INT);
+            SynchedEntityData.defineId(Tameable_Pet_With_Inv.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> ANGER_TIME =
-            SynchedEntityData.defineId(Tamable_Pet_With_Inv.class, EntityDataSerializers.INT);
+            SynchedEntityData.defineId(Tameable_Pet_With_Inv.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> IS_ABANDONED =
-            SynchedEntityData.defineId(Tamable_Pet_With_Inv.class, EntityDataSerializers.BOOLEAN);
+            SynchedEntityData.defineId(Tameable_Pet_With_Inv.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> MIMIC_HAS_LOCK =
-            SynchedEntityData.defineId(Tamable_Pet_With_Inv.class, EntityDataSerializers.BOOLEAN);
+            SynchedEntityData.defineId(Tameable_Pet_With_Inv.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> IS_MIMIC_LOCKED =
-            SynchedEntityData.defineId(Tamable_Pet_With_Inv.class, EntityDataSerializers.BOOLEAN);
+            SynchedEntityData.defineId(Tameable_Pet_With_Inv.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> IS_OPEN_STATE =
-            SynchedEntityData.defineId(Tamable_Pet_With_Inv.class, EntityDataSerializers.BOOLEAN);
+            SynchedEntityData.defineId(Tameable_Pet_With_Inv.class, EntityDataSerializers.BOOLEAN);
 
     private static final UniformInt ANGER_TIME_RANGE = TimeUtil.rangeOfSeconds(20, 39);
 
@@ -89,7 +94,7 @@ public abstract class Tamable_Pet_With_Inv extends TamableAnimal implements Cont
 
     private static final double MOVE_SPEED = 1.0;
 
-    public Tamable_Pet_With_Inv(EntityType<? extends TamableAnimal> type, Level level) {
+    public Tameable_Pet_With_Inv(EntityType<? extends TamableAnimal> type, Level level) {
         super(type, level);
         this.setPersistenceRequired();          // equivalent of field_5985 = true
         this.inventory.addListener(this);       // so container changes are noticed
@@ -628,9 +633,9 @@ public abstract class Tamable_Pet_With_Inv extends TamableAnimal implements Cont
     // ---------- Inner Goals (kept almost identical) ----------
 
     public static class SwimmingGoal extends Goal {
-        private final Tamable_Pet_With_Inv mimic;
+        private final Tameable_Pet_With_Inv mimic;
 
-        public SwimmingGoal(Tamable_Pet_With_Inv mimic) {
+        public SwimmingGoal(Tameable_Pet_With_Inv mimic) {
             this.mimic = mimic;
             this.setFlags(EnumSet.of(Flag.JUMP, Goal.Flag.MOVE));
             mimic.getNavigation().setCanFloat(true);
@@ -661,9 +666,9 @@ public abstract class Tamable_Pet_With_Inv extends TamableAnimal implements Cont
     }
 
     public static class IdleGoal extends Goal {
-        private final Tamable_Pet_With_Inv mimic;
+        private final Tameable_Pet_With_Inv mimic;
 
-        public IdleGoal(Tamable_Pet_With_Inv mimic) {
+        public IdleGoal(Tameable_Pet_With_Inv mimic) {
             this.mimic = mimic;
             this.setFlags(EnumSet.of(Flag.LOOK, Flag.MOVE, Flag.JUMP));
         }
@@ -678,9 +683,9 @@ public abstract class Tamable_Pet_With_Inv extends TamableAnimal implements Cont
     }
 
     public static class SleepGoal extends Goal {
-        private final Tamable_Pet_With_Inv mimic;
+        private final Tameable_Pet_With_Inv mimic;
 
-        public SleepGoal(Tamable_Pet_With_Inv mimic) {
+        public SleepGoal(Tameable_Pet_With_Inv mimic) {
             this.mimic = mimic;
         }
 
@@ -717,7 +722,7 @@ public abstract class Tamable_Pet_With_Inv extends TamableAnimal implements Cont
     }
 
     public static class FollowOwnerGoal extends Goal {
-        private final Tamable_Pet_With_Inv mimic;
+        private final Tameable_Pet_With_Inv mimic;
         private final Level world;
         private final PathNavigation navigation;
         private final float maxDistance;
@@ -727,7 +732,7 @@ public abstract class Tamable_Pet_With_Inv extends TamableAnimal implements Cont
         private int updateCountdownTicks;
         private float oldWaterPathfindingPenalty;
 
-        public FollowOwnerGoal(Tamable_Pet_With_Inv mimic, double speed,
+        public FollowOwnerGoal(Tameable_Pet_With_Inv mimic, double speed,
                                float minDistance, float maxDistance, boolean leavesAllowed) {
             this.mimic = mimic;
             this.world = mimic.level();

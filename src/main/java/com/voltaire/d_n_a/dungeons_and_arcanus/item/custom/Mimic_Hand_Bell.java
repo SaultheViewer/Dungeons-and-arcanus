@@ -1,5 +1,6 @@
 package com.voltaire.d_n_a.dungeons_and_arcanus.item.custom;
 
+import com.voltaire.d_n_a.dungeons_and_arcanus.interfaces.PlayerEntityAccess;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
@@ -16,30 +17,26 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
 public class Mimic_Hand_Bell extends Item {
-    public Mimic_Hand_Bell(Properties pProperties) {
-        super(pProperties);
+    public Mimic_Hand_Bell(Item.Properties settings) {
+        super(settings);
     }
-/*
-    @Override
+
     public InteractionResult useOn(UseOnContext context) {
         Level world = context.getLevel();
         BlockPlaceContext itemPlacementContext = new BlockPlaceContext(context);
         BlockPos blockPos = itemPlacementContext.getClickedPos();
-
         if (world instanceof ServerLevel serverWorld) {
             Player var7 = context.getPlayer();
             if (var7 instanceof ServerPlayer player) {
-
-                blockPos = blockPos.relative(context.getClickedFace());
-
-                if (serverWorld.getBlockState(blockPos).is(Blocks.BELL)) {  // assuming field_27161 = BELL
-                    int amount = ((PlayerEntityAccess) player).abandonMimics();
-
+                blockPos = blockPos.relative(context.getClickedFace().getOpposite());
+                if (serverWorld.getBlockState(blockPos).is(Blocks.AMETHYST_CLUSTER)) {
+                    int amount = ((PlayerEntityAccess)player).abandonMimics();
                     if (amount > 0) {
                         player.awardStat(PCStatistics.ABANDONED_MIMICS, amount);
                         CriteriaTriggers.ITEM_USED_ON_BLOCK.trigger(player, blockPos, context.getItemInHand());
@@ -52,7 +49,6 @@ public class Mimic_Hand_Bell extends Item {
 
         return InteractionResult.sidedSuccess(world.isClientSide);
     }
-*/
     @Override
     public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced) {
         if(Screen.hasShiftDown()){

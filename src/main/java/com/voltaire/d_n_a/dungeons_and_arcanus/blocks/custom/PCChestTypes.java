@@ -1,9 +1,13 @@
 package com.voltaire.d_n_a.dungeons_and_arcanus.blocks.custom;
 
-import com.voltaire.d_n_a.dungeons_and_arcanus.Entity.Tamable_Pet_With_Inv;
+import com.voltaire.d_n_a.dungeons_and_arcanus.Entity.Tameable_Pet_With_Inv;
+import com.voltaire.d_n_a.dungeons_and_arcanus.Entity.ai.PCChestMimic;
 import com.voltaire.d_n_a.dungeons_and_arcanus.blocks.entity.PC_BaseChestBlockEntity;
+import com.voltaire.d_n_a.dungeons_and_arcanus.registry.PCScreenHandlerType;
+import com.voltaire.d_n_a.dungeons_and_arcanus.screenhandlers.PCChestScreenHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -31,17 +35,17 @@ public enum PCChestTypes {
         this.name = name;
     }
 
-    public EntityType<ChestMimic> getMimicType() {
+    public EntityType<PCChestMimic> getMimicType() {
         return switch (this) {
-            case LUSH   -> ModEntitys.LUSH_CHEST_MIMIC;
-            case NORMAL -> ModEntitys.NORMAL_CHEST_MIMIC;
-            case AZURE  -> ModEntitys.AZURE_CHEST_MIMIC;
-            case STONE  -> ModEntitys.STONE_CHEST_MIMIC;
-            case GOLD   -> ModEntitys.GOLD_CHEST_MIMIC;
-            case NETHER -> ModEntitys.NETHER_CHEST_MIMIC;
-            case SHADOW -> ModEntitys.SHADOW_CHEST_MIMIC;
-            case ICE    -> ModEntitys.ICE_CHEST_MIMIC;
-            case CORAL  -> ModEntitys.CORAL_CHEST_MIMIC;
+            case LUSH   -> PCEntitys.LUSH_CHEST_MIMIC;
+            case NORMAL -> PCEntitys.NORMAL_CHEST_MIMIC;
+            case AZURE  -> PCEntitys.AZURE_CHEST_MIMIC;
+            case STONE  -> PCEntitys.STONE_CHEST_MIMIC;
+            case GOLD   -> PCEntitys.GOLD_CHEST_MIMIC;
+            case NETHER -> PCEntitys.NETHER_CHEST_MIMIC;
+            case SHADOW -> PCEntitys.SHADOW_CHEST_MIMIC;
+            case ICE    -> PCEntitys.ICE_CHEST_MIMIC;
+            case CORAL  -> PCEntitys.CORAL_CHEST_MIMIC;
         };
     }
 
@@ -52,15 +56,15 @@ public enum PCChestTypes {
 
     public BlockEntityType<? extends PC_BaseChestBlockEntity> getBlockEntityType() {
         return switch (this) {
-            case LUSH   -> ModBlockEntitys.LUSH_CHEST_BLOCK_ENTITY;
-            case NORMAL -> ModBlockEntitys.NORMAL_CHEST_BLOCK_ENTITY;
-            case AZURE  -> ModBlockEntitys.AZURE_CHEST_BLOCK_ENTITY;
-            case STONE  -> ModBlockEntitys.STONE_CHEST_BLOCK_ENTITY;
-            case GOLD   -> ModBlockEntitys.GOLD_CHEST_BLOCK_ENTITY;
-            case NETHER -> ModBlockEntitys.NETHER_CHEST_BLOCK_ENTITY;
-            case SHADOW -> ModBlockEntitys.SHADOW_CHEST_BLOCK_ENTITY;
-            case ICE    -> ModBlockEntitys.ICE_CHEST_BLOCK_ENTITY;
-            case CORAL  -> ModBlockEntitys.CORAL_CHEST_BLOCK_ENTITY;
+            case LUSH   -> PCBlockEntitys.LUSH_CHEST_BLOCK_ENTITY;
+            case NORMAL -> PCBlockEntitys.NORMAL_CHEST_BLOCK_ENTITY;
+            case AZURE  -> PCBlockEntitys.AZURE_CHEST_BLOCK_ENTITY;
+            case STONE  -> PCBlockEntitys.STONE_CHEST_BLOCK_ENTITY;
+            case GOLD   -> PCBlockEntitys.GOLD_CHEST_BLOCK_ENTITY;
+            case NETHER -> PCBlockEntitys.NETHER_CHEST_BLOCK_ENTITY;
+            case SHADOW -> PCBlockEntitys.SHADOW_CHEST_BLOCK_ENTITY;
+            case ICE    -> PCBlockEntitys.ICE_CHEST_BLOCK_ENTITY;
+            case CORAL  -> PCBlockEntitys.CORAL_CHEST_BLOCK_ENTITY;
         };
     }
 
@@ -111,17 +115,17 @@ public enum PCChestTypes {
         };
     }
 
-    public EntityType<? extends Tamable_Pet_With_Inv> getPetMimicType() {
+    public EntityType<? extends Tameable_Pet_With_Inv> getPetMimicType() {
         return switch (this) {
-            case LUSH   -> ModEntitys.LUSH_CHEST_MIMIC_PET;
-            case NORMAL -> ModEntitys.NORMAL_CHEST_MIMIC_PET;
-            case AZURE  -> ModEntitys.AZURE_CHEST_MIMIC_PET;
-            case STONE  -> ModEntitys.STONE_CHEST_MIMIC_PET;
-            case GOLD   -> ModEntitys.GOLD_CHEST_MIMIC_PET;
-            case NETHER -> ModEntitys.NETHER_CHEST_MIMIC_PET;
-            case SHADOW -> ModEntitys.SHADOW_CHEST_MIMIC_PET;
-            case ICE    -> ModEntitys.ICE_CHEST_MIMIC_PET;
-            case CORAL  -> ModEntitys.CORAL_CHEST_MIMIC_PET;
+            case LUSH   -> PCEntitys.LUSH_CHEST_MIMIC_PET;
+            case NORMAL -> PCEntitys.NORMAL_CHEST_MIMIC_PET;
+            case AZURE  -> PCEntitys.AZURE_CHEST_MIMIC_PET;
+            case STONE  -> PCEntitys.STONE_CHEST_MIMIC_PET;
+            case GOLD   -> PCEntitys.GOLD_CHEST_MIMIC_PET;
+            case NETHER -> PCEntitys.NETHER_CHEST_MIMIC_PET;
+            case SHADOW -> PCEntitys.SHADOW_CHEST_MIMIC_PET;
+            case ICE    -> PCEntitys.ICE_CHEST_MIMIC_PET;
+            case CORAL  -> PCEntitys.CORAL_CHEST_MIMIC_PET;
         };
     }
 }

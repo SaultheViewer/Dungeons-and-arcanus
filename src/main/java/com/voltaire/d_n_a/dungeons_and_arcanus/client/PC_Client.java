@@ -44,7 +44,7 @@ public class PC_Client {
         //       var player = Minecraft.getInstance().player;
         //       if (player == null) return;
         //       Entity entity = player.level().getEntity(entityId);
-        //       if (entity instanceof Tamable_Pet_With_Inv mimicEntity
+        //       if (entity instanceof Tameable_Pet_With_Inv mimicEntity
         //               && player.containerMenu instanceof PCMimicScreenHandler mimicScreenHandler) {
         //           mimicScreenHandler.setMimicEntity(mimicEntity);
         //       }
@@ -75,43 +75,43 @@ public class PC_Client {
                 ctx -> new PCChestRenderer(PCChestTypes.CORAL.name));
 
         // ---------------- Hostile Mimic Entity Renderers ----------------
-        event.registerEntityRenderer(ModEntitys.NORMAL_CHEST_MIMIC,
+        event.registerEntityRenderer(PCEntitys.NORMAL_CHEST_MIMIC,
                 ctx -> new ChestMimicRenderer(ctx, "normal_mimic"));
-        event.registerEntityRenderer(ModEntitys.LUSH_CHEST_MIMIC,
+        event.registerEntityRenderer(PCEntitys.LUSH_CHEST_MIMIC,
                 ctx -> new ChestMimicRenderer(ctx, "lush_mimic"));
-        event.registerEntityRenderer(ModEntitys.AZURE_CHEST_MIMIC,
+        event.registerEntityRenderer(PCEntitys.AZURE_CHEST_MIMIC,
                 ctx -> new ChestMimicRenderer(ctx, "azure_mimic"));
-        event.registerEntityRenderer(ModEntitys.STONE_CHEST_MIMIC,
+        event.registerEntityRenderer(PCEntitys.STONE_CHEST_MIMIC,
                 ctx -> new ChestMimicRenderer(ctx, "stone_mimic"));
-        event.registerEntityRenderer(ModEntitys.GOLD_CHEST_MIMIC,
+        event.registerEntityRenderer(PCEntitys.GOLD_CHEST_MIMIC,
                 ctx -> new ChestMimicRenderer(ctx, "gold_mimic"));
-        event.registerEntityRenderer(ModEntitys.NETHER_CHEST_MIMIC,
+        event.registerEntityRenderer(PCEntitys.NETHER_CHEST_MIMIC,
                 ctx -> new ChestMimicRenderer(ctx, "nether_mimic"));
-        event.registerEntityRenderer(ModEntitys.SHADOW_CHEST_MIMIC,
+        event.registerEntityRenderer(PCEntitys.SHADOW_CHEST_MIMIC,
                 ctx -> new ChestMimicRenderer(ctx, "shadow_mimic"));
-        event.registerEntityRenderer(ModEntitys.ICE_CHEST_MIMIC,
+        event.registerEntityRenderer(PCEntitys.ICE_CHEST_MIMIC,
                 ctx -> new ChestMimicRenderer(ctx, "ice_mimic"));
-        event.registerEntityRenderer(ModEntitys.CORAL_CHEST_MIMIC,
+        event.registerEntityRenderer(PCEntitys.CORAL_CHEST_MIMIC,
                 ctx -> new ChestMimicRenderer(ctx, "coral_mimic"));
 
         // ---------------- Pet Mimic Entity Renderers ----------------
-        event.registerEntityRenderer(ModEntitys.NORMAL_CHEST_MIMIC_PET,
+        event.registerEntityRenderer(PCEntitys.NORMAL_CHEST_MIMIC_PET,
                 ctx -> new ChestMimic_PetRenderer(ctx, "normal_mimic"));
-        event.registerEntityRenderer(ModEntitys.LUSH_CHEST_MIMIC_PET,
+        event.registerEntityRenderer(PCEntitys.LUSH_CHEST_MIMIC_PET,
                 ctx -> new ChestMimic_PetRenderer(ctx, "lush_mimic"));
-        event.registerEntityRenderer(ModEntitys.AZURE_CHEST_MIMIC_PET,
+        event.registerEntityRenderer(PCEntitys.AZURE_CHEST_MIMIC_PET,
                 ctx -> new ChestMimic_PetRenderer(ctx, "azure_mimic"));
-        event.registerEntityRenderer(ModEntitys.STONE_CHEST_MIMIC_PET,
+        event.registerEntityRenderer(PCEntitys.STONE_CHEST_MIMIC_PET,
                 ctx -> new ChestMimic_PetRenderer(ctx, "stone_mimic"));
-        event.registerEntityRenderer(ModEntitys.GOLD_CHEST_MIMIC_PET,
+        event.registerEntityRenderer(PCEntitys.GOLD_CHEST_MIMIC_PET,
                 ctx -> new ChestMimic_PetRenderer(ctx, "gold_mimic"));
-        event.registerEntityRenderer(ModEntitys.NETHER_CHEST_MIMIC_PET,
+        event.registerEntityRenderer(PCEntitys.NETHER_CHEST_MIMIC_PET,
                 ctx -> new ChestMimic_PetRenderer(ctx, "nether_mimic"));
-        event.registerEntityRenderer(ModEntitys.SHADOW_CHEST_MIMIC_PET,
+        event.registerEntityRenderer(PCEntitys.SHADOW_CHEST_MIMIC_PET,
                 ctx -> new ChestMimic_PetRenderer(ctx, "shadow_mimic"));
-        event.registerEntityRenderer(ModEntitys.ICE_CHEST_MIMIC_PET,
+        event.registerEntityRenderer(PCEntitys.ICE_CHEST_MIMIC_PET,
                 ctx -> new ChestMimic_PetRenderer(ctx, "ice_mimic"));
-        event.registerEntityRenderer(ModEntitys.CORAL_CHEST_MIMIC_PET,
+        event.registerEntityRenderer(PCEntitys.CORAL_CHEST_MIMIC_PET,
                 ctx -> new ChestMimic_PetRenderer(ctx, "coral_mimic"));
     }
 }

@@ -1,17 +1,17 @@
 package com.voltaire.d_n_a.dungeons_and_arcanus.Entity.ai;
 
-import com.voltaire.d_n_a.dungeons_and_arcanus.Entity.Tamable_Pet_With_Inv;
+import com.voltaire.d_n_a.dungeons_and_arcanus.Entity.Tameable_Pet_With_Inv;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.MoveControl;
 
 public class MimicMoveControl extends MoveControl {
 
-    private final Tamable_Pet_With_Inv mimic;
+    private final Tameable_Pet_With_Inv mimic;
     private float targetYaw;
     private int ticksUntilJump;
     private boolean jumpOften;
 
-    public MimicMoveControl(Tamable_Pet_With_Inv mimic) {
+    public MimicMoveControl(Tameable_Pet_With_Inv mimic) {
         super(mimic);
         this.mimic = mimic;
         this.targetYaw = 180.0F * mimic.getYRot() / (float) Math.PI;
