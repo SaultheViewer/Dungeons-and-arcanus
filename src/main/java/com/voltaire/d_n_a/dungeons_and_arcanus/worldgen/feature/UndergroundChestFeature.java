@@ -1,10 +1,13 @@
 package com.voltaire.d_n_a.dungeons_and_arcanus.worldgen.feature;
 
 import com.mojang.serialization.Codec;
-import net.fabricmc.fabric.api.tag.convention.v1.ConventionalBiomeTags;
-import net.fabricmc.loader.api.FabricLoader;
+import com.voltaire.d_n_a.dungeons_and_arcanus.blocks.ModBlocks;
+import com.voltaire.d_n_a.dungeons_and_arcanus.blocks.entity.PC_BaseChestBlockEntity;
+import com.voltaire.d_n_a.dungeons_and_arcanus.registry.PCProperties;
+import com.voltaire.d_n_a.dungeons_and_arcanus.utils.PCLockedState;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.tags.BiomeTags;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
@@ -16,86 +19,90 @@ import net.minecraft.world.level.levelgen.Column;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
-import org.cloudwarp.probablychests.block.entity.PCBaseChestBlockEntity;
-import org.cloudwarp.probablychests.registry.PCBlocks;
-import org.cloudwarp.probablychests.registry.PCProperties;
-import org.cloudwarp.probablychests.utils.PCLockedState;
+import net.minecraftforge.common.Tags;
+import net.minecraftforge.fml.loading.FMLEnvironment;
 
 import java.util.Optional;
 
 public class UndergroundChestFeature extends Feature<NoneFeatureConfiguration> {
+
    public UndergroundChestFeature(Codec<NoneFeatureConfiguration> configCodec) {
       super(configCodec);
    }
 
+   @Override
    public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> context) {
       RandomSource random = context.random();
-      WorldGenLevel structureWorldAccess = context.level();
+      WorldGenLevel level = context.level();
       BlockPos pos = context.origin().above();
-      NoneFeatureConfiguration config = (NoneFeatureConfiguration)context.config();
+
       BlockState blockToBePlaced = null;
-      boolean isWater = structureWorldAccess.getBlockState(pos).is(Blocks.WATER);
-      boolean isNether = structureWorldAccess.dimensionType().ultraWarm();
+      boolean isWater = level.getBlockState(pos).is(Blocks.WATER);
+      boolean isNether = level.dimensionType().ultraWarm();
       boolean hasGoldLock = false;
       PCLockedState lockedState = PCLockedState.UNLOCKED;
+
       if (isWater) {
          if (random.nextFloat() < 0.85F) {
             return false;
          }
-
-         if (structureWorldAccess.getBlockState(pos.above()).isRedstoneConductor(structureWorldAccess, pos.above())) {
+         if (level.getBlockState(pos.above()).isRedstoneConductor(level, pos.above())) {
             return false;
          }
 
-         if (!structureWorldAccess.getBiome(pos).is(ConventionalBiomeTags.ICY) && !structureWorldAccess.getBiome(pos).is(ConventionalBiomeTags.SNOWY)) {
-            blockToBePlaced = PCBlocks.CORAL_CHEST.defaultBlockState();
+         // Fabric ConventionalBiomeTags.ICY / SNOWY -> Forge tags plus vanilla biome tags
+         if (!level.getBiome(pos).is(Tags.Biomes.IS_SNOWY)
+                 && !level.getBiome(pos).is(BiomeTags.MINESHAFT_BLOCKING) /* optional */
+                 && !isSnowyOrIcy(level, pos)) {
+            blockToBePlaced = ModBlocks.CORAL_CHEST.get().defaultBlockState();
          } else {
-            blockToBePlaced = PCBlocks.ICE_CHEST.defaultBlockState();
+            blockToBePlaced = ModBlocks.ICE_CHEST.get().defaultBlockState();
          }
       } else {
-         Optional<Column> optional = Column.scan(structureWorldAccess, pos, 64, UndergroundChestFeature::canGenerate, UndergroundChestFeature::canReplace);
-         if (!optional.isPresent() || !(optional.get() instanceof Column.Range)) {
+         Optional<Column> optional = Column.scan(
+                 level, pos, 64,
+                 UndergroundChestFeature::canGenerate,
+                 UndergroundChestFeature::canReplace
+         );
+         if (optional.isEmpty() || !(optional.get() instanceof Column.Range bounded)) {
             return false;
          }
-
-         Column.Range bounded = (Column.Range)optional.get();
          if (bounded.height() < 3) {
             return false;
          }
-
          if (bounded.floor() > pos.getY()) {
             return false;
          }
 
          if (isNether) {
-            blockToBePlaced = PCBlocks.NETHER_CHEST.defaultBlockState();
+            blockToBePlaced = ModBlocks.NETHER_CHEST.get().defaultBlockState();
          }
 
          BlockPos biomeCheckPos = pos.relative(Direction.UP, 5);
          if (random.nextFloat() < 0.85F) {
-            if (structureWorldAccess.getBiome(biomeCheckPos).is(Biomes.LUSH_CAVES)) {
-               blockToBePlaced = PCBlocks.LUSH_CHEST.defaultBlockState();
-            } else if (structureWorldAccess.getBiome(biomeCheckPos).is(Biomes.DRIPSTONE_CAVES)) {
-               blockToBePlaced = PCBlocks.AZURE_CHEST.defaultBlockState();
+            if (level.getBiome(biomeCheckPos).is(Biomes.LUSH_CAVES)) {
+               blockToBePlaced = ModBlocks.LUSH_CHEST.get().defaultBlockState();
+            } else if (level.getBiome(biomeCheckPos).is(Biomes.DRIPSTONE_CAVES)) {
+               blockToBePlaced = ModBlocks.AZURE_CHEST.get().defaultBlockState();
             }
          }
 
          if (blockToBePlaced == null) {
             if (pos.getY() <= 0) {
                if (random.nextFloat() < 0.25F) {
-                  blockToBePlaced = PCBlocks.GOLD_CHEST.defaultBlockState();
+                  blockToBePlaced = ModBlocks.GOLD_CHEST.get().defaultBlockState();
                   hasGoldLock = true;
                } else {
-                  blockToBePlaced = PCBlocks.STONE_CHEST.defaultBlockState();
+                  blockToBePlaced = ModBlocks.STONE_CHEST.get().defaultBlockState();
                }
-            } else if (!structureWorldAccess.getBiome(biomeCheckPos).is(ConventionalBiomeTags.SNOWY) && !structureWorldAccess.getBiome(biomeCheckPos).is(ConventionalBiomeTags.ICY)) {
+            } else if (!isSnowyOrIcy(level, biomeCheckPos)) {
                if (random.nextFloat() < 0.25F) {
-                  blockToBePlaced = PCBlocks.LUSH_CHEST.defaultBlockState();
+                  blockToBePlaced = ModBlocks.LUSH_CHEST.get().defaultBlockState();
                } else {
-                  blockToBePlaced = PCBlocks.NORMAL_CHEST.defaultBlockState();
+                  blockToBePlaced = ModBlocks.NORMAL_CHEST.get().defaultBlockState();
                }
             } else {
-               blockToBePlaced = PCBlocks.ICE_CHEST.defaultBlockState();
+               blockToBePlaced = ModBlocks.ICE_CHEST.get().defaultBlockState();
             }
          }
       }
@@ -104,17 +111,24 @@ public class UndergroundChestFeature extends Feature<NoneFeatureConfiguration> {
          lockedState = PCLockedState.LOCKED;
       }
 
-      if (FabricLoader.getInstance().isDevelopmentEnvironment()) {
+      // FabricLoader.isDevelopmentEnvironment() → Forge
+      if (!FMLEnvironment.production) {
          BlockPos debugPos = pos;
-
-         for(int i = 0; i < 40; ++i) {
-            structureWorldAccess.setBlock(debugPos = debugPos.above(), Blocks.END_ROD.defaultBlockState(), 3);
+         for (int i = 0; i < 40; ++i) {
+            debugPos = debugPos.above();
+            level.setBlock(debugPos, Blocks.END_ROD.defaultBlockState(), 3);
          }
       }
 
-      structureWorldAccess.setBlock(pos, (BlockState)((BlockState)blockToBePlaced.setValue(BlockStateProperties.WATERLOGGED, isWater)).setValue(PCProperties.PC_LOCKED_STATE, lockedState), 3);
-      PCBaseChestBlockEntity chest = (PCBaseChestBlockEntity)structureWorldAccess.getBlockEntity(pos);
-      if (chest != null) {
+      level.setBlock(
+              pos,
+              blockToBePlaced
+                      .setValue(BlockStateProperties.WATERLOGGED, isWater)
+                      .setValue(PCProperties.PC_LOCKED_STATE, lockedState),
+              3
+      );
+
+      if (level.getBlockEntity(pos) instanceof PC_BaseChestBlockEntity chest) {
          chest.isNatural = true;
          chest.hasGoldLock = hasGoldLock;
          chest.isLocked = hasGoldLock;
@@ -123,8 +137,20 @@ public class UndergroundChestFeature extends Feature<NoneFeatureConfiguration> {
       return true;
    }
 
+   /** Stand-in for ConventionalBiomeTags.SNOWY / ICY */
+   private static boolean isSnowyOrIcy(WorldGenLevel level, BlockPos pos) {
+      return level.getBiome(pos).is(Tags.Biomes.IS_SNOWY)
+              || level.getBiome(pos).is(BiomeTags.HAS_IGLOO)
+              || level.getBiome(pos).is(BiomeTags.SPAWNS_SNOW_FOXES)
+              || level.getBiome(pos).is(BiomeTags.SPAWNS_WHITE_RABBITS);
+      // Or use Tags.Biomes / your own tag if you want finer control
+   }
+
    public static boolean canReplace(BlockState state) {
-      return state.is(BlockTags.BASE_STONE_OVERWORLD) || state.is(BlockTags.DEEPSLATE_ORE_REPLACEABLES) || state.is(BlockTags.LUSH_GROUND_REPLACEABLE) || state.is(BlockTags.BASE_STONE_NETHER);
+      return state.is(BlockTags.BASE_STONE_OVERWORLD)
+              || state.is(BlockTags.DEEPSLATE_ORE_REPLACEABLES)
+              || state.is(BlockTags.LUSH_GROUND_REPLACEABLE)
+              || state.is(BlockTags.BASE_STONE_NETHER);
    }
 
    public static boolean canGenerate(BlockState state) {

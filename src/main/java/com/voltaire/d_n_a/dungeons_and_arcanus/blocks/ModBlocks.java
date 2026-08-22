@@ -1,6 +1,8 @@
 package com.voltaire.d_n_a.dungeons_and_arcanus.blocks;
 
 import com.voltaire.d_n_a.dungeons_and_arcanus.Dungeons_and_arcanus;
+import com.voltaire.d_n_a.dungeons_and_arcanus.blocks.custom.PCChestTypes;
+import com.voltaire.d_n_a.dungeons_and_arcanus.blocks.custom.PC_ChestBlock;
 import com.voltaire.d_n_a.dungeons_and_arcanus.blocks.custom.PC_PotTypes;
 import com.voltaire.d_n_a.dungeons_and_arcanus.blocks.custom.PotBlock;
 import com.voltaire.d_n_a.dungeons_and_arcanus.item.ModItems;
@@ -66,6 +68,27 @@ public static final  RegistryObject<Block> NETHER_POT = registerBlock( "nether_p
         () -> new PotBlock(PC_PotTypes.NETHER.setting()));
 public static final  RegistryObject<Block> ROCKY_POT = registerBlock( "rocky_pot",
         () -> new PotBlock(PC_PotTypes.ROCKY.setting()));
+
+//Chests
+public static final  RegistryObject<Block> LUSH_CHEST = registerBlock( "lush_chest",
+        () -> new PC_ChestBlock(PCChestTypes.LUSH.setting(), PCChestTypes.LUSH));
+public static final  RegistryObject<Block> NORMAL_CHEST = registerBlock( "normal_chest",
+        () -> new PC_ChestBlock(PCChestTypes.NORMAL.setting(), PCChestTypes.NORMAL));
+public static final  RegistryObject<Block> NETHER_CHEST = registerBlock( "nether_chest",
+        () -> new PC_ChestBlock(PCChestTypes.NETHER.setting(), PCChestTypes.NETHER));
+public static final  RegistryObject<Block> CORAL_CHEST = registerBlock( "coral_chest",
+        () -> new PC_ChestBlock(PCChestTypes.CORAL.setting(), PCChestTypes.CORAL));
+public static final  RegistryObject<Block> SHADOW_CHEST = registerBlock( "shadow_chest",
+        () -> new PC_ChestBlock(PCChestTypes.SHADOW.setting(), PCChestTypes.SHADOW));
+public static final  RegistryObject<Block> GOLD_CHEST = registerBlock( "gold_chest",
+        () -> new PC_ChestBlock(PCChestTypes.GOLD.setting(), PCChestTypes.GOLD));
+public static final  RegistryObject<Block> AZURE_CHEST = registerBlock( "azure_chest",
+        () -> new PC_ChestBlock(PCChestTypes.AZURE.setting(), PCChestTypes.AZURE));
+public static final  RegistryObject<Block> STONE_CHEST = registerBlock( "stone_chest",
+        () -> new PC_ChestBlock(PCChestTypes.STONE.setting(), PCChestTypes.STONE));
+public static final  RegistryObject<Block> ICE_CHEST = registerBlock( "ice_chest",
+        () -> new PC_ChestBlock(PCChestTypes.ICE.setting(), PCChestTypes.ICE));
+
 
 
 

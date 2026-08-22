@@ -1,5 +1,6 @@
 package com.voltaire.d_n_a.dungeons_and_arcanus.Entity.ai;
 
+import com.voltaire.d_n_a.dungeons_and_arcanus.Entity.ChestMimicPet;
 import com.voltaire.d_n_a.dungeons_and_arcanus.Entity.Tameable_Pet_With_Inv;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.LivingEntity;

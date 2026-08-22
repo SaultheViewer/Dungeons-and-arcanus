@@ -1,6 +1,8 @@
 package com.voltaire.d_n_a.dungeons_and_arcanus.mixin;
 
 import com.mojang.authlib.GameProfile;
+import com.voltaire.d_n_a.dungeons_and_arcanus.Dungeons_and_arcanus;
+import com.voltaire.d_n_a.dungeons_and_arcanus.Entity.Tameable_Pet_With_Inv;
 import com.voltaire.d_n_a.dungeons_and_arcanus.interfaces.PlayerEntityAccess;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -36,13 +38,14 @@ public abstract class ServerPlayerEntityMixin extends Player implements PlayerEn
 
       while(i.hasNext()) {
          UUID mimic = (UUID)i.next();
-         PCTameablePetWithInventory entity = (PCTameablePetWithInventory)((ServerLevel)this.level()).getEntity(mimic);
+         Tameable_Pet_With_Inv entity = (Tameable_Pet_With_Inv)((ServerLevel)this.level()).getEntity(mimic);
          if (entity == null || entity.isRemoved()) {
             i.remove();
          }
       }
 
-      if (ProbablyChests.loadedConfig.mimicSettings.doPetMimicLimit && this.getNumberOfPetMimics() >= ProbablyChests.loadedConfig.mimicSettings.petMimicLimit) {
+      if (Dungeons_and_arcanus.loadedConfig.mimicSettings.doPetMimicLimit && 
+              this.getNumberOfPetMimics() >= Dungeons_and_arcanus.loadedConfig.mimicSettings.petMimicLimit) {
          return true;
       } else {
          return false;
@@ -106,7 +109,7 @@ public abstract class ServerPlayerEntityMixin extends Player implements PlayerEn
       while(i.hasNext()) {
          UUID mimic = (UUID)i.next();
          if (!this.isMimicInKeepList(mimic)) {
-            PCTameablePetWithInventory entity = (PCTameablePetWithInventory)((ServerLevel)this.level()).getEntity(mimic);
+            Tameable_Pet_With_Inv entity = (Tameable_Pet_With_Inv)((ServerLevel)this.level()).getEntity(mimic);
             if (entity != null && !entity.isRemoved()) {
                entity.setIsAbandoned(true);
             }

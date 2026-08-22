@@ -2,7 +2,6 @@ package com.voltaire.d_n_a.dungeons_and_arcanus.datagen;
 
 import com.voltaire.d_n_a.dungeons_and_arcanus.Dungeons_and_arcanus;
 import com.voltaire.d_n_a.dungeons_and_arcanus.blocks.ModBlocks;
-import com.voltaire.d_n_a.dungeons_and_arcanus.util.ModTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.tags.BlockTags;
@@ -21,11 +20,11 @@ public class ModBlockTagGenerator extends BlockTagsProvider {
     protected void addTags(HolderLookup.Provider pProvider) {
         //this.tag(ModTags) use for custom block tags none exist yet
 
-        //this.tag(BlockTags.MINEABLE_WITH_AXE) PC Minables
-          //      .add(ModBlocks.LUSH_CHEST.get(),
-        //      ModBlocks.NORMAL_CHEST.ger(),
-        //      MosBlocks.CORAL_CHEST.get()
-        //      );
+        this.tag(BlockTags.MINEABLE_WITH_AXE)
+                .add(ModBlocks.LUSH_CHEST.get(),
+              ModBlocks.NORMAL_CHEST.get(),
+              ModBlocks.CORAL_CHEST.get()
+              );
 
         this.tag(BlockTags.MINEABLE_WITH_PICKAXE)
                 .add(ModBlocks.MITHRIL_ORE.get(),

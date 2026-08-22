@@ -3,18 +3,18 @@
 // (powered by Fernflower decompiler)
 //
 
-package com.voltaire.d_n_a.dungeons_and_arcanus.Entity.ai;
+package com.voltaire.d_n_a.dungeons_and_arcanus.Entity;
 
-import com.voltaire.d_n_a.dungeons_and_arcanus.Entity.Tameable_Pet_With_Inv;
+import com.voltaire.d_n_a.dungeons_and_arcanus.Entity.ai.MimicEscapeDangerGoal;
 import com.voltaire.d_n_a.dungeons_and_arcanus.Entity.ai.MimicMoveControl;
-import com.voltaire.d_n_a.dungeons_and_arcanus.Entity.ai.PCMeleeAttackGoal;
+import com.voltaire.d_n_a.dungeons_and_arcanus.Entity.ai.PCMeleAttackGoal;
 import com.voltaire.d_n_a.dungeons_and_arcanus.blocks.custom.PCChestTypes;
+import com.voltaire.d_n_a.dungeons_and_arcanus.registry.PCSounds;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -28,7 +28,6 @@ import net.minecraft.world.entity.monster.Ghast;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.EntityGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
@@ -61,7 +60,6 @@ public class ChestMimicPet extends Tameable_Pet_With_Inv implements GeoAnimatabl
     public static final RawAnimation NO_WAG;
     private static final String MIMIC_CONTROLLER = "mimicController";
     private static final String TONGUE_CONTROLLER = "tongueController";
-    public SimpleContainer inventory = new SimpleContainer(54);
     PCChestTypes type;
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
     private boolean onGroundLastTick;
@@ -72,7 +70,6 @@ public class ChestMimicPet extends Tameable_Pet_With_Inv implements GeoAnimatabl
         super(entityType, world);
         this.type = PCChestTypes.NORMAL;
         this.noCulling = true;
-        this.inventory.addListener(this);
         this.moveControl = new MimicMoveControl(this);
     }
 
@@ -83,17 +80,13 @@ public class ChestMimicPet extends Tameable_Pet_With_Inv implements GeoAnimatabl
     protected void registerGoals() {
         this.goalSelector.addGoal(1, new Tameable_Pet_With_Inv.SwimmingGoal(this));
         this.goalSelector.addGoal(2, new SitGoal(this));
-        this.goalSelector.addGoal(5, new PCMeleeAttackGoal(this, (double)1.0F, true));
+        this.goalSelector.addGoal(5, new PCMeleAttackGoal(this, (double)1.0F, true));
         this.goalSelector.addGoal(6, new Tameable_Pet_With_Inv.FollowOwnerGoal(this, (double)1.0F, 5.0F, 2.0F, false));
         this.targetSelector.addGoal(1, new OwnerHurtByTargetGoal(this));
         this.targetSelector.addGoal(3, (new HurtByTargetGoal(this, new Class[0])).setAlertOthers(new Class[0]));
         this.targetSelector.addGoal(2, new OwnerHurtTargetGoal(this));
         this.targetSelector.addGoal(8, new ResetUniversalAngerTargetGoal(this, true));
-        this.targetSelector.addGoal(4, new NearestAttackableTargetGoal(this, Player.class, 10, true, false, this::isAngryAt));
-    }
-
-    public EntityGetter level() {
-        return null;
+        this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, Player.class, 10, true, false, this::isAngryAt));
     }
 
     public boolean isFood(ItemStack stack) {
@@ -248,7 +241,7 @@ public class ChestMimicPet extends Tameable_Pet_With_Inv implements GeoAnimatabl
 
     public void tick() {
         super.tick();
-        if (!this.level().isClientSide()) {
+        if (!this.level().isClientSide) {
             if (this.tickCount % 100 == 0) {
                 this.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 200, 0, true, false));
             }
@@ -327,9 +320,10 @@ public class ChestMimicPet extends Tameable_Pet_With_Inv implements GeoAnimatabl
         return null;
     }
 
+    @Override
     protected void defineSynchedData() {
-        this.entityData.define(this.getMimicStateVariable(), 2);
         super.defineSynchedData();
+        this.setMimicState(2);
     }
 
     public boolean doHurtTarget(Entity target) {
@@ -345,6 +339,7 @@ public class ChestMimicPet extends Tameable_Pet_With_Inv implements GeoAnimatabl
 
         return bl;
     }
+
 
     protected SoundEvent getHurtSound() {
         return null;
@@ -424,7 +419,7 @@ public class ChestMimicPet extends Tameable_Pet_With_Inv implements GeoAnimatabl
         NO_WAG = RawAnimation.begin().then("noWag", LoopType.LOOP);
     }
 
-    class PetMimicEscapeDangerGoal extends PCMimicEscapeDangerGoal {
+    class PetMimicEscapeDangerGoal extends MimicEscapeDangerGoal {
         public PetMimicEscapeDangerGoal(double speed) {
             super(ChestMimicPet.this, speed);
         }

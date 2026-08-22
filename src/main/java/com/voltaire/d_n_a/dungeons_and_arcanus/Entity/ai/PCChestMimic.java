@@ -7,12 +7,10 @@ import com.voltaire.d_n_a.dungeons_and_arcanus.utils.MimicDifficulty;
 import com.voltaire.d_n_a.dungeons_and_arcanus.utils.PCConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
@@ -20,7 +18,6 @@ import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.EntityGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -36,23 +33,21 @@ import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
-import java.util.UUID;
-
 public class PCChestMimic extends Tameable_Pet_With_Inv implements GeoAnimatable, Enemy {
-   public static final RawAnimation IDLE;
-   public static final RawAnimation JUMP;
-   public static final RawAnimation CLOSE;
-   public static final RawAnimation SLEEPING;
-   public static final RawAnimation FLYING;
-   public static final RawAnimation LOW_WAG;
-   public static final RawAnimation FLYING_WAG;
-   public static final RawAnimation IDLE_WAG;
-   public static final RawAnimation NO_WAG;
+   public static final RawAnimation IDLE = RawAnimation.begin().then("idle", LoopType.LOOP);
+   public static final RawAnimation JUMP = RawAnimation.begin().then("jump", LoopType.PLAY_ONCE).then("flying", LoopType.LOOP);
+   public static final RawAnimation CLOSE = RawAnimation.begin().then("land", LoopType.PLAY_ONCE).then("idle", LoopType.LOOP);
+   public static final RawAnimation SLEEPING = RawAnimation.begin().then("sleeping", LoopType.LOOP);
+   public static final RawAnimation FLYING = RawAnimation.begin().then("flying", LoopType.LOOP);
+   public static final RawAnimation LOW_WAG = RawAnimation.begin().then("lowWag", LoopType.LOOP);
+   public static final RawAnimation FLYING_WAG = RawAnimation.begin().then("flyingWag", LoopType.LOOP);
+   public static final RawAnimation IDLE_WAG = RawAnimation.begin().then("idleWag", LoopType.LOOP);
+   public static final RawAnimation NO_WAG = RawAnimation.begin().then("noWag", LoopType.LOOP);
    private static final String MIMIC_CONTROLLER = "mimicController";
    private static final String TONGUE_CONTROLLER = "tongueController";
-   private static double moveSpeed;
-   private static int maxHealth;
-   private static int maxDamage;
+   private static double moveSpeed = 1.5;
+   private static int maxHealth = 50;
+   private static int maxDamage = 5;
    private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
    private boolean onGroundLastTick;
    private int timeUntilSleep = 0;
@@ -70,47 +65,43 @@ public class PCChestMimic extends Tameable_Pet_With_Inv implements GeoAnimatable
    public static AttributeSupplier.Builder createMobAttributes() {
       MimicDifficulty mimicDifficulty = Dungeons_and_arcanus.loadedConfig.mimicSettings.mimicDifficulty;
       moveSpeed = mimicDifficulty.getSpeed();
-      return LivingEntity.createLivingAttributes().add(Attributes.FOLLOW_RANGE, (double)12.0F).add(Attributes.ATTACK_KNOCKBACK, (double)2.0F).add(Attributes.ATTACK_DAMAGE, (double)mimicDifficulty.getDamage()).add(Attributes.MOVEMENT_SPEED, (double)1.0F).add(Attributes.MAX_HEALTH, (double)50.0F).add(Attributes.KNOCKBACK_RESISTANCE, (double)0.5F);
+      return LivingEntity.createLivingAttributes()
+              .add(Attributes.FOLLOW_RANGE, 12.0)
+              .add(Attributes.ATTACK_KNOCKBACK, 2.0)
+              .add(Attributes.ATTACK_DAMAGE, mimicDifficulty.getDamage())
+              .add(Attributes.MOVEMENT_SPEED, 1.0)
+              .add(Attributes.MAX_HEALTH, 50.0)
+              .add(Attributes.KNOCKBACK_RESISTANCE, 0.5);
    }
 
    protected void registerGoals() {
       this.goalSelector.addGoal(7, new Tameable_Pet_With_Inv.IdleGoal(this));
-      this.goalSelector.addGoal(5, new PCMeleAttackGoal(this, (double)1.0F, true));
+      this.goalSelector.addGoal(5, new PCMeleAttackGoal(this, 1.0, true));
       this.goalSelector.addGoal(6, new Tameable_Pet_With_Inv.SleepGoal(this));
       this.goalSelector.addGoal(1, new Tameable_Pet_With_Inv.SwimmingGoal(this));
-      this.targetSelector.addGoal(3, (new HurtByTargetGoal(this, new Class[0])).setAlertOthers(new Class[0]));
-      this.targetSelector.addGoal(1, new NearestAttackableTargetGoal(this, Player.class, 10, true, false, (livingEntity) -> Math.abs(livingEntity.getY() - this.getY()) <= (double)4.0F));
-      this.targetSelector.addGoal(1, new NearestAttackableTargetGoal(this, Villager.class, 10, true, false, (livingEntity) -> Math.abs(livingEntity.getY() - this.getY()) <= (double)4.0F));
+      this.targetSelector.addGoal(3, new HurtByTargetGoal(this, new Class[0]).setAlertOthers(new Class[0]));
+      this.targetSelector
+              .addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, 10, true, false, livingEntity -> livingEntity != null && Math.abs(livingEntity.getY() - this.getY()) <= 4.0));
+      this.targetSelector
+              .addGoal(1, new NearestAttackableTargetGoal<>(this, Villager.class, 10, true, false, livingEntity -> livingEntity != null && Math.abs(livingEntity.getY() - this.getY()) <= 4.0));
    }
 
    private <E extends GeoAnimatable> PlayState chestMovement(AnimationState<E> state) {
       AnimationController<E> controller = state.getController();
       int mimicState = this.getMimicState();
-      controller.setAnimationSpeed((double)1.0F);
-      RawAnimation var10000;
-      switch (mimicState) {
-         case 0:
-            var10000 = SLEEPING;
-            break;
-         case 1:
-            var10000 = FLYING;
-            break;
-         case 2:
-            var10000 = IDLE;
-            break;
-         case 3:
-            controller.setAnimationSpeed((double)2.0F);
-            var10000 = JUMP;
-            break;
-         case 4:
-         default:
-            var10000 = SLEEPING;
-            break;
-         case 5:
-            var10000 = CLOSE;
-      }
+      controller.setAnimationSpeed(1.0);
 
-      RawAnimation animation = var10000;
+      RawAnimation animation = switch (mimicState) {
+         case 0 -> SLEEPING;
+         case 1 -> FLYING;
+         case 2 -> IDLE;
+         case 3 -> {
+            controller.setAnimationSpeed(2.0);
+            yield JUMP;
+         }
+         default -> SLEEPING;
+         case 5 -> CLOSE;
+      };
       if (controller.getCurrentRawAnimation() != animation) {
          controller.setAnimation(animation);
       }
@@ -121,7 +112,7 @@ public class PCChestMimic extends Tameable_Pet_With_Inv implements GeoAnimatable
    private <E extends GeoAnimatable> PlayState tongueMovement(AnimationState<E> state) {
       AnimationController<E> controller = state.getController();
       int mimicState = this.getMimicState();
-      controller.setAnimationSpeed((double)1.0F);
+      controller.setAnimationSpeed(1.0);
       RawAnimation animation = null;
       switch (mimicState) {
          case 0:
@@ -131,11 +122,11 @@ public class PCChestMimic extends Tameable_Pet_With_Inv implements GeoAnimatable
             animation = FLYING_WAG;
             break;
          case 2:
-            controller.setAnimationSpeed((double)1.5F);
+            controller.setAnimationSpeed(1.5);
             animation = IDLE_WAG;
             break;
          case 3:
-            controller.setAnimationSpeed((double)2.0F);
+            controller.setAnimationSpeed(2.0);
             animation = FLYING_WAG;
       }
 
@@ -156,7 +147,7 @@ public class PCChestMimic extends Tameable_Pet_With_Inv implements GeoAnimatable
    }
 
    public double getTick(Object entity) {
-      return (double)this.tickCount;
+      return this.tickCount;
    }
 
    protected void jumpFromGround() {
@@ -164,26 +155,25 @@ public class PCChestMimic extends Tameable_Pet_With_Inv implements GeoAnimatable
       LivingEntity target = this.getTarget();
       double jumpStrength;
       if (target == null) {
-         jumpStrength = (double)1.0F;
+         jumpStrength = 1.0;
       } else {
          double yDiff = target.getY() - this.getY();
-         yDiff = Math.min(yDiff, (double)10.0F);
-         if (yDiff <= (double)0.0F) {
-            jumpStrength = (double)1.0F;
+         yDiff = Math.min(yDiff, 10.0);
+         if (yDiff <= 0.0) {
+            jumpStrength = 1.0;
          } else {
-            jumpStrength = yDiff / (double)3.5F + (double)1.0F;
+            jumpStrength = yDiff / 3.5 + 1.0;
          }
 
-         jumpStrength = Math.min(jumpStrength, (double)3.0F);
+         jumpStrength = Math.min(jumpStrength, 3.0);
       }
 
-      this.setDeltaMovement(vec3d.x, (double)this.getJumpPower() * jumpStrength, vec3d.z);
+      this.setDeltaMovement(vec3d.x, this.getJumpPower() * jumpStrength, vec3d.z);
       this.hasImpulse = true;
       if (this.onGround() && this.jumpEndTimer <= 0) {
          this.jumpEndTimer = 10;
          this.setMimicState(3);
       }
-
    }
 
    protected boolean canAttack() {
@@ -195,7 +185,7 @@ public class PCChestMimic extends Tameable_Pet_With_Inv implements GeoAnimatable
    }
 
    public boolean doHurtTarget(Entity target) {
-      boolean bl = target.hurt(this.damageSources().mobAttack(this), (float)((int)this.getAttributeValue(Attributes.ATTACK_DAMAGE)));
+      boolean bl = target.hurt(this.damageSources().mobAttack(this), (int)this.getAttributeValue(Attributes.ATTACK_DAMAGE));
       if (bl) {
          this.playSound(PCSounds.MIMIC_BITE, this.getSoundVolume(), 1.5F + this.getPitchOffset(0.2F));
          this.doEnchantDamageEffects(this, target);
@@ -216,15 +206,16 @@ public class PCChestMimic extends Tameable_Pet_With_Inv implements GeoAnimatable
       return d * d + e * e + f * f;
    }
 
+   @Override
    public void tick() {
       super.tick();
       if (!this.level().isClientSide()) {
          if (this.jumpEndTimer >= 0) {
-            --this.jumpEndTimer;
+            this.jumpEndTimer--;
          }
 
          if (this.spawnWaitTimer > 0) {
-            --this.spawnWaitTimer;
+            this.spawnWaitTimer--;
          } else if (this.onGround()) {
             if (this.onGroundLastTick) {
                if (this.getMimicState() != 0 && !this.isAttemptingToSleep) {
@@ -234,7 +225,7 @@ public class PCChestMimic extends Tameable_Pet_With_Inv implements GeoAnimatable
                }
 
                if (this.isAttemptingToSleep) {
-                  --this.timeUntilSleep;
+                  this.timeUntilSleep--;
                   if (this.timeUntilSleep <= 0) {
                      this.timeUntilSleep = 0;
                      this.setMimicState(0);
@@ -256,29 +247,34 @@ public class PCChestMimic extends Tameable_Pet_With_Inv implements GeoAnimatable
       }
    }
 
+   @Override
    protected boolean shouldDespawnInPeaceful() {
       return true;
    }
 
+   @Override
    public void addAdditionalSaveData(CompoundTag compound) {
       super.addAdditionalSaveData(compound);
       compound.putBoolean("wasOnGround", this.onGroundLastTick);
    }
 
+   @Override
    public void readAdditionalSaveData(CompoundTag compound) {
       super.readAdditionalSaveData(compound);
       if (compound.contains("Owner")) {
-         this.setOwnerUUID((UUID)null);
+         this.setOwnerUUID(null);
          this.setTame(false);
       }
 
       this.onGroundLastTick = compound.getBoolean("wasOnGround");
    }
 
+   @Override
    protected void defineSynchedData() {
-      this.entityData.define(this.getMimicStateVariable(), 0);
       super.defineSynchedData();
+      this.setMimicState(0);
    }
+
 
    public boolean requiresCustomPersistence() {
       return this.isPassenger();
@@ -291,35 +287,26 @@ public class PCChestMimic extends Tameable_Pet_With_Inv implements GeoAnimatable
    public static boolean isSpawnDark(ServerLevelAccessor world, BlockPos pos, RandomSource random) {
       if (world.getBrightness(LightLayer.SKY, pos) > random.nextInt(32)) {
          return false;
-      } else {
-         DimensionType dimensionType = world.dimensionType();
-         int i = dimensionType.monsterSpawnBlockLightLimit();
-         if (i < 15 && world.getBrightness(LightLayer.BLOCK, pos) > i) {
-            return false;
-         } else {
-            PCConfig config = Dungeons_and_arcanus.loadedConfig;
-            int j = world.getLevel().isThundering() ? world.getMaxLocalRawBrightness(pos, 10) : world.getMaxLocalRawBrightness(pos);
-            return (float)j <= (float)dimensionType.monsterSpawnLightTest().sample(random) * config.mimicSettings.naturalMimicSpawnRate;
-         }
       }
+
+      DimensionType dimensionType = world.dimensionType();
+      int i = dimensionType.monsterSpawnBlockLightLimit();
+      if (i < 15 && world.getBrightness(LightLayer.BLOCK, pos) > i) {
+         return false;
+      }
+
+      PCConfig config = Dungeons_and_arcanus.loadedConfig;
+      int j = world.getLevel().isThundering() ? world.getMaxLocalRawBrightness(pos, 10) : world.getMaxLocalRawBrightness(pos);
+      return j <= dimensionType.monsterSpawnLightTest().sample(random) * config.mimicSettings.naturalMimicSpawnRate;
+   }
+   @Override
+   public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob otherParent) {
+      return null;
    }
 
-   public static boolean canSpawn(EntityType<PCChestMimic> pcChestMimicEntityType, ServerLevelAccessor serverWorldAccess, MobSpawnType spawnReason, BlockPos blockPos, RandomSource random) {
+   public static boolean canSpawn(
+           EntityType<PCChestMimic> pcChestMimicEntityType, ServerLevelAccessor serverWorldAccess, MobSpawnType spawnReason, BlockPos blockPos, RandomSource random
+   ) {
       return isSpawnDark(serverWorldAccess, blockPos, random);
-   }
-
-   static {
-      IDLE = RawAnimation.begin().then("idle", LoopType.LOOP);
-      JUMP = RawAnimation.begin().then("jump", LoopType.PLAY_ONCE).then("flying", LoopType.LOOP);
-      CLOSE = RawAnimation.begin().then("land", LoopType.PLAY_ONCE).then("idle", LoopType.LOOP);
-      SLEEPING = RawAnimation.begin().then("sleeping", LoopType.LOOP);
-      FLYING = RawAnimation.begin().then("flying", LoopType.LOOP);
-      LOW_WAG = RawAnimation.begin().then("lowWag", LoopType.LOOP);
-      FLYING_WAG = RawAnimation.begin().then("flyingWag", LoopType.LOOP);
-      IDLE_WAG = RawAnimation.begin().then("idleWag", LoopType.LOOP);
-      NO_WAG = RawAnimation.begin().then("noWag", LoopType.LOOP);
-      moveSpeed = (double)1.5F;
-      maxHealth = 50;
-      maxDamage = 5;
    }
 }

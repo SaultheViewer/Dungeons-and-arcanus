@@ -1,9 +1,10 @@
 package com.voltaire.d_n_a.dungeons_and_arcanus.client.entity.model;
 
+import com.voltaire.d_n_a.dungeons_and_arcanus.Entity.ai.PCChestMimic;
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib.model.GeoModel;
 
-public class PCChestMimicModel extends GeoModel<ChestMimic> {
+public class PCChestMimicModel extends GeoModel<PCChestMimic> {
 
     private static final ResourceLocation MODEL_IDENTIFIER =
             new ResourceLocation("dungeons_and_arcanus", "geo/pc_chest_mimic.json");
@@ -17,17 +18,17 @@ public class PCChestMimicModel extends GeoModel<ChestMimic> {
     }
 
     @Override
-    public ResourceLocation getModelResource(ChestMimic entity) {
+    public ResourceLocation getModelResource(PCChestMimic entity) {
         return MODEL_IDENTIFIER;
     }
 
     @Override
-    public ResourceLocation getTextureResource(ChestMimic entity) {
+    public ResourceLocation getTextureResource(PCChestMimic entity) {
         return this.textureIdentifier;
     }
 
     @Override
-    public ResourceLocation getAnimationResource(ChestMimic entity) {
+    public ResourceLocation getAnimationResource(PCChestMimic entity) {
         return ANIMATION_IDENTIFIER;
     }
 }

@@ -1,5 +1,8 @@
 package com.voltaire.d_n_a.dungeons_and_arcanus.screenhandlers;
 
+import com.voltaire.d_n_a.dungeons_and_arcanus.Entity.Tameable_Pet_With_Inv;
+import com.voltaire.d_n_a.dungeons_and_arcanus.registry.PCScreenHandlerType;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
@@ -9,16 +12,12 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
-import org.cloudwarp.probablychests.entity.PCTameablePetWithInventory;
-import org.cloudwarp.probablychests.registry.PCScreenHandlerType;
-
-import java.util.Objects;
 
 public class PCMimicScreenHandler extends AbstractContainerMenu {
    private static final int columns = 9;
    private final Container inventory;
-   private final int rows;
-   private PCTameablePetWithInventory entity;
+   private final int rows = 4;
+   private Tameable_Pet_With_Inv entity;
 
    public PCMimicScreenHandler(int syncId, Inventory playerInventory) {
       this(PCScreenHandlerType.PC_CHEST_MIMIC, syncId, playerInventory, new SimpleContainer(36));
@@ -32,41 +31,43 @@ public class PCMimicScreenHandler extends AbstractContainerMenu {
       return new PCMimicScreenHandler(PCScreenHandlerType.PC_CHEST_MIMIC, syncId, playerInventory, inventory);
    }
 
+   public static PCMimicScreenHandler createScreenHandler(int syncId, Inventory playerInventory, FriendlyByteBuf extraData) {
+      PCMimicScreenHandler handler = new PCMimicScreenHandler(syncId, playerInventory);
+      if (extraData != null) {
+         int size = extraData.readInt();
+         int id = extraData.readVarInt();
+         if (playerInventory.player.level().getEntity(id) instanceof Tameable_Pet_With_Inv pet) {
+            handler.setMimicEntity(pet);
+         }
+      }
+      return handler;
+   }
+
    public PCMimicScreenHandler(MenuType<?> type, int syncId, Inventory playerInventory, Container inventory) {
       super(type, syncId);
-      this.rows = 4;
       checkContainerSize(inventory, 36);
       this.inventory = inventory;
       inventory.startOpen(playerInventory.player);
-      Objects.requireNonNull(this);
       int i = (4 - 4) * 18;
-      int j = 0;
 
-      while(true) {
-         Objects.requireNonNull(this);
-         if (j >= 4) {
-            for(int j = 0; j < 3; ++j) {
-               for(int k = 0; k < 9; ++k) {
-                  this.addSlot(new Slot(playerInventory, k + j * 9 + 9, 8 + k * 18, 103 + j * 18 + i));
-               }
-            }
-
-            for(int j = 0; j < 9; ++j) {
-               this.addSlot(new Slot(playerInventory, j, 8 + j * 18, 161 + i));
-            }
-
-            return;
-         }
-
-         for(int k = 0; k < 9; ++k) {
+      for (int j = 0; j < 4; j++) {
+         for (int k = 0; k < 9; k++) {
             this.addSlot(new Slot(inventory, k + j * 9, 8 + k * 18, 18 + j * 18));
          }
+      }
 
-         ++j;
+      for (int j = 0; j < 3; j++) {
+         for (int k = 0; k < 9; k++) {
+            this.addSlot(new Slot(playerInventory, k + j * 9 + 9, 8 + k * 18, 103 + j * 18 + i));
+         }
+      }
+
+      for (int j = 0; j < 9; j++) {
+         this.addSlot(new Slot(playerInventory, j, 8 + j * 18, 161 + i));
       }
    }
 
-   public void setMimicEntity(PCTameablePetWithInventory entity) {
+   public void setMimicEntity(Tameable_Pet_With_Inv entity) {
       this.entity = entity;
    }
 
@@ -76,17 +77,12 @@ public class PCMimicScreenHandler extends AbstractContainerMenu {
       if (slot != null && slot.hasItem()) {
          ItemStack itemStack2 = slot.getItem();
          itemStack = itemStack2.copy();
-         Objects.requireNonNull(this);
          if (index < 4 * 9) {
-            Objects.requireNonNull(this);
             if (!this.moveItemStackTo(itemStack2, 4 * 9, this.slots.size(), true)) {
                return ItemStack.EMPTY;
             }
-         } else {
-            Objects.requireNonNull(this);
-            if (!this.moveItemStackTo(itemStack2, 0, 4 * 9, false)) {
-               return ItemStack.EMPTY;
-            }
+         } else if (!this.moveItemStackTo(itemStack2, 0, 4 * 9, false)) {
+            return ItemStack.EMPTY;
          }
 
          if (itemStack2.isEmpty()) {
@@ -100,11 +96,17 @@ public class PCMimicScreenHandler extends AbstractContainerMenu {
    }
 
    public boolean stillValid(Player player) {
+      if (this.entity == null) {
+         return this.inventory.stillValid(player);
+      }
       if (this.entity.getIsMimicLocked() && player != this.entity.getOwner()) {
          this.entity.bite(player);
          return false;
       } else {
-         return !this.entity.areInventoriesDifferent(this.inventory) && this.inventory.stillValid(player) && this.entity.isAlive() && this.entity.distanceTo(player) < 8.0F;
+         return !this.entity.areInventoriesDifferent(this.inventory)
+                 && this.inventory.stillValid(player)
+                 && this.entity.isAlive()
+                 && this.entity.distanceTo(player) < 8.0F;
       }
    }
 
@@ -126,7 +128,6 @@ public class PCMimicScreenHandler extends AbstractContainerMenu {
    }
 
    public int getRows() {
-      Objects.requireNonNull(this);
       return 4;
    }
 }

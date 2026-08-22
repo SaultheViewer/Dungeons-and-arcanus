@@ -1,15 +1,15 @@
 package com.voltaire.d_n_a.dungeons_and_arcanus.screen;
 
+import com.voltaire.d_n_a.dungeons_and_arcanus.Dungeons_and_arcanus;
+import com.voltaire.d_n_a.dungeons_and_arcanus.screenhandlers.PCMimicScreenHandler;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
-import org.cloudwarp.probablychests.ProbablyChests;
-import org.cloudwarp.probablychests.screenhandlers.PCMimicScreenHandler;
 
 public class PCMimicScreen extends AbstractContainerScreen<PCMimicScreenHandler> {
-   private static final ResourceLocation TEXTURE = ProbablyChests.id("textures/gui/pc_mimic_gui.png");
+   private static final ResourceLocation TEXTURE = Dungeons_and_arcanus.id("textures/gui/pc_mimic_gui.png");
    private final int rows;
 
    public PCMimicScreen(PCMimicScreenHandler handler, Inventory inventory, Component title) {

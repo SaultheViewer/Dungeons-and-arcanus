@@ -30,14 +30,14 @@ public class PCLootTables {
    }
 
    public static void init() {
-      LUSH_CHEST = register("probablychests:chests/lush_pc_chests");
-      NORMAL_CHEST = register("probablychests:chests/normal_pc_chests");
-      AZURE_CHEST = register("probablychests:chests/azure_pc_chests");
-      STONE_CHEST = register("probablychests:chests/stone_pc_chests");
-      GOLD_CHEST = register("probablychests:chests/gold_pc_chests");
-      NETHER_CHEST = register("probablychests:chests/nether_pc_chests");
-      SHADOW_CHEST = register("probablychests:chests/shadow_pc_chests");
-      ICE_CHEST = register("probablychests:chests/ice_pc_chests");
-      CORAL_CHEST = register("probablychests:chests/coral_pc_chests");
+      LUSH_CHEST = register(":chests/lush_pc_chests");
+      NORMAL_CHEST = register(":chests/normal_pc_chests");
+      AZURE_CHEST = register(":chests/azure_pc_chests");
+      STONE_CHEST = register(":chests/stone_pc_chests");
+      GOLD_CHEST = register(":chests/gold_pc_chests");
+      NETHER_CHEST = register(":chests/nether_pc_chests");
+      SHADOW_CHEST = register(":chests/shadow_pc_chests");
+      ICE_CHEST = register(":chests/ice_pc_chests");
+      CORAL_CHEST = register(":chests/coral_pc_chests");
    }
 }

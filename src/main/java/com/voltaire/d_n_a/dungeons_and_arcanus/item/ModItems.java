@@ -2,18 +2,11 @@ package com.voltaire.d_n_a.dungeons_and_arcanus.item;
 
 import com.voltaire.d_n_a.dungeons_and_arcanus.Dungeons_and_arcanus;
 import com.voltaire.d_n_a.dungeons_and_arcanus.item.custom.*;
-import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
-
-import javax.annotation.Nullable;
-import java.util.List;
-import java.util.logging.Level;
 
 
 public class ModItems {
@@ -54,6 +47,8 @@ public class ModItems {
     public static final RegistryObject<Item> PET_MIMIC_KEY = ITEMS.register("pet_mimic_key",
             () -> new Pet_Mimic_key(new Item.Properties()));
     public static final RegistryObject<Item> VOID_LOCK = ITEMS.register("void_lock",
+            () -> new Void_Lock(new Item.Properties()));
+    public static final RegistryObject<Item> MIMIC_KEY_FRAGMENT = ITEMS.register("mimic_key_fragment",
             () -> new Void_Lock(new Item.Properties()));
 
 

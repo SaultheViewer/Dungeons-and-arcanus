@@ -1,13 +1,15 @@
-package com.voltaire.d_n_a.dungeons_and_arcanus.util;
+package com.voltaire.d_n_a.dungeons_and_arcanus.utils;
 
 
 import com.voltaire.d_n_a.dungeons_and_arcanus.Dungeons_and_arcanus;
 import com.voltaire.d_n_a.dungeons_and_arcanus.Entity.Tameable_Pet_With_Inv;
-import com.voltaire.d_n_a.dungeons_and_arcanus.Entity.ai.ChestMimicPet;
+import com.voltaire.d_n_a.dungeons_and_arcanus.Entity.ChestMimicPet;
+import com.voltaire.d_n_a.dungeons_and_arcanus.Entity.ai.PCChestMimic;
 import com.voltaire.d_n_a.dungeons_and_arcanus.blocks.custom.PCChestTypes;
 import com.voltaire.d_n_a.dungeons_and_arcanus.blocks.custom.PC_ChestBlock;
 import com.voltaire.d_n_a.dungeons_and_arcanus.blocks.entity.PC_BaseChestBlockEntity;
 import com.voltaire.d_n_a.dungeons_and_arcanus.interfaces.PlayerEntityAccess;
+import com.voltaire.d_n_a.dungeons_and_arcanus.registry.PCStatistics;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
@@ -50,9 +52,9 @@ public class MimicCreationUtils {
             Tameable_Pet_With_Inv mimic;
             if (isPetMimic) {
                 mimic = new ChestMimicPet(type.getPetMimicType(), level);
-                mimic.setOwner(player);
+                mimic.setOwnerUUID(player);
                 mimic.setTarget(null);
-                mimic.setSitting(false);
+                mimic.setInSittingPose(false);
                 mimic.updateSitting(player);
                 ((PlayerEntityAccess) player).addPetMimicToOwnedList(mimic.getUUID());
                 if (player instanceof ServerPlayer serverPlayer) {
@@ -112,7 +114,7 @@ public class MimicCreationUtils {
 
     public static void convertHostileMimicToPet(Level level, Tameable_Pet_With_Inv other, Player player) {
         PCChestTypes type = other.getChestType();
-        Tameable_Pet_With_Inv mimic = new PCChestMimicPet(type.getPetMimicType(), level);
+        Tameable_Pet_With_Inv mimic = new ChestMimicPet(type.getPetMimicType(), level);
         mimic.setOwner(player);
         mimic.setTamed(true);
         mimic.setTarget(null);

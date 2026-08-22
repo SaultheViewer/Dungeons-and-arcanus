@@ -1,20 +1,12 @@
 package com.voltaire.d_n_a.dungeons_and_arcanus;
 
 import com.mojang.logging.LogUtils;
+import com.voltaire.d_n_a.dungeons_and_arcanus.Entity.ModEntitys;
 import com.voltaire.d_n_a.dungeons_and_arcanus.blocks.ModBlocks;
 import com.voltaire.d_n_a.dungeons_and_arcanus.blocks.entity.ModBlockEntitys;
 import com.voltaire.d_n_a.dungeons_and_arcanus.item.ModCreativeModeTabs;
 import com.voltaire.d_n_a.dungeons_and_arcanus.item.ModItems;
-import com.voltaire.d_n_a.dungeons_and_arcanus.registry.PCBlockEntities;
-import com.voltaire.d_n_a.dungeons_and_arcanus.registry.PCBlocks;
-import com.voltaire.d_n_a.dungeons_and_arcanus.registry.PCEntities;
-import com.voltaire.d_n_a.dungeons_and_arcanus.registry.PCEntitySpawns;
-import com.voltaire.d_n_a.dungeons_and_arcanus.registry.PCFeatureRegistry;
-import com.voltaire.d_n_a.dungeons_and_arcanus.registry.PCItems;
-import com.voltaire.d_n_a.dungeons_and_arcanus.registry.PCLootTables;
-import com.voltaire.d_n_a.dungeons_and_arcanus.registry.PCScreenHandlerType;
-import com.voltaire.d_n_a.dungeons_and_arcanus.registry.PCSounds;
-import com.voltaire.d_n_a.dungeons_and_arcanus.registry.PCStatistics;
+import com.voltaire.d_n_a.dungeons_and_arcanus.registry.*;
 import com.voltaire.d_n_a.dungeons_and_arcanus.utils.MimicDifficulty;
 import com.voltaire.d_n_a.dungeons_and_arcanus.utils.PCConfig;
 import com.voltaire.d_n_a.dungeons_and_arcanus.utils.PCEventHandler;
@@ -59,24 +51,18 @@ public class Dungeons_and_arcanus {
         configHolder = AutoConfig.getConfigHolder(PCConfig.class);
         loadedConfig = getConfig();
 
-        // Your existing deferred registers
         ModCreativeModeTabs.register(modEventBus);
         ModItems.register(modEventBus);
         ModBlocks.register(modEventBus);
         ModBlockEntitys.register(modEventBus);
 
-        // ProbablyChests-style registers (wire these up when ready)
+        // -style registers (wire these up when ready)
         // PCSounds.register(modEventBus);
-        // PCBlockEntities.register(modEventBus);
-        // PCBlocks.register(modEventBus);
-        // PCEntities.register(modEventBus);
-        // PCItems.register(modEventBus);
+         ModEntitys.register(modEventBus);
+        // ModItems.register(modEventBus);
         // etc.
         // constructor
-        PCEntities.register(modEventBus);
 
-
-        PCEntities.registerSpawnPlacements();
 
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(this::addCreative);
@@ -96,13 +82,8 @@ public class Dungeons_and_arcanus {
             PCSounds.init();
             PCStatistics.init();
             PCLootTables.init();
-            PCBlockEntities.init();
-            PCBlocks.init();
-            PCEntities.init();
-            PCItems.init();
             PCPlacementModifierType.init();
             PCFeatureRegistry.init();
-            PCEntitySpawns.init();
             PCScreenHandlerType.registerScreenHandlers();
             PCWorldGen.generatePCWorldGen();
         });

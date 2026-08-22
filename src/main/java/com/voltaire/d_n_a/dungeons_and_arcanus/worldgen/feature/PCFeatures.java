@@ -1,5 +1,8 @@
 package com.voltaire.d_n_a.dungeons_and_arcanus.worldgen.feature;
 
+import com.voltaire.d_n_a.dungeons_and_arcanus.Dungeons_and_arcanus;
+import com.voltaire.d_n_a.dungeons_and_arcanus.registry.PCFeatureRegistry;
+import com.voltaire.d_n_a.dungeons_and_arcanus.utils.PCConfig;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
@@ -15,9 +18,6 @@ import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.minecraft.world.level.levelgen.placement.*;
-import org.cloudwarp.probablychests.ProbablyChests;
-import org.cloudwarp.probablychests.registry.PCFeatureRegistry;
-import org.cloudwarp.probablychests.utils.PCConfig;
 
 import java.util.List;
 
@@ -52,7 +52,7 @@ public class PCFeatures {
    }
 
    public static void bootstrapPlaced(BootstapContext<PlacedFeature> context) {
-      PCConfig config = ProbablyChests.loadedConfig;
+      PCConfig config = Dungeons_and_arcanus.loadedConfig;
       float chestChance = config.worldGen.chestSpawnChance;
       float potChance = config.worldGen.potSpawnChance;
       HolderGetter<ConfiguredFeature<?, ?>> lookup = context.lookup(Registries.CONFIGURED_FEATURE);
@@ -65,11 +65,11 @@ public class PCFeatures {
    }
 
    private static ResourceKey<ConfiguredFeature<?, ?>> configuredKey(String name) {
-      return ResourceKey.create(Registries.CONFIGURED_FEATURE, ProbablyChests.id(name));
+      return ResourceKey.create(Registries.CONFIGURED_FEATURE, Dungeons_and_arcanus.id(name));
    }
 
    private static ResourceKey<PlacedFeature> placedKey(String name) {
-      return ResourceKey.create(Registries.PLACED_FEATURE, ProbablyChests.id(name));
+      return ResourceKey.create(Registries.PLACED_FEATURE, Dungeons_and_arcanus.id(name));
    }
 
    private static <FC extends FeatureConfiguration, F extends Feature<FC>> void registerConfigured(BootstapContext<ConfiguredFeature<?, ?>> context, ResourceKey<ConfiguredFeature<?, ?>> key, F feature, FC config) {

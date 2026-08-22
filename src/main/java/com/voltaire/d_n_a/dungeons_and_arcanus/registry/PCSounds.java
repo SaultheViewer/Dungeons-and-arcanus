@@ -1,20 +1,22 @@
 package com.voltaire.d_n_a.dungeons_and_arcanus.registry;
 
+import com.voltaire.d_n_a.dungeons_and_arcanus.Dungeons_and_arcanus;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
-import org.cloudwarp.probablychests.ProbablyChests;
+
+
 
 public class PCSounds {
-   public static final ResourceLocation BELL_HIT_1_ID = ProbablyChests.id("bell_hit1");
-   public static final ResourceLocation BELL_HIT_2_ID = ProbablyChests.id("bell_hit2");
-   public static final ResourceLocation BELL_HIT_4_ID = ProbablyChests.id("bell_hit4");
-   public static final ResourceLocation CLOSE_2_ID = ProbablyChests.id("close2");
-   public static final ResourceLocation MIMIC_BITE_ID = ProbablyChests.id("mimic_bite");
-   public static final ResourceLocation APPLY_LOCK_1_ID = ProbablyChests.id("apply_lock1");
-   public static final ResourceLocation APPLY_LOCK_2_ID = ProbablyChests.id("apply_lock2");
-   public static final ResourceLocation LOCK_UNLOCK_ID = ProbablyChests.id("lock_unlock");
+   public static final ResourceLocation BELL_HIT_1_ID = Dungeons_and_arcanus.id("bell_hit1");
+   public static final ResourceLocation BELL_HIT_2_ID = Dungeons_and_arcanus.id("bell_hit2");
+   public static final ResourceLocation BELL_HIT_4_ID = Dungeons_and_arcanus.id("bell_hit4");
+   public static final ResourceLocation CLOSE_2_ID = Dungeons_and_arcanus.id("close2");
+   public static final ResourceLocation MIMIC_BITE_ID = Dungeons_and_arcanus.id("mimic_bite");
+   public static final ResourceLocation APPLY_LOCK_1_ID = Dungeons_and_arcanus.id("apply_lock1");
+   public static final ResourceLocation APPLY_LOCK_2_ID = Dungeons_and_arcanus.id("apply_lock2");
+   public static final ResourceLocation LOCK_UNLOCK_ID = Dungeons_and_arcanus.id("lock_unlock");
    public static SoundEvent BELL_HIT_1;
    public static SoundEvent BELL_HIT_2;
    public static SoundEvent BELL_HIT_4;

@@ -5,20 +5,17 @@ import com.voltaire.d_n_a.dungeons_and_arcanus.blocks.entity.PC_BaseChestBlockEn
 import com.voltaire.d_n_a.dungeons_and_arcanus.item.ModItems;
 import com.voltaire.d_n_a.dungeons_and_arcanus.registry.PCProperties;
 import com.voltaire.d_n_a.dungeons_and_arcanus.registry.PCSounds;
-import com.voltaire.d_n_a.dungeons_and_arcanus.util.MimicCreationUtils;
-import com.voltaire.d_n_a.dungeons_and_arcanus.utils.PCChestState;
-import com.voltaire.d_n_a.dungeons_and_arcanus.utils.PCConfig;
-import com.voltaire.d_n_a.dungeons_and_arcanus.utils.PCLockedState;
+import com.voltaire.d_n_a.dungeons_and_arcanus.utils.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.NonNullList;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.stats.Stat;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.Containers;
-import net.minecraft.world.Difficulty;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
+import net.minecraft.world.*;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -28,19 +25,15 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.block.BaseEntityBlock;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.RenderShape;
-import net.minecraft.world.level.block.SimpleWaterloggedBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.entity.ChestBlockEntity;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
-import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.level.block.state.properties.*;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.pathfinder.PathComputationType;
@@ -49,314 +42,321 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.EntityCollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-import javax.annotation.Nullable;
+import java.util.Map;
 import java.util.Objects;
 
-public class PC_ChestBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
-
-    public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
-    public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
-    public static final EnumProperty<PCChestState> CHEST_STATE = PCProperties.PC_CHEST_STATE;
-    public static final EnumProperty<PCLockedState> LOCKED_STATE = PCProperties.PC_LOCKED_STATE;
-
-    protected static final VoxelShape SHAPE = Block.box(1.0, 0.0, 1.5, 15.0, 13.0, 14.5);
-
+public class PC_ChestBlock extends AbstractChestBlock<PC_BaseChestBlockEntity> implements SimpleWaterloggedBlock {
+    public static final DirectionProperty FACING;
+    public static final BooleanProperty WATERLOGGED;
+    public static final EnumProperty<PCChestState> CHEST_STATE;
+    public static final EnumProperty<PCLockedState> LOCKED_STATE;
+    protected static final VoxelShape SHAPE;
+    protected static final Map<Direction, VoxelShape> SHAPES;
     private final PCChestTypes type;
 
-    public PC_ChestBlock(Properties properties, PCChestTypes type) {
-        super(properties);
-        Objects.requireNonNull(type);
-        this.registerDefaultState(this.stateDefinition.any()
-                .setValue(FACING, Direction.NORTH)
-                .setValue(WATERLOGGED, false)
-                .setValue(CHEST_STATE, PCChestState.CLOSED)
-                .setValue(LOCKED_STATE, PCLockedState.UNLOCKED));
+    public PC_ChestBlock(BlockBehaviour.Properties settings, PCChestTypes type) {
+        super(settings, Objects.requireNonNull(type)::getBlockEntityType);
+        this.registerDefaultState(
+                this.stateDefinition.any()
+                        .setValue(FACING, Direction.NORTH)
+                        .setValue(WATERLOGGED, false)
+                        .setValue(CHEST_STATE, PCChestState.CLOSED)
+                        .setValue(LOCKED_STATE, PCLockedState.UNLOCKED)
+        );
         this.type = type;
     }
 
-    // ---------- Utility ----------
-
-    public static boolean isChestBlocked(LevelAccessor level, BlockPos pos) {
-        return hasBlockOnTop(level, pos);
+    public static boolean isChestBlocked(LevelAccessor world, BlockPos pos) {
+        return hasBlockOnTop(world, pos);
     }
 
     public static boolean isDry(BlockState state) {
-        return !state.getValue(WATERLOGGED);
+        return !(Boolean)state.getValue(WATERLOGGED);
     }
 
-    private static boolean hasBlockOnTop(BlockGetter level, BlockPos pos) {
-        BlockPos above = pos.above();
-        return level.getBlockState(above).isSolidRender(level, above);
+    private static boolean hasBlockOnTop(BlockGetter world, BlockPos pos) {
+        BlockPos blockPos = pos.above();
+        return world.getBlockState(blockPos).isRedstoneConductor(world, blockPos);
     }
 
-    // ---------- Breaking / Collision / Hardness ----------
-
-    @Override
-    public void playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
+    public void attack(BlockState state, Level level, BlockPos pos, Player player) {
         if (!level.isClientSide) {
-            PC_BaseChestBlockEntity chest = MimicCreationUtils.getChestBlockFromWorld(level, pos);
-            if (chest != null && !chest.isLocked) {
+            if (!MimicCreationUtils.getChestBlockFromWorld(level, pos).isLocked) {
                 MimicCreationUtils.tryMakeHostileMimic(level, pos, state, player, this.type);
             }
+
         }
-        super.playerWillDestroy(level, pos, state, player);
     }
 
-    @Override
+    public boolean propagatesSkylightDown(BlockState state, BlockGetter level, BlockPos pos) {
+        return true;
+    }
+
+    public boolean isPathfindable(BlockState state, BlockGetter level, BlockPos pos, PathComputationType type) {
+        return true;
+    }
+
     public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
-        if (!level.isClientSide && entity instanceof Player player) {
-            PC_BaseChestBlockEntity chest = MimicCreationUtils.getChestBlockFromWorld(level, pos);
-            if (chest != null && !chest.isLocked) {
-                MimicCreationUtils.tryMakeHostileMimic(level, pos, state, player, this.type);
+        if (!level.isClientSide) {
+            if (entity instanceof Player) {
+                Player player = (Player)entity;
+                if (!MimicCreationUtils.getChestBlockFromWorld(level, pos).isLocked) {
+                    MimicCreationUtils.tryMakeHostileMimic(level, pos, state, player, this.type);
+                }
             }
+
         }
     }
 
-    @Override
     public VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         if (context instanceof EntityCollisionContext entityContext) {
-            Entity entity = entityContext.getEntity();
-            if (entity != null && !(entity instanceof Player)) {
-                return Block.box(1.0, 0.0, 1.0, 15.0, 7.0, 15.0);
+            if (entityContext.getEntity() != null && !(entityContext.getEntity() instanceof Player)) {
+                return Block.box((double)1.0F, (double)0.0F, (double)1.0F, (double)15.0F, (double)7.0F, (double)15.0F);
             }
         }
-        return Block.box(1.0, 0.0, 1.0, 15.0, 15.0, 15.0);
+
+        return Block.box((double)1.0F, (double)0.0F, (double)1.0F, (double)15.0F, (double)15.0F, (double)15.0F);
     }
 
-    @Override
+    public float defaultDestroyTime() {
+        return this.stateDefinition.getProperty(PCProperties.PC_LOCKED_STATE.getName()).equals(PCLockedState.LOCKED) ? -1.0F : 2.0F;
+    }
+
     public float getDestroyProgress(BlockState state, Player player, BlockGetter level, BlockPos pos) {
-        if (state.getValue(LOCKED_STATE) == PCLockedState.LOCKED) {
-            return 0.0F; // completely unbreakable when locked
+        float f = ((PCLockedState)state.getValue(PCProperties.PC_LOCKED_STATE)).equals(PCLockedState.LOCKED) ? -1.0F : 2.0F;
+        if (f == -1.0F) {
+            return 0.0F;
+        } else {
+            int i = player.hasCorrectToolForDrops(state) ? 30 : 100;
+            return player.getDestroySpeed(state) / f / (float)i;
         }
-        float hardness = 2.0F;
-        int i = player.hasCorrectToolForDrops(state) ? 30 : 100;
-        return player.getDigSpeed(state, pos) / hardness / (float) i;
     }
 
-    // ---------- Lock / Unlock system ----------
-
-    public boolean unlockBlock(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-        PC_BaseChestBlockEntity chest = MimicCreationUtils.getChestBlockFromWorld(level, pos);
-        if (chest == null) return false;
-
-        if (Dungeons_and_arcanus.loadedConfig.chestSettings.enableLockedChestOwners
-                && chest.owner != null
-                && !player.getUUID().equals(chest.owner)) {
-            PC_BaseChestBlockEntity.playSound(level, pos, state, PCSounds.APPLY_LOCK2, 1.0F);
+    public boolean unlockBlock(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+        PC_BaseChestBlockEntity chest = MimicCreationUtils.getChestBlockFromWorld(world, pos);
+        if (Dungeons_and_arcanus.loadedConfig.chestSettings.enableLockedChestOwners && chest.owner != null && !player.getUUID().equals(chest.owner)) {
+            PC_BaseChestBlockEntity.playSound(world, pos, state, PCSounds.APPLY_LOCK2, 1.0F);
             return false;
         }
 
-        ItemStack stack = player.getItemInHand(hand);
-
-        if (chest.hasGoldLock && stack.is(ModItems.GOLD_KEY.get())) {
+        NonNullList<ItemStack> locks = NonNullList.create();
+        ItemStack itemStack = player.getItemInHand(hand);
+        if (chest.hasGoldLock && itemStack.is(ModItems.GOLD_KEY.get())) {
             chest.isLocked = false;
-            PC_BaseChestBlockEntity.playSound(level, pos, state, PCSounds.LOCK_UNLOCK, 1.3F);
+            PC_BaseChestBlockEntity.playSound(world, pos, state, PCSounds.LOCK_UNLOCK, 1.3F);
             if (chest.isNatural && !chest.hasBeenInteractedWith) {
                 if (!player.getAbilities().instabuild) {
-                    stack.shrink(1);
-                    Containers.dropItemStack(level, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(ModItems.GOLD_LOCK.get()));
+                    itemStack.shrink(1);
+                    locks.add(new ItemStack(ModItems.GOLD_LOCK.get()));
+                    Containers.dropContents(world, pos, locks);
                 }
+
                 chest.hasGoldLock = false;
             }
+
             return true;
-        }
-        if (chest.hasVoidLock && stack.is(ModItems.VOID_KEY.get())) {
+        } else if (chest.hasVoidLock && itemStack.is(ModItems.VOID_KEY.get())) {
             chest.isLocked = false;
-            PC_BaseChestBlockEntity.playSound(level, pos, state, PCSounds.LOCK_UNLOCK, 1.3F);
+            PC_BaseChestBlockEntity.playSound(world, pos, state, PCSounds.LOCK_UNLOCK, 1.3F);
             if (chest.isNatural && !chest.hasBeenInteractedWith) {
                 if (!player.getAbilities().instabuild) {
-                    stack.shrink(1);
-                    Containers.dropItemStack(level, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(ModItems.VOID_LOCK.get()));
+                    itemStack.shrink(1);
+                    locks.add(new ItemStack(ModItems.VOID_LOCK.get()));
+                    Containers.dropContents(world, pos, locks);
                 }
+
                 chest.hasVoidLock = false;
             }
+
             return true;
-        }
-        if (chest.hasIronLock && stack.is(ModItems.IRON_KEY.get())) {
+        } else if (chest.hasIronLock && itemStack.is(ModItems.IRON_KEY.get())) {
             chest.isLocked = false;
-            PC_BaseChestBlockEntity.playSound(level, pos, state, PCSounds.LOCK_UNLOCK, 1.3F);
+            PC_BaseChestBlockEntity.playSound(world, pos, state, PCSounds.LOCK_UNLOCK, 1.3F);
             if (chest.isNatural && !chest.hasBeenInteractedWith) {
                 if (!player.getAbilities().instabuild) {
-                    stack.shrink(1);
-                    Containers.dropItemStack(level, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(ModItems.IRON_LOCK.get()));
+                    itemStack.shrink(1);
+                    locks.add(new ItemStack(ModItems.IRON_LOCK.get()));
+                    Containers.dropContents(world, pos, locks);
                 }
+
                 chest.hasIronLock = false;
             }
+
             return true;
-        }
-
-        PC_BaseChestBlockEntity.playSound(level, pos, state, PCSounds.APPLY_LOCK2, 1.0F);
-        return false;
-    }
-
-    public boolean lockBlock(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-        PC_BaseChestBlockEntity chest = MimicCreationUtils.getChestBlockFromWorld(level, pos);
-        if (chest == null) return false;
-
-        if (Dungeons_and_arcanus.loadedConfig.chestSettings.enableLockedChestOwners
-                && chest.owner != null
-                && !player.getUUID().equals(chest.owner)) {
+        } else {
+            PC_BaseChestBlockEntity.playSound(world, pos, state, PCSounds.APPLY_LOCK2, 1.0F);
             return false;
         }
-
-        ItemStack stack = player.getItemInHand(hand);
-
-        if (chest.hasGoldLock && stack.is(ModItems.GOLD_KEY.get())) {
-            chest.isLocked = true;
-            PC_BaseChestBlockEntity.playSound(level, pos, state, PCSounds.LOCK_UNLOCK, 0.6F);
-            return true;
-        }
-        if (chest.hasVoidLock && stack.is(ModItems.VOID_KEY.get())) {
-            chest.isLocked = true;
-            PC_BaseChestBlockEntity.playSound(level, pos, state, PCSounds.LOCK_UNLOCK, 0.6F);
-            return true;
-        }
-        if (chest.hasIronLock && stack.is(ModItems.IRON_KEY.get())) {
-            chest.isLocked = true;
-            PC_BaseChestBlockEntity.playSound(level, pos, state, PCSounds.LOCK_UNLOCK, 0.6F);
-            return true;
-        }
-        return false;
     }
 
-    public boolean addLockToBlock(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+    public boolean lockBlock(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+        PC_BaseChestBlockEntity chest = MimicCreationUtils.getChestBlockFromWorld(world, pos);
+        if (Dungeons_and_arcanus.loadedConfig.chestSettings.enableLockedChestOwners && chest.owner != null && !player.getUUID().equals(chest.owner)) {
+            return false;
+        } else {
+            ItemStack itemStack = player.getItemInHand(hand);
+            if (chest.hasGoldLock && itemStack.is(ModItems.GOLD_KEY.get())) {
+                chest.isLocked = true;
+                PC_BaseChestBlockEntity.playSound(world, pos, state, PCSounds.LOCK_UNLOCK, 0.6F);
+                return true;
+            } else if (chest.hasVoidLock && itemStack.is(ModItems.VOID_KEY.get())) {
+                chest.isLocked = true;
+                PC_BaseChestBlockEntity.playSound(world, pos, state, PCSounds.LOCK_UNLOCK, 0.6F);
+                return true;
+            } else if (chest.hasIronLock && itemStack.is(ModItems.IRON_KEY.get())) {
+                chest.isLocked = true;
+                PC_BaseChestBlockEntity.playSound(world, pos, state, PCSounds.LOCK_UNLOCK, 0.6F);
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+
+    public boolean addLockToBlock(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         if (!Dungeons_and_arcanus.loadedConfig.chestSettings.allowChestLocking) {
             return false;
         }
 
-        PC_BaseChestBlockEntity chest = MimicCreationUtils.getChestBlockFromWorld(level, pos);
-        if (chest == null) return false;
-
-        ItemStack stack = player.getItemInHand(hand);
-
+        PC_BaseChestBlockEntity chest = MimicCreationUtils.getChestBlockFromWorld(world, pos);
+        ItemStack itemStack = player.getItemInHand(hand);
         if (!chest.hasGoldLock && !chest.hasVoidLock && !chest.hasIronLock) {
-            if (stack.is(ModItems.GOLD_LOCK.get()) && chest.type() == PCChestTypes.GOLD) {
+            if (itemStack.is(ModItems.GOLD_LOCK.get()) && chest.type().equals(PCChestTypes.GOLD)) {
                 chest.isLocked = true;
                 chest.hasGoldLock = true;
                 chest.owner = player.getUUID();
-                if (!player.getAbilities().instabuild) stack.shrink(1);
-                PC_BaseChestBlockEntity.playSound(level, pos, state, PCSounds.APPLY_LOCK1, 0.6F);
+                if (!player.getAbilities().instabuild) {
+                    itemStack.shrink(1);
+                }
+
+                PC_BaseChestBlockEntity.playSound(world, pos, state, PCSounds.APPLY_LOCK1, 0.6F);
                 return true;
             }
-            if (stack.is(ModItems.VOID_LOCK.get()) && chest.type() == PCChestTypes.SHADOW) {
+
+            if (itemStack.is(ModItems.VOID_LOCK.get()) && chest.type().equals(PCChestTypes.SHADOW)) {
                 chest.isLocked = true;
                 chest.hasVoidLock = true;
                 chest.owner = player.getUUID();
-                if (!player.getAbilities().instabuild) stack.shrink(1);
-                PC_BaseChestBlockEntity.playSound(level, pos, state, PCSounds.APPLY_LOCK1, 0.6F);
+                if (!player.getAbilities().instabuild) {
+                    itemStack.shrink(1);
+                }
+
+                PC_BaseChestBlockEntity.playSound(world, pos, state, PCSounds.APPLY_LOCK1, 0.6F);
                 return true;
             }
-            if (stack.is(ModItems.IRON_LOCK.get())) {
+
+            if (itemStack.is(ModItems.IRON_LOCK.get())) {
                 chest.isLocked = true;
                 chest.hasIronLock = true;
                 chest.owner = player.getUUID();
-                if (!player.getAbilities().instabuild) stack.shrink(1);
-                PC_BaseChestBlockEntity.playSound(level, pos, state, PCSounds.APPLY_LOCK1, 0.6F);
+                if (!player.getAbilities().instabuild) {
+                    itemStack.shrink(1);
+                }
+
+                PC_BaseChestBlockEntity.playSound(world, pos, state, PCSounds.APPLY_LOCK1, 0.6F);
                 return true;
             }
         }
+
         return false;
     }
 
-    public void lockBlockState(BlockState state, Level level, BlockPos pos) {
-        level.setBlock(pos, state.setValue(LOCKED_STATE, PCLockedState.LOCKED), 3);
+    public void lockBlockState(BlockState state, Level world, BlockPos pos) {
+        world.setBlockAndUpdate(pos, (BlockState)state.setValue(PCProperties.PC_LOCKED_STATE, PCLockedState.LOCKED));
     }
 
-    public void unlockBlockState(BlockState state, Level level, BlockPos pos) {
-        level.setBlock(pos, state.setValue(LOCKED_STATE, PCLockedState.UNLOCKED), 3);
+    public void unlockBlockState(BlockState state, Level world, BlockPos pos) {
+        world.setBlockAndUpdate(pos, (BlockState)state.setValue(PCProperties.PC_LOCKED_STATE, PCLockedState.UNLOCKED));
     }
 
-    // ---------- Main interaction ----------
-
-    @Override
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         if (level.isClientSide) {
             return InteractionResult.SUCCESS;
         }
 
         PC_BaseChestBlockEntity chest = MimicCreationUtils.getChestBlockFromWorld(level, pos);
-        if (chest == null) return InteractionResult.PASS;
-
         PCConfig config = Dungeons_and_arcanus.loadedConfig;
-        ItemStack stack = player.getItemInHand(hand);
-
-        // 1. Locked → try unlock
+        ItemStack itemStack = player.getItemInHand(hand);
         if (chest.isLocked) {
-            if (unlockBlock(state, level, pos, player, hand, hit)) {
-                unlockBlockState(state, level, pos);
+            if (this.unlockBlock(state, level, pos, player, hand, hit)) {
+                this.unlockBlockState(state, level, pos);
+                return InteractionResult.CONSUME;
+            } else {
+                return InteractionResult.FAIL;
+            }
+        } else {
+            if (this.addLockToBlock(state, level, pos, player, hand, hit)) {
+                this.lockBlockState(state, level, pos);
                 return InteractionResult.CONSUME;
             }
-            return InteractionResult.FAIL;
-        }
 
-        // 2. Try add lock
-        if (addLockToBlock(state, level, pos, player, hand, hit)) {
-            lockBlockState(state, level, pos);
+            if (this.lockBlock(state, level, pos, player, hand, hit)) {
+                this.lockBlockState(state, level, pos);
+                return InteractionResult.CONSUME;
+            }
+
+            if (chest != null) {
+                if (itemStack.is(ModItems.PET_MIMIC_KEY.get())
+                        && config.mimicSettings.allowPetMimics
+                        && !player.isShiftKeyDown()
+                        && MimicCreationUtils.tryMakePetMimic(level, pos, state, player, this.type)) {
+                    if (!player.isCreative()) {
+                        itemStack.shrink(1);
+                    }
+
+                    return InteractionResult.CONSUME;
+                }
+
+                if (itemStack.is(ModItems.MIMIC_KEY.get())
+                        && !player.isShiftKeyDown()
+                        && !MimicCreationUtils.isSecretMimic(chest, level, pos, this.type)
+                        && level.getDifficulty() != Difficulty.PEACEFUL) {
+                    chest.isMimic = true;
+                    chest.isNatural = false;
+                    if (!player.isCreative()) {
+                        itemStack.shrink(1);
+                    }
+
+                    return InteractionResult.CONSUME;
+                }
+
+                if (MimicCreationUtils.isSecretMimic(chest, level, pos, this.type)) {
+                    MimicCreationUtils.tryMakeHostileMimic(level, pos, state, player, this.type);
+                    return InteractionResult.SUCCESS;
+                }
+            }
+
+            MenuProvider namedScreenHandlerFactory = this.getMenuProvider(state, level, pos);
+            if (namedScreenHandlerFactory != null && player instanceof ServerPlayer && chest.canOpen(player)) {
+                player.openMenu(namedScreenHandlerFactory);
+                player.awardStat(this.getOpenStat());
+            }
+
             return InteractionResult.CONSUME;
         }
-
-        // 3. Try re-lock with key
-        if (lockBlock(state, level, pos, player, hand, hit)) {
-            lockBlockState(state, level, pos);
-            return InteractionResult.CONSUME;
-        }
-
-        // 4. Pet mimic key
-        if (stack.is(ModItems.PET_MIMIC_KEY.get())
-                && config.mimicSettings.allowPetMimics
-                && !player.isShiftKeyDown()
-                && MimicCreationUtils.tryMakePetMimic(level, pos, state, player, this.type)) {
-            if (!player.getAbilities().instabuild) stack.shrink(1);
-            return InteractionResult.CONSUME;
-        }
-
-        // 5. Normal mimic key
-        if (stack.is(ModItems.MIMIC_KEY.get())
-                && !player.isShiftKeyDown()
-                && !MimicCreationUtils.isSecretMimic(chest, level, pos, this.type)
-                && level.getDifficulty() != Difficulty.PEACEFUL) {
-            chest.isMimic = true;
-            chest.isNatural = false;
-            if (!player.getAbilities().instabuild) stack.shrink(1);
-            return InteractionResult.CONSUME;
-        }
-
-        // 6. Secret mimic → wake up
-        if (MimicCreationUtils.isSecretMimic(chest, level, pos, this.type)) {
-            MimicCreationUtils.tryMakeHostileMimic(level, pos, state, player, this.type);
-            return InteractionResult.SUCCESS;
-        }
-
-        // 7. Open GUI
-        if (player instanceof ServerPlayer serverPlayer && chest.canOpen(player)) {
-            player.openMenu(chest);
-            player.awardStat(Stats.CUSTOM.get(Stats.OPEN_CHEST));
-        }
-
-        return InteractionResult.CONSUME;
     }
 
-    // ---------- Container / drops / placement ----------
+    protected Stat<ResourceLocation> getOpenStat() {
+        return Stats.CUSTOM.get(Stats.OPEN_CHEST);
+    }
 
-    @Override
     public boolean hasAnalogOutputSignal(BlockState state) {
         return true;
     }
 
-    @Override
     public int getAnalogOutputSignal(BlockState state, Level level, BlockPos pos) {
         return AbstractContainerMenu.getRedstoneSignalFromBlockEntity(level.getBlockEntity(pos));
     }
 
-    @Override
-    public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean isMoving) {
+    public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
         if (!state.is(newState.getBlock())) {
+            BlockEntity blockEntity = level.getBlockEntity(pos);
             PC_BaseChestBlockEntity chest = MimicCreationUtils.getChestBlockFromWorld(level, pos);
-            BlockEntity be = level.getBlockEntity(pos);
-
-            if (chest != null) {
+            if (chest == null) {
+                super.onRemove(state, level, pos, newState, movedByPiston);
+            } else {
                 if (!MimicCreationUtils.isSecretMimic(chest, level, pos, this.type)) {
-                    if (be instanceof PC_BaseChestBlockEntity inventory) {
+                    if (blockEntity instanceof Container inventory) {
                         Containers.dropContents(level, pos, inventory);
                         level.updateNeighbourForOutputSignal(pos, this);
                     }
@@ -364,33 +364,32 @@ public class PC_ChestBlock extends BaseEntityBlock implements SimpleWaterloggedB
                     MimicCreationUtils.tryMakeHostileMimic(level, pos, state, null, this.type);
                 }
 
-                // Drop the lock item if present
+                NonNullList<ItemStack> locks = NonNullList.create();
                 if (chest.hasVoidLock) {
-                    Containers.dropItemStack(level, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(ModItems.VOID_LOCK.get()));
+                    locks.add(new ItemStack(ModItems.VOID_LOCK.get()));
                 } else if (chest.hasGoldLock) {
-                    Containers.dropItemStack(level, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(ModItems.GOLD_LOCK.get()));
+                    locks.add(new ItemStack(ModItems.GOLD_LOCK.get()));
                 } else if (chest.hasIronLock) {
-                    Containers.dropItemStack(level, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(ModItems.IRON_LOCK.get()));
+                    locks.add(new ItemStack(ModItems.IRON_LOCK.get()));
                 }
-            }
 
-            super.onRemove(state, level, pos, newState, isMoving);
-        }
-    }
+                if (!locks.isEmpty()) {
+                    Containers.dropContents(level, pos, locks);
+                }
 
-    @Override
-    public void setPlacedBy(Level level, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
-        if (stack.hasCustomHoverName()) {
-            BlockEntity be = level.getBlockEntity(pos);
-            if (be instanceof PC_BaseChestBlockEntity chest) {
-                chest.setCustomName(stack.getHoverName());
+                super.onRemove(state, level, pos, newState, movedByPiston);
             }
         }
     }
 
-    // ---------- Ticking / Animation ----------
+    public void setPlacedBy(Level level, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
+        PC_BaseChestBlockEntity chest = MimicCreationUtils.getChestBlockFromWorld(level, pos);
+        if (chest != null && stack.hasCustomHoverName()) {
+            chest.setCustomName(stack.getHoverName());
+        }
 
-    @Override
+    }
+
     public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
         BlockEntity be = level.getBlockEntity(pos);
         if (be instanceof PC_BaseChestBlockEntity chest) {
@@ -400,73 +399,66 @@ public class PC_ChestBlock extends BaseEntityBlock implements SimpleWaterloggedB
             } else if (current == PCChestState.CLOSE) {
                 chest.setChestState(PCChestState.CLOSED);
             }
+
         }
     }
 
-    @Nullable
-    @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        return createTickerHelper(type, this.getExpectedEntityType(), PC_BaseChestBlockEntity::tick);
-    }
-
-    // ---------- Shape / Render / Placement / Waterlogging ----------
-
-    @Override
     public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        return SHAPES.get(state.getValue(FACING));
+        return (VoxelShape)SHAPES.get(state.getValue(FACING));
     }
 
-    @Override
-    public RenderShape getRenderShape(BlockState state) {
-        return RenderShape.ENTITYBLOCK_ANIMATED;
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
+        return createTickerHelper(blockEntityType, this.getExpectedEntityType(), (world1, pos, state1, blockEntity) -> blockEntity.tick());
     }
 
-    @Nullable
-    @Override
-    public BlockState getStateForPlacement(BlockPlaceContext ctx) {
-        FluidState fluid = ctx.getLevel().getFluidState(ctx.getClickedPos());
-        return this.defaultBlockState()
-                .setValue(FACING, ctx.getHorizontalDirection().getOpposite())
-                .setValue(WATERLOGGED, fluid.getType() == Fluids.WATER);
-    }
-
-    @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(FACING, WATERLOGGED, CHEST_STATE, LOCKED_STATE);
-    }
-
-    @Override
-    public FluidState getFluidState(BlockState state) {
-        return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
-    }
-
-    @Override
-    public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState,
-                                  LevelAccessor level, BlockPos pos, BlockPos neighborPos) {
-        if (state.getValue(WATERLOGGED)) {
-            level.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
-        }
-        return super.updateShape(state, direction, neighborState, level, pos, neighborPos);
-    }
-
-    @Override
-    public boolean isPathfindable(BlockState state, BlockGetter level, BlockPos pos, PathComputationType type) {
-        return false; // or true if you want mobs to path through
-    }
-
-    // ---------- Block Entity ----------
-
-    @Nullable
-    @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return this.type.makeEntity(pos, state);
     }
 
+    public RenderShape getRenderShape(BlockState state) {
+        return RenderShape.ENTITYBLOCK_ANIMATED;
+    }
+
+    public BlockState getStateForPlacement(BlockPlaceContext context) {
+        FluidState fluidState = context.getLevel().getFluidState(context.getClickedPos());
+        return (BlockState)((BlockState)this.defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite())).setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER);
+    }
+
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+        builder.add(new Property[]{FACING, WATERLOGGED, CHEST_STATE, LOCKED_STATE});
+        super.createBlockStateDefinition(builder);
+    }
+
+    public FluidState getFluidState(BlockState state) {
+        return (Boolean)state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
+    }
+
+    public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos pos, BlockPos neighborPos) {
+        if ((Boolean)state.getValue(WATERLOGGED)) {
+            level.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
+        }
+
+        return super.updateShape(state, direction, neighborState, level, pos, neighborPos);
+    }
+
     public BlockEntityType<? extends PC_BaseChestBlockEntity> getExpectedEntityType() {
-        return this.type.getBlockEntityType();
+        return (BlockEntityType)this.blockEntityType.get();
     }
 
     public static Direction getFacing(BlockState state) {
-        return state.getValue(FACING);
+        return (Direction)state.getValue(FACING);
+    }
+
+    public DoubleBlockCombiner.NeighborCombineResult<? extends ChestBlockEntity> combine(BlockState state, Level level, BlockPos pos, boolean override) {
+        return DoubleBlockCombiner.Combiner::acceptNone;
+    }
+
+    static {
+        FACING = HorizontalDirectionalBlock.FACING;
+        WATERLOGGED = BlockStateProperties.WATERLOGGED;
+        CHEST_STATE = PCProperties.PC_CHEST_STATE;
+        LOCKED_STATE = PCProperties.PC_LOCKED_STATE;
+        SHAPE = Block.box((double)1.0F, (double)0.0F, (double)1.5F, (double)15.0F, (double)13.0F, (double)14.5F);
+        SHAPES = VoxelShaper.generateRotations(SHAPE);
     }
 }

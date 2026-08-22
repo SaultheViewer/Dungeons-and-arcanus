@@ -1,6 +1,8 @@
 package com.voltaire.d_n_a.dungeons_and_arcanus.item.custom;
 
 import com.voltaire.d_n_a.dungeons_and_arcanus.interfaces.PlayerEntityAccess;
+import com.voltaire.d_n_a.dungeons_and_arcanus.registry.PCSounds;
+import com.voltaire.d_n_a.dungeons_and_arcanus.registry.PCStatistics;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;

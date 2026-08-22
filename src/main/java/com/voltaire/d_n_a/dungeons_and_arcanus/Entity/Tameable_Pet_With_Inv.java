@@ -1,13 +1,12 @@
 package com.voltaire.d_n_a.dungeons_and_arcanus.Entity;
 
-import com.voltaire.d_n_a.dungeons_and_arcanus.Entity.ai.ChestMimicPet;
 import com.voltaire.d_n_a.dungeons_and_arcanus.Entity.ai.MimicMoveControl;
 import com.voltaire.d_n_a.dungeons_and_arcanus.blocks.custom.PCChestTypes;
 import com.voltaire.d_n_a.dungeons_and_arcanus.interfaces.PlayerEntityAccess;
 import com.voltaire.d_n_a.dungeons_and_arcanus.item.ModItems;
 import com.voltaire.d_n_a.dungeons_and_arcanus.registry.PCSounds;
 import com.voltaire.d_n_a.dungeons_and_arcanus.screenhandlers.PCMimicScreenHandler;
-import com.voltaire.d_n_a.dungeons_and_arcanus.util.MimicCreationUtils;
+import com.voltaire.d_n_a.dungeons_and_arcanus.utils.MimicCreationUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -23,10 +22,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.util.TimeUtil;
 import net.minecraft.util.valueproviders.UniformInt;
-import net.minecraft.world.Container;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.MenuProvider;
+import net.minecraft.world.*;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -45,13 +41,14 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraft.world.level.pathfinder.WalkNodeEvaluator;
 import net.minecraftforge.network.NetworkHooks;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
 import java.util.UUID;
 
-public abstract class Tameable_Pet_With_Inv extends TamableAnimal implements Container, net.minecraft.world.entity.NeutralMob, MenuProvider {
+public abstract class Tameable_Pet_With_Inv extends TamableAnimal implements Container, ContainerListener, net.minecraft.world.entity.NeutralMob, MenuProvider {
 
     public final net.minecraft.world.SimpleContainer inventory = new net.minecraft.world.SimpleContainer(54);
     public boolean interacting;
@@ -170,10 +167,10 @@ public abstract class Tameable_Pet_With_Inv extends TamableAnimal implements Con
                 if (player instanceof ServerPlayer serverPlayer) {
                     if (newSit) {
                         serverPlayer.displayClientMessage(
-                                Component.translatable("entity.probablychests.is_staying", name), true);
+                                Component.translatable("entity..is_staying", name), true);
                     } else {
                         serverPlayer.displayClientMessage(
-                                Component.translatable("entity.probablychests.is_following", name), true);
+                                Component.translatable("entity..is_following", name), true);
                     }
                 }
 
@@ -256,7 +253,7 @@ public abstract class Tameable_Pet_With_Inv extends TamableAnimal implements Con
 
     public void bite(LivingEntity target) {
         if (this.isAlive() && target.hurt(this.damageSources().mobAttack(this), this.biteDamageAmount)) {
-            this.playSound(PCSounds.MIMIC_BITE.get(), this.getSoundVolume(), 1.5F + this.getPitchOffset(0.2F));
+            this.playSound(PCSounds.MIMIC_BITE, this.getSoundVolume(), 1.5F + this.getPitchOffset(0.2F));
             this.doEnchantDamageEffects(this, target);
         }
     }
@@ -321,7 +318,7 @@ public abstract class Tameable_Pet_With_Inv extends TamableAnimal implements Con
             this.openAnimationTimer = 12;
             this.setIsOpenState(true);
             this.playSound(this.getOpenSound(), this.getSoundVolume(), 0.8F + this.getPitchOffset(0.1F));
-            this.playSound(PCSounds.CLOSE_2.get(), this.getSoundVolume(), 1.5F + this.getPitchOffset(0.1F));
+            this.playSound(PCSounds.CLOSE_2, this.getSoundVolume(), 1.5F + this.getPitchOffset(0.1F));
         }
         ++this.viewerCount;
 
@@ -342,7 +339,7 @@ public abstract class Tameable_Pet_With_Inv extends TamableAnimal implements Con
             this.closeAnimationTimer = 12;
             this.setIsOpenState(false);
             this.playSound(this.getCloseSound(), this.getSoundVolume(), 0.8F + this.getPitchOffset(0.1F));
-            this.playSound(PCSounds.CLOSE_2.get(), this.getSoundVolume(), 1.0F + this.getPitchOffset(0.1F));
+            this.playSound(PCSounds.CLOSE_2, this.getSoundVolume(), 1.0F + this.getPitchOffset(0.1F));
         }
         if (this.viewerCount < 0) {
             this.viewerCount = 0;
@@ -355,13 +352,23 @@ public abstract class Tameable_Pet_With_Inv extends TamableAnimal implements Con
         return this.getName();
     }
 
-    @Nullable
-    @Override
-    public AbstractContainerMenu createMenu(int id, Inventory playerInv, Player player) {
-        PCMimicScreenHandler handler = PCMimicScreenHandler.createScreenHandler(id, playerInv, this.inventory);
-        handler.setMimicEntity(this);
-        return handler;
+    private class MimicScreenHandlerFactory implements MenuProvider {
+        private Tameable_Pet_With_Inv mimic() {
+            return Tameable_Pet_With_Inv.this;
+        }
+
+        public Component getDisplayName() {
+            return this.mimic().getDisplayName();
+        }
+
+        public AbstractContainerMenu createMenu(int syncId, Inventory inv, Player player) {
+            SimpleContainer mimicInv = this.mimic().inventory;
+            PCMimicScreenHandler screenHandler = PCMimicScreenHandler.createScreenHandler(syncId, inv, mimicInv);
+            screenHandler.setMimicEntity(this.mimic());
+            return screenHandler;
+        }
     }
+
 
     // Container implementation (SimpleContainer already does most of the work)
     @Override
@@ -397,6 +404,11 @@ public abstract class Tameable_Pet_With_Inv extends TamableAnimal implements Con
     @Override
     public void setChanged() {
         // nothing special
+    }
+
+    @Override
+    public void containerChanged(Container container) {
+        this.setChanged();
     }
 
     @Override
@@ -809,12 +821,14 @@ public abstract class Tameable_Pet_With_Inv extends TamableAnimal implements Con
         }
 
         private void tryTeleport() {
-            BlockPos pos = this.owner.blockPosition();
+            BlockPos blockPos = this.owner.blockPosition();
+
             for (int i = 0; i < 10; i++) {
-                int x = this.getRandomInt(-3, 3);
-                int y = this.getRandomInt(-1, 1);
-                int z = this.getRandomInt(-3, 3);
-                if (this.tryTeleportTo(pos.getX() + x, pos.getY() + y, pos.getZ() + z)) {
+                int j = this.getRandomInt(-3, 3);
+                int k = this.getRandomInt(-1, 1);
+                int l = this.getRandomInt(-3, 3);
+                boolean bl = this.tryTeleportTo(blockPos.getX() + j, blockPos.getY() + k, blockPos.getZ() + l);
+                if (bl) {
                     return;
                 }
             }
@@ -824,21 +838,27 @@ public abstract class Tameable_Pet_With_Inv extends TamableAnimal implements Con
             if (Math.abs(x - this.owner.getX()) < 2.0 && Math.abs(z - this.owner.getZ()) < 2.0) {
                 return false;
             }
+
             if (!this.canTeleportTo(new BlockPos(x, y, z))) {
                 return false;
             }
+
             this.mimic.moveTo(x + 0.5, y, z + 0.5, this.mimic.getYRot(), this.mimic.getXRot());
             this.navigation.stop();
             return true;
         }
 
         private boolean canTeleportTo(BlockPos pos) {
-            BlockPathTypes type = PathNavigation.getPathfindingType(this.world, pos.mutable());
-            if (type != BlockPathTypes.WALKABLE) return false;
-            BlockState below = this.world.getBlockState(pos.below());
-            BlockPos delta = pos.subtract(this.mimic.blockPosition());
-            return this.world.noCollision(this.mimic, this.mimic.getBoundingBox().move(delta));
+            BlockPathTypes pathNodeType = WalkNodeEvaluator.getBlockPathTypeStatic(this.world, pos.mutable());
+            if (pathNodeType != BlockPathTypes.WALKABLE) {
+                return false;
+            }
+
+            BlockState blockState = this.world.getBlockState(pos.below());
+            BlockPos blockPos = pos.subtract(this.mimic.blockPosition());
+            return this.world.noCollision(this.mimic, this.mimic.getBoundingBox().move(blockPos));
         }
+
 
         private int getRandomInt(int min, int max) {
             return this.mimic.getRandom().nextInt(max - min + 1) + min;

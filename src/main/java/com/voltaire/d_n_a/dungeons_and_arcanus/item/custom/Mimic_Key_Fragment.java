@@ -9,17 +9,16 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class Gold_key extends Item {
-    public Gold_key(Properties pProperties) {
+public class Mimic_Key_Fragment extends Item {
+    public Mimic_Key_Fragment(Properties pProperties) {
         super(pProperties);
     }
 
     @Override
     public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced) {
-        pTooltipComponents.add(Component.translatable("item.d_n_a.gold_key.tooltip"));
+        pTooltipComponents.add(Component.translatable("item.d_n_a.mimic_key_fragment.tooltip"));
         super.appendHoverText(pStack, pLevel, pTooltipComponents, pIsAdvanced);
     }
-
 
 
 }

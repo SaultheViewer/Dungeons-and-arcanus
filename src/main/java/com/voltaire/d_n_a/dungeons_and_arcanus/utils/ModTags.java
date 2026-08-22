@@ -1,4 +1,4 @@
-package com.voltaire.d_n_a.dungeons_and_arcanus.util;
+package com.voltaire.d_n_a.dungeons_and_arcanus.utils;
 
 import com.voltaire.d_n_a.dungeons_and_arcanus.Dungeons_and_arcanus;
 import net.minecraft.resources.ResourceLocation;
