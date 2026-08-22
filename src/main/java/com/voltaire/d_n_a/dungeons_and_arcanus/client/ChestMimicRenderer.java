@@ -1,6 +1,6 @@
 package com.voltaire.d_n_a.dungeons_and_arcanus.client;
 
-import com.voltaire.d_n_a.dungeons_and_arcanus.Entity.ai.PCChestMimic;
+import com.voltaire.d_n_a.dungeons_and_arcanus.Entity.PCChestMimic;
 import com.voltaire.d_n_a.dungeons_and_arcanus.client.entity.model.PCChestMimicModel;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;

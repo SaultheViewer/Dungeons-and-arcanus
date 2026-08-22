@@ -4,7 +4,7 @@ package com.voltaire.d_n_a.dungeons_and_arcanus.utils;
 import com.voltaire.d_n_a.dungeons_and_arcanus.Dungeons_and_arcanus;
 import com.voltaire.d_n_a.dungeons_and_arcanus.Entity.Tameable_Pet_With_Inv;
 import com.voltaire.d_n_a.dungeons_and_arcanus.Entity.ChestMimicPet;
-import com.voltaire.d_n_a.dungeons_and_arcanus.Entity.ai.PCChestMimic;
+import com.voltaire.d_n_a.dungeons_and_arcanus.Entity.PCChestMimic;
 import com.voltaire.d_n_a.dungeons_and_arcanus.blocks.custom.PCChestTypes;
 import com.voltaire.d_n_a.dungeons_and_arcanus.blocks.custom.PC_ChestBlock;
 import com.voltaire.d_n_a.dungeons_and_arcanus.blocks.entity.PC_BaseChestBlockEntity;

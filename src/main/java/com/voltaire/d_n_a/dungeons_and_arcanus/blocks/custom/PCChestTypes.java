@@ -2,7 +2,7 @@ package com.voltaire.d_n_a.dungeons_and_arcanus.blocks.custom;
 
 import com.voltaire.d_n_a.dungeons_and_arcanus.Entity.ModEntitys;
 import com.voltaire.d_n_a.dungeons_and_arcanus.Entity.Tameable_Pet_With_Inv;
-import com.voltaire.d_n_a.dungeons_and_arcanus.Entity.ai.PCChestMimic;
+import com.voltaire.d_n_a.dungeons_and_arcanus.Entity.PCChestMimic;
 import com.voltaire.d_n_a.dungeons_and_arcanus.blocks.entity.ModBlockEntitys;
 import com.voltaire.d_n_a.dungeons_and_arcanus.blocks.entity.PC_BaseChestBlockEntity;
 import com.voltaire.d_n_a.dungeons_and_arcanus.registry.PCLootTables;

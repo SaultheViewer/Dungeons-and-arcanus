@@ -1,7 +1,6 @@
 package com.voltaire.d_n_a.dungeons_and_arcanus.Entity;
 
 import com.voltaire.d_n_a.dungeons_and_arcanus.Dungeons_and_arcanus;
-import com.voltaire.d_n_a.dungeons_and_arcanus.Entity.ai.PCChestMimic;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.SpawnPlacements;

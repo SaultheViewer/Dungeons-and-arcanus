@@ -1,7 +1,8 @@
-package com.voltaire.d_n_a.dungeons_and_arcanus.Entity.ai;
+package com.voltaire.d_n_a.dungeons_and_arcanus.Entity;
 
 import com.voltaire.d_n_a.dungeons_and_arcanus.Dungeons_and_arcanus;
-import com.voltaire.d_n_a.dungeons_and_arcanus.Entity.Tameable_Pet_With_Inv;
+import com.voltaire.d_n_a.dungeons_and_arcanus.Entity.ai.MimicMoveControl;
+import com.voltaire.d_n_a.dungeons_and_arcanus.Entity.ai.PCMeleAttackGoal;
 import com.voltaire.d_n_a.dungeons_and_arcanus.registry.PCSounds;
 import com.voltaire.d_n_a.dungeons_and_arcanus.utils.MimicDifficulty;
 import com.voltaire.d_n_a.dungeons_and_arcanus.utils.PCConfig;
@@ -303,6 +304,7 @@ public class PCChestMimic extends Tameable_Pet_With_Inv implements GeoAnimatable
    public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob otherParent) {
       return null;
    }
+
 
    public static boolean canSpawn(
            EntityType<PCChestMimic> pcChestMimicEntityType, ServerLevelAccessor serverWorldAccess, MobSpawnType spawnReason, BlockPos blockPos, RandomSource random

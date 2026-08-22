@@ -1,6 +1,6 @@
 package com.voltaire.d_n_a.dungeons_and_arcanus.client.entity.model;
 
-import com.voltaire.d_n_a.dungeons_and_arcanus.Entity.ai.PCChestMimic;
+import com.voltaire.d_n_a.dungeons_and_arcanus.Entity.PCChestMimic;
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib.model.GeoModel;
 
