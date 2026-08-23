@@ -25,7 +25,7 @@ public class PCRarityFilterPlacementModifier extends PlacementFilter {
    }
 
    public PlacementModifierType<?> type() {
-      return PCPlacementModifierType.PC_RARITY;
+      return PCPlacementModifierType.PC_RARITY.get();
    }
 
    static {

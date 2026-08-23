@@ -1,0 +1,155 @@
+{
+  "display": {
+    "icon": {
+      "item": "d_n_a:normal_chest"
+    },
+    "title": "Fooled By Furniture",
+    "description": "Encounter a secret mimic",
+    "background": "minecraft:textures/block/cobblestone.png",
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "d_n_a:normal_chest_mimic": {
+      "trigger": "minecraft:summoned_entity",
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "d_n_a:normal_chest_mimic"
+            }
+          }
+        ]
+      }
+    },
+    "d_n_a:lush_chest_mimic": {
+      "trigger": "minecraft:summoned_entity",
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "d_n_a:lush_chest_mimic"
+            }
+          }
+        ]
+      }
+    },
+    "d_n_a:gold_chest_mimic": {
+      "trigger": "minecraft:summoned_entity",
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "d_n_a:gold_chest_mimic"
+            }
+          }
+        ]
+      }
+    },
+    "d_n_a:stone_chest_mimic": {
+      "trigger": "minecraft:summoned_entity",
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "d_n_a:stone_chest_mimic"
+            }
+          }
+        ]
+      }
+    },
+    "d_n_a:azure_chest_mimic": {
+      "trigger": "minecraft:summoned_entity",
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "d_n_a:azure_chest_mimic"
+            }
+          }
+        ]
+      }
+    },
+    "d_n_a:nether_chest_mimic": {
+      "trigger": "minecraft:summoned_entity",
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "d_n_a:nether_chest_mimic"
+            }
+          }
+        ]
+      }
+    },
+    "d_n_a:ice_chest_mimic": {
+      "trigger": "minecraft:summoned_entity",
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "d_n_a:ice_chest_mimic"
+            }
+          }
+        ]
+      }
+    },
+    "d_n_a:shadow_chest_mimic": {
+      "trigger": "minecraft:summoned_entity",
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "d_n_a:shadow_chest_mimic"
+            }
+          }
+        ]
+      }
+    },
+    "d_n_a:coral_chest_mimic": {
+      "trigger": "minecraft:summoned_entity",
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "d_n_a:coral_chest_mimic"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "d_n_a:normal_chest_mimic",
+      "d_n_a:lush_chest_mimic",
+      "d_n_a:gold_chest_mimic",
+      "d_n_a:stone_chest_mimic",
+      "d_n_a:azure_chest_mimic",
+      "d_n_a:nether_chest_mimic",
+      "d_n_a:shadow_chest_mimic",
+      "d_n_a:ice_chest_mimic",
+      "d_n_a:coral_chest_mimic"
+    ]
+  ]
+}

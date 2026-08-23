@@ -1,9 +1,9 @@
 package com.voltaire.d_n_a.dungeons_and_arcanus;
 
 import com.mojang.logging.LogUtils;
-import com.voltaire.d_n_a.dungeons_and_arcanus.Entity.ModEntitys;
 import com.voltaire.d_n_a.dungeons_and_arcanus.blocks.ModBlocks;
 import com.voltaire.d_n_a.dungeons_and_arcanus.blocks.entity.ModBlockEntitys;
+import com.voltaire.d_n_a.dungeons_and_arcanus.client.PC_Client;
 import com.voltaire.d_n_a.dungeons_and_arcanus.item.ModCreativeModeTabs;
 import com.voltaire.d_n_a.dungeons_and_arcanus.item.ModItems;
 import com.voltaire.d_n_a.dungeons_and_arcanus.registry.*;
@@ -12,11 +12,9 @@ import com.voltaire.d_n_a.dungeons_and_arcanus.utils.PCConfig;
 import com.voltaire.d_n_a.dungeons_and_arcanus.utils.PCEventHandler;
 import com.voltaire.d_n_a.dungeons_and_arcanus.worldgen.feature.PCPlacementModifierType;
 import com.voltaire.d_n_a.dungeons_and_arcanus.worldgen.gen.PCWorldGen;
-
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.ConfigHolder;
 import me.shedaniel.autoconfig.serializer.Toml4jConfigSerializer;
-
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
@@ -29,10 +27,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-
 import org.slf4j.Logger;
-
-import software.bernie.geckolib.GeckoLib;
 
 @Mod(Dungeons_and_arcanus.MOD_ID)
 public class Dungeons_and_arcanus {
@@ -54,18 +49,22 @@ public class Dungeons_and_arcanus {
         ModCreativeModeTabs.register(modEventBus);
         ModItems.register(modEventBus);
         ModBlocks.register(modEventBus);
-        ModBlockEntitys.register(modEventBus);
-
-        // -style registers (wire these up when ready)
-        // PCSounds.register(modEventBus);
-         ModEntitys.register(modEventBus);
-        // ModItems.register(modEventBus);
-        // etc.
-        // constructor
-
 
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(this::addCreative);
+        
+        ModEntitys.ENTITY_TYPES.register(modEventBus);
+        ModBlockEntitys.BLOCK_ENTITY_TYPES.register(modEventBus);
+        PCSounds.SOUND_EVENTS.register(modEventBus);
+        PCScreenHandlerType.MENUS.register(modEventBus);
+        PCPlacementModifierType.PLACEMENT_MODIFIERS.register(modEventBus);
+        PCFeatureRegistry.FEATURES.register(modEventBus);
+
+        modEventBus.addListener(this::commonSetup);
+        modEventBus.addListener(ModEntitys::registerAttributes);
+        modEventBus.addListener(ModEntitys::registerSpawnPlacements);
+        modEventBus.addListener(PC_Client::registerRenderers);
+        modEventBus.addListener(PC_Client::clientSetup);
 
         MinecraftForge.EVENT_BUS.register(this);
     }
@@ -75,16 +74,7 @@ public class Dungeons_and_arcanus {
             LOGGER.info("[Dungeons-And-Arcanus] is initializing.");
 
             PCEventHandler.registerEvents();
-
-            // Optional on GeckoLib 4.x — remove if not needed
-            GeckoLib.initialize();
-
-            PCSounds.init();
             PCStatistics.init();
-            PCLootTables.init();
-            PCPlacementModifierType.init();
-            PCFeatureRegistry.init();
-            PCScreenHandlerType.registerScreenHandlers();
             PCWorldGen.generatePCWorldGen();
         });
     }

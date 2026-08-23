@@ -1,0 +1,155 @@
+{
+  "display": {
+    "icon": {
+      "item": "d_n_a:lush_chest"
+    },
+    "title": "Carnivorous Storage",
+    "description": "Create a pet mimic",
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "d_n_a:pet_mimic_key",
+  "criteria": {
+    "d_n_a:normal_chest_mimic_pet": {
+      "trigger": "minecraft:summoned_entity",
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "d_n_a:normal_chest_mimic_pet"
+            }
+          }
+        ]
+      }
+    },
+    "d_n_a:lush_chest_mimic_pet": {
+      "trigger": "minecraft:summoned_entity",
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "d_n_a:lush_chest_mimic_pet"
+            }
+          }
+        ]
+      }
+    },
+    "d_n_a:gold_chest_mimic_pet": {
+      "trigger": "minecraft:summoned_entity",
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "d_n_a:gold_chest_mimic_pet"
+            }
+          }
+        ]
+      }
+    },
+    "d_n_a:stone_chest_mimic_pet": {
+      "trigger": "minecraft:summoned_entity",
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "d_n_a:stone_chest_mimic_pet"
+            }
+          }
+        ]
+      }
+    },
+    "d_n_a:azure_chest_mimic_pet": {
+      "trigger": "minecraft:summoned_entity",
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "d_n_a:azure_chest_mimic_pet"
+            }
+          }
+        ]
+      }
+    },
+    "d_n_a:nether_chest_mimic_pet": {
+      "trigger": "minecraft:summoned_entity",
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "d_n_a:nether_chest_mimic_pet"
+            }
+          }
+        ]
+      }
+    },
+    "d_n_a:ice_chest_mimic_pet": {
+      "trigger": "minecraft:summoned_entity",
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "d_n_a:ice_chest_mimic_pet"
+            }
+          }
+        ]
+      }
+    },
+    "d_n_a:shadow_chest_mimic_pet": {
+      "trigger": "minecraft:summoned_entity",
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "d_n_a:shadow_chest_mimic_pet"
+            }
+          }
+        ]
+      }
+    },
+    "d_n_a:coral_chest_mimic_pet": {
+      "trigger": "minecraft:summoned_entity",
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "d_n_a:coral_chest_mimic_pet"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "d_n_a:normal_chest_mimic_pet",
+      "d_n_a:lush_chest_mimic_pet",
+      "d_n_a:gold_chest_mimic_pet",
+      "d_n_a:stone_chest_mimic_pet",
+      "d_n_a:azure_chest_mimic_pet",
+      "d_n_a:nether_chest_mimic_pet",
+      "d_n_a:shadow_chest_mimic_pet",
+      "d_n_a:ice_chest_mimic_pet",
+      "d_n_a:coral_chest_mimic_pet"
+    ]
+  ]
+}

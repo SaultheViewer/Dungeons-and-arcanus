@@ -1,50 +1,26 @@
 package com.voltaire.d_n_a.dungeons_and_arcanus.registry;
 
 import com.voltaire.d_n_a.dungeons_and_arcanus.Dungeons_and_arcanus;
-import net.minecraft.core.Registry;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
-
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 
 
 public class PCSounds {
-   public static final ResourceLocation BELL_HIT_1_ID = Dungeons_and_arcanus.id("bell_hit1");
-   public static final ResourceLocation BELL_HIT_2_ID = Dungeons_and_arcanus.id("bell_hit2");
-   public static final ResourceLocation BELL_HIT_4_ID = Dungeons_and_arcanus.id("bell_hit4");
-   public static final ResourceLocation CLOSE_2_ID = Dungeons_and_arcanus.id("close2");
-   public static final ResourceLocation MIMIC_BITE_ID = Dungeons_and_arcanus.id("mimic_bite");
-   public static final ResourceLocation APPLY_LOCK_1_ID = Dungeons_and_arcanus.id("apply_lock1");
-   public static final ResourceLocation APPLY_LOCK_2_ID = Dungeons_and_arcanus.id("apply_lock2");
-   public static final ResourceLocation LOCK_UNLOCK_ID = Dungeons_and_arcanus.id("lock_unlock");
-   public static SoundEvent BELL_HIT_1;
-   public static SoundEvent BELL_HIT_2;
-   public static SoundEvent BELL_HIT_4;
-   public static SoundEvent CLOSE_2;
-   public static SoundEvent MIMIC_BITE;
-   public static SoundEvent APPLY_LOCK1;
-   public static SoundEvent APPLY_LOCK2;
-   public static SoundEvent LOCK_UNLOCK;
+   public static final DeferredRegister<SoundEvent> SOUND_EVENTS = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, Dungeons_and_arcanus.MOD_ID);
 
-   public static void init() {
-      Registry.register(BuiltInRegistries.SOUND_EVENT, BELL_HIT_1_ID, BELL_HIT_1);
-      Registry.register(BuiltInRegistries.SOUND_EVENT, BELL_HIT_2_ID, BELL_HIT_2);
-      Registry.register(BuiltInRegistries.SOUND_EVENT, BELL_HIT_4_ID, BELL_HIT_4);
-      Registry.register(BuiltInRegistries.SOUND_EVENT, CLOSE_2_ID, CLOSE_2);
-      Registry.register(BuiltInRegistries.SOUND_EVENT, MIMIC_BITE_ID, MIMIC_BITE);
-      Registry.register(BuiltInRegistries.SOUND_EVENT, APPLY_LOCK_1_ID, APPLY_LOCK1);
-      Registry.register(BuiltInRegistries.SOUND_EVENT, APPLY_LOCK_2_ID, APPLY_LOCK2);
-      Registry.register(BuiltInRegistries.SOUND_EVENT, LOCK_UNLOCK_ID, LOCK_UNLOCK);
-   }
+   public static final RegistryObject<SoundEvent> BELL_HIT_1 = registerSound("bell_hit1");
+   public static final RegistryObject<SoundEvent> BELL_HIT_2 = registerSound("bell_hit2");
+   public static final RegistryObject<SoundEvent> BELL_HIT_4 = registerSound("bell_hit4");
+   public static final RegistryObject<SoundEvent> CLOSE_2 = registerSound("close2");
+   public static final RegistryObject<SoundEvent> MIMIC_BITE = registerSound("mimic_bite");
+   public static final RegistryObject<SoundEvent> APPLY_LOCK1 = registerSound("apply_lock1");
+   public static final RegistryObject<SoundEvent> APPLY_LOCK2 = registerSound("apply_lock2");
+   public static final RegistryObject<SoundEvent> LOCK_UNLOCK = registerSound("lock_unlock");
 
-   static {
-      BELL_HIT_1 = SoundEvent.createVariableRangeEvent(BELL_HIT_1_ID);
-      BELL_HIT_2 = SoundEvent.createVariableRangeEvent(BELL_HIT_2_ID);
-      BELL_HIT_4 = SoundEvent.createVariableRangeEvent(BELL_HIT_4_ID);
-      CLOSE_2 = SoundEvent.createVariableRangeEvent(CLOSE_2_ID);
-      MIMIC_BITE = SoundEvent.createVariableRangeEvent(MIMIC_BITE_ID);
-      APPLY_LOCK1 = SoundEvent.createVariableRangeEvent(APPLY_LOCK_1_ID);
-      APPLY_LOCK2 = SoundEvent.createVariableRangeEvent(APPLY_LOCK_2_ID);
-      LOCK_UNLOCK = SoundEvent.createVariableRangeEvent(LOCK_UNLOCK_ID);
+   private static RegistryObject<SoundEvent> registerSound(String name) {
+      return SOUND_EVENTS.register(name, () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(Dungeons_and_arcanus.MOD_ID, name)));
    }
 }

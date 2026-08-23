@@ -2,25 +2,21 @@ package com.voltaire.d_n_a.dungeons_and_arcanus.worldgen.feature;
 
 import com.mojang.serialization.Codec;
 import com.voltaire.d_n_a.dungeons_and_arcanus.Dungeons_and_arcanus;
-import net.minecraft.core.Registry;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.levelgen.placement.PlacementModifier;
 import net.minecraft.world.level.levelgen.placement.PlacementModifierType;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.RegistryObject;
 
 
-public class PCPlacementModifierType<P extends PlacementModifier> {
-   public static PlacementModifierType<PCGroundPlacementModifier> CHEST_SCAN;
-   public static PlacementModifierType<PCRarityFilterPlacementModifier> PC_RARITY;
-   public static PlacementModifierType<PCSolidGroundPlacementModifier> SOLID_CHECK;
+public class PCPlacementModifierType {
+   public static final DeferredRegister<PlacementModifierType<?>> PLACEMENT_MODIFIERS = DeferredRegister.create(Registries.PLACEMENT_MODIFIER_TYPE, Dungeons_and_arcanus.MOD_ID);
 
-   private static <P extends PlacementModifier> PlacementModifierType<P> register(ResourceLocation id, Codec<P> codec) {
-      return (PlacementModifierType)Registry.register(BuiltInRegistries.PLACEMENT_MODIFIER_TYPE, id, (PlacementModifierType)() -> codec);
-   }
+   public static final RegistryObject<PlacementModifierType<PCGroundPlacementModifier>> CHEST_SCAN = register("chest_scan", PCGroundPlacementModifier.MODIFIER_CODEC);
+   public static final RegistryObject<PlacementModifierType<PCRarityFilterPlacementModifier>> PC_RARITY = register("pc_rarity", PCRarityFilterPlacementModifier.MODIFIER_CODEC);
+   public static final RegistryObject<PlacementModifierType<PCSolidGroundPlacementModifier>> SOLID_CHECK = register("sold_check", PCSolidGroundPlacementModifier.MODIFIER_CODEC);
 
-   public static void init() {
-      CHEST_SCAN = register(Dungeons_and_arcanus.id("chest_scan"), PCGroundPlacementModifier.MODIFIER_CODEC);
-      PC_RARITY = register(Dungeons_and_arcanus.id("pc_rarity"), PCRarityFilterPlacementModifier.MODIFIER_CODEC);
-      SOLID_CHECK = register(Dungeons_and_arcanus.id("sold_check"), PCSolidGroundPlacementModifier.MODIFIER_CODEC);
+   private static <P extends PlacementModifier> RegistryObject<PlacementModifierType<P>> register(String name, Codec<P> codec) {
+      return PLACEMENT_MODIFIERS.register(name, () -> () -> codec);
    }
 }

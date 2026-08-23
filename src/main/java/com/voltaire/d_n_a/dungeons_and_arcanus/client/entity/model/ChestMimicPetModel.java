@@ -5,12 +5,12 @@ import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib.model.GeoModel;
 
 public class ChestMimicPetModel extends GeoModel<ChestMimicPet> {
-    private static final ResourceLocation MODEL_IDENTIFIER = new ResourceLocation("probablychests", "geo/pc_chest_mimic.json");
-    private static final ResourceLocation ANIMATION_IDENTIFIER = new ResourceLocation("probablychests", "animations/pc_chest_mimic.animation.json");
+    private static final ResourceLocation MODEL_IDENTIFIER = new ResourceLocation("d_n_a", "geo/pc_chest_mimic.json");
+    private static final ResourceLocation ANIMATION_IDENTIFIER = new ResourceLocation("d_n_a", "animations/pc_chest_mimic.animation.json");
     private final ResourceLocation TEXTURE_IDENTIFIER;
 
     public ChestMimicPetModel(String texture) {
-        this.TEXTURE_IDENTIFIER = new ResourceLocation("probablychests", "textures/entity/" + texture + ".png");
+        this.TEXTURE_IDENTIFIER = new ResourceLocation("d_n_a", "textures/entity/" + texture + ".png");
     }
 
     public ResourceLocation getTextureResource(ChestMimicPet entity) {

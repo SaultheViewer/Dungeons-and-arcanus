@@ -71,6 +71,6 @@ public class PCGroundPlacementModifier extends PlacementModifier {
    }
 
    public PlacementModifierType<?> type() {
-      return PCPlacementModifierType.CHEST_SCAN;
+      return PCPlacementModifierType.CHEST_SCAN.get();
    }
 }

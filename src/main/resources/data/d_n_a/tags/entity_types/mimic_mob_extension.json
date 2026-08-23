@@ -1,0 +1,17 @@
+{
+  "replace": false,
+  "values": [
+    { "id": "treasure2:wood_chest_mimic", "required": false },
+    { "id": "treasure2:vanilla_chest_mimic", "required": false },
+    { "id": "treasure2:pirate_chest_mimic", "required": false },
+    { "id": "treasure2:viking_chest_mimic", "required": false },
+    { "id": "treasure2:cauldron_chest_mimic", "required": false },
+    { "id": "treasure2:crate_chest_mimic", "required": false },
+    { "id": "treasure2:moldy_crate_chest_mimic", "required": false },
+    { "id": "treasure2:cardboard_box_mimic", "required": false },
+    { "id": "treasure2:milk_crate_mimic", "required": false },
+    { "id": "aether:mimic", "required": false },
+    { "id": "artifacts:mimic", "required": false },
+    { "id": "grimoireofgaia:mimic", "required": false}
+  ]
+}

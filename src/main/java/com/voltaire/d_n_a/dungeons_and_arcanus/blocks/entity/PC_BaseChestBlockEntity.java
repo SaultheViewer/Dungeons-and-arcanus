@@ -1,6 +1,5 @@
 package com.voltaire.d_n_a.dungeons_and_arcanus.blocks.entity;
 
-
 import com.voltaire.d_n_a.dungeons_and_arcanus.blocks.custom.PCChestTypes;
 import com.voltaire.d_n_a.dungeons_and_arcanus.registry.PCProperties;
 import com.voltaire.d_n_a.dungeons_and_arcanus.screenhandlers.PCChestScreenHandler;
@@ -24,109 +23,83 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.ContainerOpenersCounter;
 import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
+import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.core.animatable.GeoAnimatable;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.core.animation.AnimatableManager;
-import software.bernie.geckolib.core.animation.Animation;
+import software.bernie.geckolib.core.animation.AnimatableManager.ControllerRegistrar;
+import software.bernie.geckolib.core.animation.Animation.LoopType;
 import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
-import javax.annotation.Nullable;
 import java.util.UUID;
 
 public class PC_BaseChestBlockEntity extends RandomizableContainerBlockEntity implements GeoAnimatable {
-
     public static final EnumProperty<PCChestState> CHEST_STATE = PCProperties.PC_CHEST_STATE;
-
     private static final String CONTROLLER_NAME = "chestController";
-
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
-
     private PCChestState lastState = null;
     private String currentAnim = "";
-
     public boolean isMimic = false;
     public boolean isNatural = false;
     public boolean hasBeenInteractedWith = false;
     public boolean hasMadeMimic = false;
-
     public float lidAngle = 0.0F;
     public float prevLidAngle = 0.0F;
+    private AnimPhase animPhase = AnimPhase.CLOSED;
+    public boolean hasGoldLock = false;
+    public boolean hasVoidLock = false;
+    public boolean hasIronLock = false;
+    public boolean isLocked = false;
+    public UUID owner = null;
+    private final ContainerOpenersCounter stateManager = new ContainerOpenersCounter() {
+        protected void onOpen(Level level, BlockPos pos, BlockState state) {
+            PC_BaseChestBlockEntity.playSound(level, pos, state, SoundEvents.CHEST_OPEN);
+        }
 
-    private AnimPhase animPhase;
+        protected void onClose(Level level, BlockPos pos, BlockState state) {
+            PC_BaseChestBlockEntity.playSound(level, pos, state, SoundEvents.CHEST_CLOSE);
+        }
 
-    public boolean hasGoldLock;
-    public boolean hasVoidLock;
-    public boolean hasIronLock;
-    public boolean isLocked;
-    public UUID owner;
+        protected void openerCountChanged(Level level, BlockPos pos, BlockState state, int count, int openCount) {
+            PC_BaseChestBlockEntity.this.onInvOpenOrClose(level, pos, state, count, openCount);
+        }
 
-    private final ContainerOpenersCounter openersCounter;
-
+        protected boolean isOwnContainer(Player player) {
+            if (player.containerMenu instanceof PCChestScreenHandler) {
+                Container inventory = ((PCChestScreenHandler)player.containerMenu).getInventory();
+                return inventory == PC_BaseChestBlockEntity.this;
+            } else {
+                return false;
+            }
+        }
+    };
     PCChestTypes type;
-
-    private NonNullList<ItemStack> inventory;
+    private NonNullList<ItemStack> inventory = NonNullList.withSize(54, ItemStack.EMPTY);
 
     public PC_BaseChestBlockEntity(PCChestTypes type, BlockPos pos, BlockState state) {
         super(type.getBlockEntityType(), pos, state);
-        this.animPhase = AnimPhase.CLOSED;
-        this.hasGoldLock = false;
-        this.hasVoidLock = false;
-        this.hasIronLock = false;
-        this.isLocked = false;
-        this.owner = null;
-
-        this.openersCounter = new ContainerOpenersCounter() {
-            @Override
-            protected void onOpen(Level level, BlockPos pos, BlockState state) {
-                PC_BaseChestBlockEntity.playSound(level, pos, state, SoundEvents.CHEST_OPEN);
-            }
-
-            @Override
-            protected void onClose(Level level, BlockPos pos, BlockState state) {
-                PC_BaseChestBlockEntity.playSound(level, pos, state, SoundEvents.CHEST_CLOSE);
-            }
-
-            @Override
-            protected void openerCountChanged(Level level, BlockPos pos, BlockState state, int oldCount, int newCount) {
-                PC_BaseChestBlockEntity.this.onInvOpenOrClose(level, pos, state, oldCount, newCount);
-            }
-
-            @Override
-            protected boolean isOwnContainer(Player player) {
-                if (player.containerMenu instanceof PCChestScreenHandler) {
-                    Container inv = ((PCChestScreenHandler) player.containerMenu).getInventory();
-                    return inv == PC_BaseChestBlockEntity.this;
-                }
-                return false;
-            }
-        };
-
-        this.inventory = NonNullList.withSize(54, ItemStack.EMPTY);
         this.type = type;
         this.setItems(NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY));
     }
 
-    public static int getPlayersLookingInChestCount(BlockGetter level, BlockPos pos) {
-        BlockState blockState = level.getBlockState(pos);
-        if (blockState.hasBlockEntity()) {
-            var blockEntity = level.getBlockEntity(pos);
-            if (blockEntity instanceof PC_BaseChestBlockEntity chest) {
-                return chest.openersCounter.getOpenerCount();
-            }
-        }
-        return 0;
+    public static int getPlayersLookingInChestCount(BlockGetter world, BlockPos pos) {
+        BlockState blockState = world.getBlockState(pos);
+        BlockEntity blockEntity;
+        return blockState.hasBlockEntity() && (blockEntity = world.getBlockEntity(pos)) instanceof PC_BaseChestBlockEntity
+                ? ((PC_BaseChestBlockEntity)blockEntity).stateManager.getOpenerCount()
+                : 0;
     }
 
     public void tick() {
         if (this.level != null) {
             this.prevLidAngle = this.lidAngle;
             if (!this.level.isClientSide) {
-                this.openersCounter.recheckOpeners(this.level, this.worldPosition, this.getBlockState());
+                this.stateManager.recheckOpeners(this.level, this.worldPosition, this.getBlockState());
             }
 
             if (this.getChestState() == PCChestState.OPENED) {
@@ -138,28 +111,25 @@ public class PC_BaseChestBlockEntity extends RandomizableContainerBlockEntity im
     }
 
     public static void copyInventory(PC_BaseChestBlockEntity from, PC_BaseChestBlockEntity to) {
-        NonNullList<ItemStack> fromItems = from.getItems();
+        NonNullList<ItemStack> defaultedList = from.getItems();
         from.setItems(to.getItems());
-        to.setItems(fromItems);
+        to.setItems(defaultedList);
     }
 
-    public static void playSound(Level level, BlockPos pos, BlockState state, SoundEvent soundEvent) {
-        double x = pos.getX() + 0.5D;
-        double y = pos.getY() + 0.5D;
-        double z = pos.getZ() + 0.5D;
-        level.playSound(null, x, y, z, soundEvent, SoundSource.BLOCKS, 0.5F,
-                level.random.nextFloat() * 0.1F + 0.9F);
+    public static void playSound(Level world, BlockPos pos, BlockState state, SoundEvent soundEvent) {
+        double d = pos.getX() + 0.5;
+        double e = pos.getY() + 0.5;
+        double f = pos.getZ() + 0.5;
+        world.playSound(null, d, e, f, soundEvent, SoundSource.BLOCKS, 0.5F, world.random.nextFloat() * 0.1F + 0.9F);
     }
 
-    public static void playSound(Level level, BlockPos pos, BlockState state, SoundEvent soundEvent, float pitchRange) {
-        double x = pos.getX() + 0.5D;
-        double y = pos.getY() + 0.5D;
-        double z = pos.getZ() + 0.5D;
-        level.playSound(null, x, y, z, soundEvent, SoundSource.BLOCKS, 0.5F,
-                level.random.nextFloat() * 0.1F + pitchRange);
+    public static void playSound(Level world, BlockPos pos, BlockState state, SoundEvent soundEvent, float pitchRange) {
+        double d = pos.getX() + 0.5;
+        double e = pos.getY() + 0.5;
+        double f = pos.getZ() + 0.5;
+        world.playSound(null, d, e, f, soundEvent, SoundSource.BLOCKS, 0.5F, world.random.nextFloat() * 0.1F + pitchRange);
     }
 
-    @Override
     public void load(CompoundTag tag) {
         super.load(tag);
         this.inventory = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
@@ -175,13 +145,11 @@ public class PC_BaseChestBlockEntity extends RandomizableContainerBlockEntity im
         this.isNatural = tag.getBoolean("isNatural");
         this.hasBeenInteractedWith = tag.getBoolean("hasBeenOpened");
         this.hasMadeMimic = tag.getBoolean("hasMadeMimic");
-
-        if (tag.hasUUID("pc_owner")) {
+        if (tag.contains("pc_owner")) {
             this.owner = tag.getUUID("pc_owner");
         }
     }
 
-    @Override
     protected void saveAdditional(CompoundTag tag) {
         super.saveAdditional(tag);
         if (!this.trySaveLootTable(tag)) {
@@ -196,137 +164,117 @@ public class PC_BaseChestBlockEntity extends RandomizableContainerBlockEntity im
         tag.putBoolean("isNatural", this.isNatural);
         tag.putBoolean("hasBeenOpened", this.hasBeenInteractedWith);
         tag.putBoolean("hasMadeMimic", this.hasMadeMimic);
-
         if (this.owner != null) {
             tag.putUUID("pc_owner", this.owner);
         }
     }
 
-    @Override
     public void startOpen(Player player) {
         if (!this.remove && !player.isSpectator()) {
-            this.openersCounter.incrementOpeners(player, this.getLevel(), this.getBlockPos(), this.getBlockState());
+            this.stateManager.incrementOpeners(player, this.getLevel(), this.getBlockPos(), this.getBlockState());
         }
     }
 
-    @Override
     public void stopOpen(Player player) {
         if (!this.remove && !player.isSpectator()) {
-            this.openersCounter.decrementOpeners(player, this.getLevel(), this.getBlockPos(), this.getBlockState());
+            this.stateManager.decrementOpeners(player, this.getLevel(), this.getBlockPos(), this.getBlockState());
         }
     }
 
-    @Override
     protected NonNullList<ItemStack> getItems() {
         return this.inventory;
     }
 
-    @Override
-    protected void setItems(NonNullList<ItemStack> items) {
-        this.inventory = items;
+    protected void setItems(NonNullList<ItemStack> itemStacks) {
+        this.inventory = itemStacks;
     }
 
     public void onScheduledTick() {
         if (!this.remove) {
-            this.openersCounter.recheckOpeners(this.getLevel(), this.getBlockPos(), this.getBlockState());
+            this.stateManager.recheckOpeners(this.getLevel(), this.getBlockPos(), this.getBlockState());
         }
     }
 
-    protected void onInvOpenOrClose(Level level, BlockPos pos, BlockState state, int oldViewerCount, int newViewerCount) {
+    protected void onInvOpenOrClose(Level world, BlockPos pos, BlockState state, int oldViewerCount, int newViewerCount) {
         Block block = state.getBlock();
-        level.blockEvent(pos, block, 1, newViewerCount);
-
+        world.blockEvent(pos, block, 1, newViewerCount);
         if (oldViewerCount != newViewerCount) {
             if (newViewerCount > 0) {
-                level.setBlock(pos, state.setValue(CHEST_STATE, PCChestState.OPENED), 3);
+                world.setBlock(pos, (BlockState)state.setValue(CHEST_STATE, PCChestState.OPENED), 3);
             } else {
-                level.setBlock(pos, state.setValue(CHEST_STATE, PCChestState.CLOSED), 3);
+                world.setBlock(pos, (BlockState)state.setValue(CHEST_STATE, PCChestState.CLOSED), 3);
             }
+
             this.setChanged();
-            level.sendBlockUpdated(pos, state, state, 3);
+            world.sendBlockUpdated(pos, state, state, 3);
         }
     }
 
-    @Override
     public boolean triggerEvent(int id, int type) {
-        if (id == 1) {
-            return true;
-        }
-        return super.triggerEvent(id, type);
+        return id == 1 ? true : super.triggerEvent(id, type);
     }
 
     public PCChestState getChestState() {
-        return this.getBlockState().getValue(CHEST_STATE);
+        return (PCChestState)this.getBlockState().getValue(CHEST_STATE);
     }
 
     public void setChestState(PCChestState state) {
-        this.getLevel().setBlock(this.getBlockPos(), this.getBlockState().setValue(CHEST_STATE, state), 3);
+        this.getLevel().setBlockAndUpdate(this.getBlockPos(), (BlockState)this.getBlockState().setValue(CHEST_STATE, state));
     }
 
     @Nullable
-    @Override
-    public AbstractContainerMenu createMenu(int syncId, Inventory playerInventory, Player player) {
+    public AbstractContainerMenu createMenu(int syncId, Inventory inventory, Player player) {
         if (!this.hasBeenInteractedWith && player.isSpectator()) {
             return null;
+        } else if (this.canOpen(player)) {
+            this.unpackLootTable(inventory.player);
+            return PCChestScreenHandler.createScreenHandler(syncId, inventory, this);
+        } else {
+            return null;
         }
-        if (this.canOpen(player)) {
-            this.unpackLootTable(playerInventory.player);
-            return PCChestScreenHandler.createScreenHandler(syncId, playerInventory, this);
-        }
-        return null;
     }
 
     private RawAnimation animLoop(String suffix) {
         String typeName = this.type.name().toLowerCase();
         String animName = typeName + "_" + suffix;
-        System.out.println("[dungeons_and_arcanus] Playing animation: " + animName);
-        return RawAnimation.begin().then(animName, Animation.LoopType.LOOP);
+        System.out.println("[Dungeons_and_arcanus] Playing animation: " + animName);
+        return RawAnimation.begin().then(animName, LoopType.LOOP);
     }
 
     private RawAnimation animHold(String suffix) {
         String typeName = this.type.name().toLowerCase();
         String animName = typeName + "_" + suffix;
-        System.out.println("[dungeons_and_arcanus] Playing animation: " + animName);
-        return RawAnimation.begin().then(animName, Animation.LoopType.HOLD_ON_LAST_FRAME);
+        System.out.println("[Dungeons_and_arcanus] Playing animation: " + animName);
+        return RawAnimation.begin().then(animName, LoopType.HOLD_ON_LAST_FRAME);
     }
 
-    @Override
-    public void registerControllers(AnimatableManager.ControllerRegistrar registrar) {
-        // empty in original
+    public void registerControllers(ControllerRegistrar registrar) {
     }
 
-    @Override
     public AnimatableInstanceCache getAnimatableInstanceCache() {
         return this.cache;
     }
 
-    @Override
     public CompoundTag getUpdateTag() {
         return this.saveWithoutMetadata();
     }
 
-    @Nullable
-    @Override
     public Packet<ClientGamePacketListener> getUpdatePacket() {
         return ClientboundBlockEntityDataPacket.create(this);
     }
 
-    @Override
     public double getTick(Object o) {
-        return this.level != null ? (double) this.level.getGameTime() : 0.0D;
+        return this.level != null ? this.level.getGameTime() : 0.0;
     }
 
-    @Override
-    protected AbstractContainerMenu createMenu(int syncId, Inventory inventory) {
-        return PCChestScreenHandler.createScreenHandler(syncId, inventory, this);
+    protected AbstractContainerMenu createMenu(int containerId, Inventory inventory) {
+        return PCChestScreenHandler.createScreenHandler(containerId, inventory, this);
     }
 
-    @Override
     protected Component getDefaultName() {
         return Component.translatable(this.getBlockState().getBlock().getDescriptionId());
     }
 
-    @Override
     public int getContainerSize() {
         return 54;
     }
@@ -339,6 +287,6 @@ public class PC_BaseChestBlockEntity extends RandomizableContainerBlockEntity im
         CLOSED,
         OPENING,
         OPENED,
-        CLOSING
+        CLOSING;
     }
 }

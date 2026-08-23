@@ -20,15 +20,15 @@ public class PCMimicScreenHandler extends AbstractContainerMenu {
    private Tameable_Pet_With_Inv entity;
 
    public PCMimicScreenHandler(int syncId, Inventory playerInventory) {
-      this(PCScreenHandlerType.PC_CHEST_MIMIC, syncId, playerInventory, new SimpleContainer(36));
+      this(PCScreenHandlerType.PC_CHEST_MIMIC.get(), syncId, playerInventory, new SimpleContainer(36));
    }
 
    public PCMimicScreenHandler(int syncId, Inventory playerInventory, Container inventory) {
-      this(PCScreenHandlerType.PC_CHEST_MIMIC, syncId, playerInventory, inventory);
+      this(PCScreenHandlerType.PC_CHEST_MIMIC.get(), syncId, playerInventory, inventory);
    }
 
    public static PCMimicScreenHandler createScreenHandler(int syncId, Inventory playerInventory, Container inventory) {
-      return new PCMimicScreenHandler(PCScreenHandlerType.PC_CHEST_MIMIC, syncId, playerInventory, inventory);
+      return new PCMimicScreenHandler(PCScreenHandlerType.PC_CHEST_MIMIC.get(), syncId, playerInventory, inventory);
    }
 
    public static PCMimicScreenHandler createScreenHandler(int syncId, Inventory playerInventory, FriendlyByteBuf extraData) {

@@ -1,6 +1,6 @@
 package com.voltaire.d_n_a.dungeons_and_arcanus.blocks.custom;
 
-import com.voltaire.d_n_a.dungeons_and_arcanus.Entity.ModEntitys;
+import com.voltaire.d_n_a.dungeons_and_arcanus.registry.ModEntitys;
 import com.voltaire.d_n_a.dungeons_and_arcanus.Entity.Tameable_Pet_With_Inv;
 import com.voltaire.d_n_a.dungeons_and_arcanus.Entity.PCChestMimic;
 import com.voltaire.d_n_a.dungeons_and_arcanus.blocks.entity.ModBlockEntitys;
@@ -92,7 +92,7 @@ public enum PCChestTypes {
     }
 
     public MenuType<PCChestScreenHandler> getScreenHandlerType() {
-        return PCScreenHandlerType.PC_CHEST;
+        return PCScreenHandlerType.PC_CHEST.get();
     }
 
     public BlockBehaviour.Properties setting() {

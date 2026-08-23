@@ -44,7 +44,7 @@ public class Mimic_Hand_Bell extends Item {
                         CriteriaTriggers.ITEM_USED_ON_BLOCK.trigger(player, blockPos, context.getItemInHand());
                     }
 
-                    playSound(world, blockPos, PCSounds.BELL_HIT_1);
+                    playSound(world, blockPos, PCSounds.BELL_HIT_1.get());
                 }
             }
         }

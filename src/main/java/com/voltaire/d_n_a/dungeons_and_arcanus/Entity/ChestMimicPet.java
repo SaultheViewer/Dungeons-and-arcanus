@@ -329,7 +329,7 @@ public class ChestMimicPet extends Tameable_Pet_With_Inv implements GeoAnimatabl
     public boolean doHurtTarget(Entity target) {
         boolean bl = target.hurt(this.damageSources().mobAttack(this), (float)((int)this.getAttributeValue(Attributes.ATTACK_DAMAGE)));
         if (bl) {
-            this.playSound(PCSounds.MIMIC_BITE, this.getSoundVolume(), 1.5F + this.getPitchOffset(0.2F));
+            this.playSound(PCSounds.MIMIC_BITE.get(), this.getSoundVolume(), 1.5F + this.getPitchOffset(0.2F));
             this.doEnchantDamageEffects(this, target);
             if (target instanceof LivingEntity) {
                 LivingEntity living = (LivingEntity)target;

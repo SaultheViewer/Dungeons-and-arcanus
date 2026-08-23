@@ -2,80 +2,39 @@ package com.voltaire.d_n_a.dungeons_and_arcanus.blocks.entity;
 
 import com.voltaire.d_n_a.dungeons_and_arcanus.Dungeons_and_arcanus;
 import com.voltaire.d_n_a.dungeons_and_arcanus.blocks.ModBlocks;
-import com.voltaire.d_n_a.dungeons_and_arcanus.blocks.custom.PCChestTypes;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 public class ModBlockEntitys {
-    public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITYS =
-            DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, Dungeons_and_arcanus.MOD_ID);
+    public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, Dungeons_and_arcanus.MOD_ID);
 
-    public static final RegistryObject<BlockEntityType<PC_BaseChestBlockEntity>> CORAL_CHEST_BLOCK_ENTITY =
-            BLOCK_ENTITYS.register("coral_chest_block_entity", () ->
-                    BlockEntityType.Builder.of(
-                            (pos, state) -> new PC_BaseChestBlockEntity(PCChestTypes.CORAL, pos, state),
-                            ModBlocks.CORAL_CHEST.get()
-                    ).build(null)
-            );
-    public static final RegistryObject<BlockEntityType<PC_BaseChestBlockEntity>> LUSH_CHEST_BLOCK_ENTITY =
-            BLOCK_ENTITYS.register("lush_chest_block_entity", () ->
-                    BlockEntityType.Builder.of(
-                            (pos, state) -> new PC_BaseChestBlockEntity(PCChestTypes.LUSH, pos, state),
-                            ModBlocks.LUSH_CHEST.get()
-                    ).build(null)
-            );
-    public static final RegistryObject<BlockEntityType<PC_BaseChestBlockEntity>> AZURE_CHEST_BLOCK_ENTITY =
-            BLOCK_ENTITYS.register("azure_chest_block_entity", () ->
-                    BlockEntityType.Builder.of(
-                            (pos, state) -> new PC_BaseChestBlockEntity(PCChestTypes.AZURE, pos, state),
-                            ModBlocks.AZURE_CHEST.get()
-                    ).build(null)
-            );
-    public static final RegistryObject<BlockEntityType<PC_BaseChestBlockEntity>> STONE_CHEST_BLOCK_ENTITY =
-            BLOCK_ENTITYS.register("stone_chest_block_entity", () ->
-                    BlockEntityType.Builder.of(
-                            (pos, state) -> new PC_BaseChestBlockEntity(PCChestTypes.STONE, pos, state),
-                            ModBlocks.STONE_CHEST.get()
-                    ).build(null)
-            );
-    public static final RegistryObject<BlockEntityType<PC_BaseChestBlockEntity>> NORMAL_CHEST_BLOCK_ENTITY =
-            BLOCK_ENTITYS.register("normal_chest_block_entity", () ->
-                    BlockEntityType.Builder.of(
-                            (pos, state) -> new PC_BaseChestBlockEntity(PCChestTypes.NORMAL, pos, state),
-                            ModBlocks.NORMAL_CHEST.get()
-                    ).build(null)
-            );
-    public static final RegistryObject<BlockEntityType<PC_BaseChestBlockEntity>> GOLD_CHEST_BLOCK_ENTITY =
-            BLOCK_ENTITYS.register("gold_chest_block_entity", () ->
-                    BlockEntityType.Builder.of(
-                            (pos, state) -> new PC_BaseChestBlockEntity(PCChestTypes.GOLD, pos, state),
-                            ModBlocks.GOLD_CHEST.get()
-                    ).build(null)
-            );
-    public static final RegistryObject<BlockEntityType<PC_BaseChestBlockEntity>> NETHER_CHEST_BLOCK_ENTITY =
-            BLOCK_ENTITYS.register("nether_chest_block_entity", () ->
-                    BlockEntityType.Builder.of(
-                            (pos, state) -> new PC_BaseChestBlockEntity(PCChestTypes.NETHER, pos, state),
-                            ModBlocks.NETHER_CHEST.get()
-                    ).build(null)
-            );public static final RegistryObject<BlockEntityType<PC_BaseChestBlockEntity>> SHADOW_CHEST_BLOCK_ENTITY =
-            BLOCK_ENTITYS.register("shadow_chest_block_entity", () ->
-                    BlockEntityType.Builder.of(
-                            (pos, state) -> new PC_BaseChestBlockEntity(PCChestTypes.SHADOW, pos, state),
-                            ModBlocks.SHADOW_CHEST.get()
-                    ).build(null)
-            );public static final RegistryObject<BlockEntityType<PC_BaseChestBlockEntity>> ICE_CHEST_BLOCK_ENTITY =
-            BLOCK_ENTITYS.register("ice_chest_block_entity", () ->
-                    BlockEntityType.Builder.of(
-                            (pos, state) -> new PC_BaseChestBlockEntity(PCChestTypes.ICE, pos, state),
-                            ModBlocks.ICE_CHEST.get()
-                    ).build(null)
-            );
-    
-    public static void register(IEventBus eventBus) {
-        BLOCK_ENTITYS.register(eventBus);
-    }
+    public static final RegistryObject<BlockEntityType<LushChestBlockEntity>> LUSH_CHEST_BLOCK_ENTITY = BLOCK_ENTITY_TYPES.register(
+            "lush_chest_block_entity", () -> BlockEntityType.Builder.of(LushChestBlockEntity::new, ModBlocks.LUSH_CHEST.get()).build(null)
+    );
+    public static final RegistryObject<BlockEntityType<NormalChestBlockEntity>> NORMAL_CHEST_BLOCK_ENTITY = BLOCK_ENTITY_TYPES.register(
+            "normal_chest_block_entity", () -> BlockEntityType.Builder.of(NormalChestBlockEntity::new, ModBlocks.NORMAL_CHEST.get()).build(null)
+    );
+    public static final RegistryObject<BlockEntityType<AzureChestBlockEntity>> AZURE_CHEST_BLOCK_ENTITY = BLOCK_ENTITY_TYPES.register(
+            "azure_chest_block_entity", () -> BlockEntityType.Builder.of(AzureChestBlockEntity::new, ModBlocks.AZURE_CHEST.get()).build(null)
+    );
+    public static final RegistryObject<BlockEntityType<StoneChestBlockEntity>> STONE_CHEST_BLOCK_ENTITY = BLOCK_ENTITY_TYPES.register(
+            "stone_chest_block_entity", () -> BlockEntityType.Builder.of(StoneChestBlockEntity::new, ModBlocks.STONE_CHEST.get()).build(null)
+    );
+    public static final RegistryObject<BlockEntityType<GoldChestBlockEntity>> GOLD_CHEST_BLOCK_ENTITY = BLOCK_ENTITY_TYPES.register(
+            "gold_chest_block_entity", () -> BlockEntityType.Builder.of(GoldChestBlockEntity::new, ModBlocks.GOLD_CHEST.get()).build(null)
+    );
+    public static final RegistryObject<BlockEntityType<NetherChestBlockEntity>> NETHER_CHEST_BLOCK_ENTITY = BLOCK_ENTITY_TYPES.register(
+            "nether_chest_block_entity", () -> BlockEntityType.Builder.of(NetherChestBlockEntity::new, ModBlocks.NETHER_CHEST.get()).build(null)
+    );
+    public static final RegistryObject<BlockEntityType<ShadowChestBlockEntity>> SHADOW_CHEST_BLOCK_ENTITY = BLOCK_ENTITY_TYPES.register(
+            "shadow_chest_block_entity", () -> BlockEntityType.Builder.of(ShadowChestBlockEntity::new, ModBlocks.SHADOW_CHEST.get()).build(null)
+    );
+    public static final RegistryObject<BlockEntityType<IceChestBlockEntity>> ICE_CHEST_BLOCK_ENTITY = BLOCK_ENTITY_TYPES.register(
+            "ice_chest_block_entity", () -> BlockEntityType.Builder.of(IceChestBlockEntity::new, ModBlocks.ICE_CHEST.get()).build(null)
+    );
+    public static final RegistryObject<BlockEntityType<CoralChestBlockEntity>> CORAL_CHEST_BLOCK_ENTITY = BLOCK_ENTITY_TYPES.register(
+            "coral_chest_block_entity", () -> BlockEntityType.Builder.of(CoralChestBlockEntity::new, ModBlocks.CORAL_CHEST.get()).build(null)
+    );
 }

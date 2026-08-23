@@ -33,6 +33,6 @@ public class PCSolidGroundPlacementModifier extends PlacementModifier {
    }
 
    public PlacementModifierType<?> type() {
-      return PCPlacementModifierType.SOLID_CHECK;
+      return PCPlacementModifierType.SOLID_CHECK.get();
    }
 }

@@ -188,7 +188,7 @@ public class PCChestMimic extends Tameable_Pet_With_Inv implements GeoAnimatable
    public boolean doHurtTarget(Entity target) {
       boolean bl = target.hurt(this.damageSources().mobAttack(this), (int)this.getAttributeValue(Attributes.ATTACK_DAMAGE));
       if (bl) {
-         this.playSound(PCSounds.MIMIC_BITE, this.getSoundVolume(), 1.5F + this.getPitchOffset(0.2F));
+         this.playSound(PCSounds.MIMIC_BITE.get(), this.getSoundVolume(), 1.5F + this.getPitchOffset(0.2F));
          this.doEnchantDamageEffects(this, target);
       }
 
@@ -304,6 +304,7 @@ public class PCChestMimic extends Tameable_Pet_With_Inv implements GeoAnimatable
    public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob otherParent) {
       return null;
    }
+
 
 
    public static boolean canSpawn(

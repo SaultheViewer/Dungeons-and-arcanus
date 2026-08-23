@@ -3,10 +3,8 @@ package com.voltaire.d_n_a.dungeons_and_arcanus.datagen.loot;
 import com.voltaire.d_n_a.dungeons_and_arcanus.blocks.ModBlocks;
 import com.voltaire.d_n_a.dungeons_and_arcanus.item.ModItems;
 import net.minecraft.data.loot.BlockLootSubProvider;
-import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.storage.loot.LootTable;
@@ -32,11 +30,7 @@ public class ModBlockLootTables extends BlockLootSubProvider {
         this.dropSelf(ModBlocks.SILVER_BLOCK.get());
         this.dropSelf(ModBlocks.ORICALCIUM_BLOCK.get());
         this.dropSelf(ModBlocks.RAW_SILVER_BLOCK.get());
-        //PCLootTables.temp
-        this.dropSelf(ModBlocks.ROCKY_POT.get());
-        this.dropSelf(ModBlocks.NETHER_POT.get());
-        this.dropSelf(ModBlocks.NORMAL_POT.get());
-        this.dropSelf(ModBlocks.LUSH_POT.get());
+
 
         //ores
         this.add(ModBlocks.DEEPSLATE_MITHRIL_ORE.get(),

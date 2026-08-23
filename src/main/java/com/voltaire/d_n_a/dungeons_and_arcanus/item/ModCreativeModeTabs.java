@@ -48,7 +48,7 @@ public class ModCreativeModeTabs {
                     })
                     .build());
     public static final RegistryObject<CreativeModeTab> PROABLY_CHESTS = CREATIVE_MODE_TABS.register("proably_chests",
-            () -> CreativeModeTab.builder().icon(() -> new ItemStack(ModItems.GOLD_LOCK.get()))
+            () -> CreativeModeTab.builder().icon(() -> new ItemStack(ModBlocks.CORAL_CHEST.get()))
                     .title(Component.translatable("creativetab.pc"))
                     .displayItems((pParameters, pOutput) -> {
 
@@ -66,6 +66,15 @@ public class ModCreativeModeTabs {
                         pOutput.accept(ModBlocks.NORMAL_POT.get());
                         pOutput.accept(ModBlocks.NETHER_POT.get());
                         pOutput.accept(ModBlocks.ROCKY_POT.get());
+
+                        pOutput.accept(ModBlocks.ICE_CHEST.get());
+                        pOutput.accept(ModBlocks.NETHER_CHEST.get());
+                        pOutput.accept(ModBlocks.NORMAL_CHEST.get());
+                        pOutput.accept(ModBlocks.LUSH_CHEST.get());
+                        pOutput.accept(ModBlocks.AZURE_CHEST.get());
+                        pOutput.accept(ModBlocks.GOLD_CHEST.get());
+                        pOutput.accept(ModBlocks.SHADOW_CHEST.get());
+                        pOutput.accept(ModBlocks.CORAL_CHEST.get());
 
                     })
                     .build());

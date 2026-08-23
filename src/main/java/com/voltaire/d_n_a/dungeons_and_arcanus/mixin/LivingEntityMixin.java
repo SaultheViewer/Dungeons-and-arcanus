@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin {
    @Inject(method = "dropCustomDeathLoot", at = @At("TAIL"))
-   private void probablychests$dropMimicItems(DamageSource source, int looting, boolean causedByPlayer, CallbackInfo ci) {
+   private void d_n_a$dropMimicItems(DamageSource source, int looting, boolean causedByPlayer, CallbackInfo ci) {
       LivingEntity entity = (LivingEntity)(Object)this;
       if (!entity.level().isClientSide()) {
          if (entity.level() instanceof ServerLevel world) {

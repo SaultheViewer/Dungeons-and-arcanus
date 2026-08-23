@@ -17,11 +17,11 @@ public class PCChestScreenHandler extends AbstractContainerMenu {
    private final int rows = 4;
 
    public PCChestScreenHandler(int syncId, Inventory playerInventory) {
-      this(PCScreenHandlerType.PC_CHEST, syncId, playerInventory, new SimpleContainer(36));
+      this(PCScreenHandlerType.PC_CHEST.get(), syncId, playerInventory, new SimpleContainer(36));
    }
 
    public static PCChestScreenHandler createScreenHandler(int syncId, Inventory playerInventory, Container inventory) {
-      return new PCChestScreenHandler(PCScreenHandlerType.PC_CHEST, syncId, playerInventory, inventory);
+      return new PCChestScreenHandler(PCScreenHandlerType.PC_CHEST.get(), syncId, playerInventory, inventory);
    }
 
    public PCChestScreenHandler(MenuType<?> type, int syncId, Inventory playerInventory, Container inventory) {
