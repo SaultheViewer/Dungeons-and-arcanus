@@ -273,9 +273,8 @@ public class PCChestMimic extends Tameable_Pet_With_Inv implements GeoAnimatable
    @Override
    protected void defineSynchedData() {
       super.defineSynchedData();
-      this.setMimicState(0);
-   }
 
+   }
 
    public boolean requiresCustomPersistence() {
       return this.isPassenger();

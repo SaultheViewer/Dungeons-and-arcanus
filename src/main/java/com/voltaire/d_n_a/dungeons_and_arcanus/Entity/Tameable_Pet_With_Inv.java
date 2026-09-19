@@ -481,6 +481,7 @@ public abstract class Tameable_Pet_With_Inv extends TamableAnimal implements Own
 
     protected void defineSynchedData() {
         super.defineSynchedData();
+        this.entityData.define(MIMIC_STATE, 0);
         this.entityData.define(ANGER_TIME, 0);
         this.entityData.define(IS_ABANDONED, false);
         this.entityData.define(MIMIC_HAS_LOCK, false);
