@@ -5,6 +5,8 @@
   "compatibilityLevel": "JAVA_8",
   "refmap": "dungeons_and_arcanus.refmap.json",
   "mixins": [
+    "ServerPlayerEntityMixin",
+    "LivingEntityMixin"
   ],
   "client": [
   ],

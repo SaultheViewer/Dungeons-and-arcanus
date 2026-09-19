@@ -7,14 +7,14 @@ import software.bernie.geckolib.model.GeoModel;
 public class PCChestMimicModel extends GeoModel<PCChestMimic> {
 
     private static final ResourceLocation MODEL_IDENTIFIER =
-            new ResourceLocation("dungeons_and_arcanus", "geo/pc_chest_mimic.json");
+            new ResourceLocation("d_n_a", "geo/pc_chest_mimic.json");
     private static final ResourceLocation ANIMATION_IDENTIFIER =
-            new ResourceLocation("dungeons_and_arcanus", "animations/pc_chest_mimic.animation.json");
+            new ResourceLocation("d_n_a", "animations/pc_chest_mimic.animation.json");
 
     private final ResourceLocation textureIdentifier;
 
     public PCChestMimicModel(String texture) {
-        this.textureIdentifier = new ResourceLocation("dungeons_and_arcanus", "textures/entity/" + texture + ".png");
+        this.textureIdentifier = new ResourceLocation("d_n_a", "textures/entity/" + texture + ".png");
     }
 
     @Override

@@ -20,54 +20,51 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.UUID;
 
-@Mixin({ServerPlayer.class})
+@Mixin(ServerPlayer.class)
 public abstract class ServerPlayerEntityMixin extends Player implements PlayerEntityAccess {
-   HashSet<UUID> petMimicList = new HashSet();
-   HashSet<UUID> mimicKeepList = new HashSet();
+   HashSet<UUID> petMimicList = new HashSet<>();
+   HashSet<UUID> mimicKeepList = new HashSet<>();
 
    public ServerPlayerEntityMixin(Level world, BlockPos pos, float yaw, GameProfile gameProfile) {
       super(world, pos, yaw, gameProfile);
    }
 
+   @Override
    public void addPetMimicToOwnedList(UUID mimic) {
       this.petMimicList.add(mimic);
    }
 
+   @Override
    public boolean checkForMimicLimit() {
       Iterator<UUID> i = this.petMimicList.iterator();
 
-      while(i.hasNext()) {
-         UUID mimic = (UUID)i.next();
+      while (i.hasNext()) {
+         UUID mimic = i.next();
          Tameable_Pet_With_Inv entity = (Tameable_Pet_With_Inv)((ServerLevel)this.level()).getEntity(mimic);
          if (entity == null || entity.isRemoved()) {
             i.remove();
          }
       }
 
-      if (Dungeons_and_arcanus.loadedConfig.mimicSettings.doPetMimicLimit && 
-              this.getNumberOfPetMimics() >= Dungeons_and_arcanus.loadedConfig.mimicSettings.petMimicLimit) {
-         return true;
-      } else {
-         return false;
-      }
+      return Dungeons_and_arcanus.loadedConfig.mimicSettings.doPetMimicLimit
+              && this.getNumberOfPetMimics() >= Dungeons_and_arcanus.loadedConfig.mimicSettings.petMimicLimit;
    }
 
+   @Override
    public void removePetMimicFromOwnedList(UUID mimic) {
       this.petMimicList.remove(mimic);
    }
 
+   @Override
    public int getNumberOfPetMimics() {
       return this.petMimicList.size();
    }
 
-   @Inject(
-      at = {@At("TAIL")},
-      method = {"method_5652"}
-   )
+   @Inject(at = @At("TAIL"), method = "addAdditionalSaveData")
    public void writeCustomDataToNbt(CompoundTag nbt, CallbackInfo ci) {
       ListTag listnbt = new ListTag();
 
-      for(UUID mimic : this.petMimicList) {
+      for (UUID mimic : this.petMimicList) {
          CompoundTag compoundnbt = new CompoundTag();
          compoundnbt.putUUID("uuid", mimic);
          listnbt.add(compoundnbt);
@@ -76,38 +73,38 @@ public abstract class ServerPlayerEntityMixin extends Player implements PlayerEn
       nbt.put("pet_mimics", listnbt);
    }
 
-   @Inject(
-      at = {@At("TAIL")},
-      method = {"method_5749"}
-   )
+   @Inject(at = @At("TAIL"), method = "readAdditionalSaveData")
    public void readCustomDataFromNbt(CompoundTag nbt, CallbackInfo ci) {
       ListTag listnbt = nbt.getList("pet_mimics", 10);
 
-      for(int i = 0; i < listnbt.size(); ++i) {
+      for (int i = 0; i < listnbt.size(); i++) {
          CompoundTag compoundnbt = listnbt.getCompound(i);
          this.addPetMimicToOwnedList(compoundnbt.getUUID("uuid"));
       }
-
    }
 
+   @Override
    public void addMimicToKeepList(UUID mimic) {
       this.mimicKeepList.add(mimic);
    }
 
+   @Override
    public void removeMimicFromKeepList(UUID mimic) {
       this.mimicKeepList.remove(mimic);
    }
 
+   @Override
    public boolean isMimicInKeepList(UUID mimic) {
       return this.mimicKeepList.contains(mimic);
    }
 
+   @Override
    public int abandonMimics() {
       int removed = 0;
       Iterator<UUID> i = this.petMimicList.iterator();
 
-      while(i.hasNext()) {
-         UUID mimic = (UUID)i.next();
+      while (i.hasNext()) {
+         UUID mimic = i.next();
          if (!this.isMimicInKeepList(mimic)) {
             Tameable_Pet_With_Inv entity = (Tameable_Pet_With_Inv)((ServerLevel)this.level()).getEntity(mimic);
             if (entity != null && !entity.isRemoved()) {
@@ -115,7 +112,7 @@ public abstract class ServerPlayerEntityMixin extends Player implements PlayerEn
             }
 
             i.remove();
-            ++removed;
+            removed++;
          }
       }
 
