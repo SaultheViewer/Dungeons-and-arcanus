@@ -5,7 +5,6 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.MoveControl;
 
 public class MimicMoveControl extends MoveControl {
-
     private final Tameable_Pet_With_Inv mimic;
     private float targetYaw;
     private int ticksUntilJump;
@@ -27,20 +26,16 @@ public class MimicMoveControl extends MoveControl {
         this.operation = Operation.MOVE_TO;
     }
 
-    @Override
     public void tick() {
         this.mob.setYRot(this.rotlerp(this.mob.getYRot(), this.targetYaw, 90.0F));
-        this.mob.yRotO = this.mob.getYRot();
+        this.mob.yHeadRot = this.mob.getYRot();
         this.mob.yBodyRot = this.mob.getYRot();
-
         if (this.operation != Operation.MOVE_TO) {
             this.mob.setZza(0.0F);
         } else {
             this.operation = Operation.WAIT;
-
             if (this.mob.onGround()) {
-                this.mob.setSpeed((float) (this.speedModifier * this.mob.getAttributeValue(Attributes.MOVEMENT_SPEED)));
-
+                this.mob.setSpeed((float)(this.speedModifier * this.mob.getAttributeValue(Attributes.MOVEMENT_SPEED)));
                 if (this.ticksUntilJump-- <= 0) {
                     this.ticksUntilJump = this.mimic.getTicksUntilNextJump();
                     if (this.jumpOften) {
@@ -55,7 +50,7 @@ public class MimicMoveControl extends MoveControl {
                     this.mob.setSpeed(0.0F);
                 }
             } else {
-                this.mob.setSpeed((float) (this.speedModifier * this.mob.getAttributeValue(Attributes.MOVEMENT_SPEED)));
+                this.mob.setSpeed((float)(this.speedModifier * this.mob.getAttributeValue(Attributes.MOVEMENT_SPEED)));
             }
         }
     }

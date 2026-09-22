@@ -2,7 +2,7 @@ package com.voltaire.d_n_a.dungeons_and_arcanus.Entity;
 
 import com.voltaire.d_n_a.dungeons_and_arcanus.Dungeons_and_arcanus;
 import com.voltaire.d_n_a.dungeons_and_arcanus.Entity.ai.MimicMoveControl;
-import com.voltaire.d_n_a.dungeons_and_arcanus.Entity.ai.PCMeleAttackGoal;
+import com.voltaire.d_n_a.dungeons_and_arcanus.Entity.ai.PCMeleeAttackGoal;
 import com.voltaire.d_n_a.dungeons_and_arcanus.registry.PCSounds;
 import com.voltaire.d_n_a.dungeons_and_arcanus.utils.MimicDifficulty;
 import com.voltaire.d_n_a.dungeons_and_arcanus.utils.PCConfig;
@@ -77,7 +77,7 @@ public class PCChestMimic extends Tameable_Pet_With_Inv implements GeoAnimatable
 
    protected void registerGoals() {
       this.goalSelector.addGoal(7, new Tameable_Pet_With_Inv.IdleGoal(this));
-      this.goalSelector.addGoal(5, new PCMeleAttackGoal(this, 1.0, true));
+      this.goalSelector.addGoal(5, new PCMeleeAttackGoal(this, 1.0, true));
       this.goalSelector.addGoal(6, new Tameable_Pet_With_Inv.SleepGoal(this));
       this.goalSelector.addGoal(1, new Tameable_Pet_With_Inv.SwimmingGoal(this));
       this.targetSelector.addGoal(3, new HurtByTargetGoal(this, new Class[0]).setAlertOthers(new Class[0]));

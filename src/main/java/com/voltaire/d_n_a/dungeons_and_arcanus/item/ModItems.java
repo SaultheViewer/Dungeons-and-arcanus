@@ -49,7 +49,7 @@ public class ModItems {
     public static final RegistryObject<Item> VOID_LOCK = ITEMS.register("void_lock",
             () -> new Void_Lock(new Item.Properties()));
     public static final RegistryObject<Item> MIMIC_KEY_FRAGMENT = ITEMS.register("mimic_key_fragment",
-            () -> new Void_Lock(new Item.Properties()));
+            () -> new Item(new Item.Properties()));
 
 
 

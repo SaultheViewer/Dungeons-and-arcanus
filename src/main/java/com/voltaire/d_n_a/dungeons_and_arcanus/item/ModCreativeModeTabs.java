@@ -59,6 +59,7 @@ public class ModCreativeModeTabs {
                         pOutput.accept(ModItems.MIMIC_CORE.get());
                         pOutput.accept(ModItems.MIMIC_HAND_BELL.get());
                         pOutput.accept(ModItems.MIMIC_KEY.get());
+                        pOutput.accept(ModItems.MIMIC_KEY_FRAGMENT.get());
                         pOutput.accept(ModItems.PET_MIMIC_KEY.get());
                         pOutput.accept(ModItems.VOID_KEY.get());
                         pOutput.accept(ModItems.VOID_LOCK.get());
