@@ -1,4 +1,4 @@
-package com.voltaire.d_n_a.dungeons_and_arcanus.worldgen.feature;
+package com.voltaire.d_n_a.dungeons_and_arcanus.world.feature;
 
 import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
@@ -9,7 +9,10 @@ import net.minecraft.world.level.levelgen.placement.PlacementFilter;
 import net.minecraft.world.level.levelgen.placement.PlacementModifierType;
 
 public class PCRarityFilterPlacementModifier extends PlacementFilter {
-   public static final Codec<PCRarityFilterPlacementModifier> MODIFIER_CODEC;
+   public static final Codec<PCRarityFilterPlacementModifier> MODIFIER_CODEC = ExtraCodecs.POSITIVE_FLOAT
+      .fieldOf("chance")
+      .xmap(PCRarityFilterPlacementModifier::new, PCRarityFilterPlacementModifier -> PCRarityFilterPlacementModifier.chance)
+      .codec();
    private final float chance;
 
    private PCRarityFilterPlacementModifier(float chance) {
@@ -26,9 +29,5 @@ public class PCRarityFilterPlacementModifier extends PlacementFilter {
 
    public PlacementModifierType<?> type() {
       return PCPlacementModifierType.PC_RARITY.get();
-   }
-
-   static {
-      MODIFIER_CODEC = ExtraCodecs.POSITIVE_FLOAT.fieldOf("chance").xmap(PCRarityFilterPlacementModifier::new, (PCRarityFilterPlacementModifier) -> PCRarityFilterPlacementModifier.chance).codec();
    }
 }

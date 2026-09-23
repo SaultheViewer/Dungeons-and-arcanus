@@ -1,4 +1,4 @@
-package com.voltaire.d_n_a.dungeons_and_arcanus.worldgen.feature;
+package com.voltaire.d_n_a.dungeons_and_arcanus.world.feature;
 
 import com.mojang.serialization.Codec;
 import com.voltaire.d_n_a.dungeons_and_arcanus.blocks.ModBlocks;
@@ -7,6 +7,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
+
 
 public class NormalPotFeature extends Feature<PCPotFeatureConfig> {
    public NormalPotFeature(Codec<PCPotFeatureConfig> configCodec) {

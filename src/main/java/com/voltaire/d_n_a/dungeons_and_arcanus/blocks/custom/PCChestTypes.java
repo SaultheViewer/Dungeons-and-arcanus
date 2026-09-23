@@ -4,7 +4,7 @@ import com.voltaire.d_n_a.dungeons_and_arcanus.registry.ModEntitys;
 import com.voltaire.d_n_a.dungeons_and_arcanus.Entity.Tameable_Pet_With_Inv;
 import com.voltaire.d_n_a.dungeons_and_arcanus.Entity.PCChestMimic;
 import com.voltaire.d_n_a.dungeons_and_arcanus.blocks.entity.ModBlockEntitys;
-import com.voltaire.d_n_a.dungeons_and_arcanus.blocks.entity.PC_BaseChestBlockEntity;
+import com.voltaire.d_n_a.dungeons_and_arcanus.blocks.entity.PCBaseChestBlockEntity;
 import com.voltaire.d_n_a.dungeons_and_arcanus.registry.PCLootTables;
 import com.voltaire.d_n_a.dungeons_and_arcanus.registry.PCScreenHandlerType;
 import com.voltaire.d_n_a.dungeons_and_arcanus.screenhandlers.PCChestScreenHandler;
@@ -73,7 +73,7 @@ public enum PCChestTypes {
         return this.size / this.rowLength;
     }
 
-    public BlockEntityType<? extends PC_BaseChestBlockEntity> getBlockEntityType() {
+    public BlockEntityType<? extends PCBaseChestBlockEntity> getBlockEntityType() {
         return switch (this) {
             case LUSH -> ModBlockEntitys.LUSH_CHEST_BLOCK_ENTITY.get();
             case NORMAL -> ModBlockEntitys.NORMAL_CHEST_BLOCK_ENTITY.get();
@@ -87,8 +87,8 @@ public enum PCChestTypes {
         };
     }
 
-    public PC_BaseChestBlockEntity makeEntity(BlockPos pos, BlockState state) {
-        return (PC_BaseChestBlockEntity) this.getBlockEntityType().create(pos, state);
+    public PCBaseChestBlockEntity makeEntity(BlockPos pos, BlockState state) {
+        return (PCBaseChestBlockEntity) this.getBlockEntityType().create(pos, state);
     }
 
     public MenuType<PCChestScreenHandler> getScreenHandlerType() {

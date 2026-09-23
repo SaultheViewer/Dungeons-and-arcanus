@@ -3,13 +3,8 @@ package com.voltaire.d_n_a.dungeons_and_arcanus.datagen;
 import com.voltaire.d_n_a.dungeons_and_arcanus.Dungeons_and_arcanus;
 import com.voltaire.d_n_a.dungeons_and_arcanus.item.ModItems;
 import net.minecraft.data.PackOutput;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.Item;
-import net.minecraftforge.client.model.generators.ItemModelBuilder;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
-import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.registries.RegistryObject;
 
 public class ModItemModelProvider extends ItemModelProvider {
     public ModItemModelProvider(PackOutput output, ExistingFileHelper existingFileHelper) {
@@ -36,6 +31,7 @@ public class ModItemModelProvider extends ItemModelProvider {
         basicItem(ModItems.PET_MIMIC_KEY.get());
         basicItem(ModItems.VOID_KEY.get());
         basicItem(ModItems.VOID_LOCK.get());
+        basicItem(ModItems.MIMIC_KEY_FRAGMENT.get());
 
     }
 }

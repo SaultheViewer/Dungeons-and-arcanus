@@ -1,4 +1,4 @@
-package com.voltaire.d_n_a.dungeons_and_arcanus.worldgen.feature;
+package com.voltaire.d_n_a.dungeons_and_arcanus.world.feature;
 
 import com.mojang.serialization.Codec;
 import net.minecraft.world.level.levelgen.feature.Feature;

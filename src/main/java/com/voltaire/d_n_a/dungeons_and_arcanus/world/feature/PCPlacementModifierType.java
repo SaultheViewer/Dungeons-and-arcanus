@@ -1,4 +1,4 @@
-package com.voltaire.d_n_a.dungeons_and_arcanus.worldgen.feature;
+package com.voltaire.d_n_a.dungeons_and_arcanus.world.feature;
 
 import com.mojang.serialization.Codec;
 import com.voltaire.d_n_a.dungeons_and_arcanus.Dungeons_and_arcanus;
@@ -7,7 +7,6 @@ import net.minecraft.world.level.levelgen.placement.PlacementModifier;
 import net.minecraft.world.level.levelgen.placement.PlacementModifierType;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
-
 
 public class PCPlacementModifierType {
    public static final DeferredRegister<PlacementModifierType<?>> PLACEMENT_MODIFIERS = DeferredRegister.create(Registries.PLACEMENT_MODIFIER_TYPE, Dungeons_and_arcanus.MOD_ID);

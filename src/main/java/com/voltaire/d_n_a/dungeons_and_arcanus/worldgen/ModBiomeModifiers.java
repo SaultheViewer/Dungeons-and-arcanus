@@ -1,7 +1,7 @@
 package com.voltaire.d_n_a.dungeons_and_arcanus.worldgen;
 
 import com.voltaire.d_n_a.dungeons_and_arcanus.Dungeons_and_arcanus;
-import com.voltaire.d_n_a.dungeons_and_arcanus.worldgen.feature.PCFeatures;
+import com.voltaire.d_n_a.dungeons_and_arcanus.world.feature.PCFeatures;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;

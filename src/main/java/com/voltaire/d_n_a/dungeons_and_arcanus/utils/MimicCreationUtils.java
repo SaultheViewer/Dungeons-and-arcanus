@@ -6,7 +6,7 @@ import com.voltaire.d_n_a.dungeons_and_arcanus.Entity.PCChestMimic;
 import com.voltaire.d_n_a.dungeons_and_arcanus.Entity.Tameable_Pet_With_Inv;
 import com.voltaire.d_n_a.dungeons_and_arcanus.blocks.custom.PCChestTypes;
 import com.voltaire.d_n_a.dungeons_and_arcanus.blocks.custom.PC_ChestBlock;
-import com.voltaire.d_n_a.dungeons_and_arcanus.blocks.entity.PC_BaseChestBlockEntity;
+import com.voltaire.d_n_a.dungeons_and_arcanus.blocks.entity.PCBaseChestBlockEntity;
 import com.voltaire.d_n_a.dungeons_and_arcanus.interfaces.PlayerEntityAccess;
 import com.voltaire.d_n_a.dungeons_and_arcanus.registry.PCStatistics;
 import net.minecraft.advancements.CriteriaTriggers;
@@ -25,7 +25,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public class MimicCreationUtils {
     public static boolean createHostileMimic(Level world, BlockPos pos, BlockState state, Player player, PCChestTypes type) {
-        PC_BaseChestBlockEntity chest = getChestBlockFromWorld(world, pos);
+        PCBaseChestBlockEntity chest = getChestBlockFromWorld(world, pos);
         if (chest != null) {
             createMimicEntity(false, pos, state, world, chest, player, type);
             return true;
@@ -41,12 +41,12 @@ public class MimicCreationUtils {
     }
 
     public static boolean canCreateHostileMimic(Level world, BlockPos pos, BlockState state, Player player, PCChestTypes type) {
-        PC_BaseChestBlockEntity chest = getChestBlockFromWorld(world, pos);
+        PCBaseChestBlockEntity chest = getChestBlockFromWorld(world, pos);
         return world.getDifficulty() != Difficulty.PEACEFUL && isSecretMimic(chest, world, pos, type);
     }
 
     public static void createMimicEntity(
-            boolean isPetMimic, BlockPos pos, BlockState state, Level world, PC_BaseChestBlockEntity chest, Player player, PCChestTypes type
+            boolean isPetMimic, BlockPos pos, BlockState state, Level world, PCBaseChestBlockEntity chest, Player player, PCChestTypes type
     ) {
         if (!chest.hasMadeMimic) {
             chest.hasMadeMimic = true;
@@ -141,7 +141,7 @@ public class MimicCreationUtils {
         mimic.level().broadcastEntityEvent(mimic, (byte)7);
     }
 
-    public static boolean isSecretMimic(PC_BaseChestBlockEntity chest, Level world, BlockPos pos, PCChestTypes type) {
+    public static boolean isSecretMimic(PCBaseChestBlockEntity chest, Level world, BlockPos pos, PCChestTypes type) {
         if (world.getDifficulty() == Difficulty.PEACEFUL) {
             if (!chest.hasBeenInteractedWith && chest.isNatural) {
                 chest.hasBeenInteractedWith = true;
@@ -165,7 +165,7 @@ public class MimicCreationUtils {
     }
 
     public static boolean canCreatePetMimic(Level world, BlockPos pos, BlockState state, Player player, PCChestTypes type) {
-        PC_BaseChestBlockEntity chest = getChestBlockFromWorld(world, pos);
+        PCBaseChestBlockEntity chest = getChestBlockFromWorld(world, pos);
         return !((PlayerEntityAccess)player).checkForMimicLimit() && !isSecretMimic(chest, world, pos, type);
     }
 
@@ -174,7 +174,7 @@ public class MimicCreationUtils {
     }
 
     public static boolean createPetMimic(Level world, BlockPos pos, BlockState state, Player player, PCChestTypes type) {
-        PC_BaseChestBlockEntity chest = getChestBlockFromWorld(world, pos);
+        PCBaseChestBlockEntity chest = getChestBlockFromWorld(world, pos);
         if (chest != null) {
             createMimicEntity(true, pos, state, world, chest, player, type);
             return true;
@@ -183,10 +183,10 @@ public class MimicCreationUtils {
         }
     }
 
-    public static PC_BaseChestBlockEntity getChestBlockFromWorld(Level world, BlockPos pos) {
-        PC_BaseChestBlockEntity chest = null;
-        if (world.getBlockEntity(pos) instanceof PC_BaseChestBlockEntity) {
-            chest = (PC_BaseChestBlockEntity)world.getBlockEntity(pos);
+    public static PCBaseChestBlockEntity getChestBlockFromWorld(Level world, BlockPos pos) {
+        PCBaseChestBlockEntity chest = null;
+        if (world.getBlockEntity(pos) instanceof PCBaseChestBlockEntity) {
+            chest = (PCBaseChestBlockEntity)world.getBlockEntity(pos);
         }
 
         return chest;

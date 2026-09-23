@@ -1,12 +1,12 @@
 package com.voltaire.d_n_a.dungeons_and_arcanus.client.entity.model;
 
-import com.voltaire.d_n_a.dungeons_and_arcanus.blocks.entity.PC_BaseChestBlockEntity;
+import com.voltaire.d_n_a.dungeons_and_arcanus.blocks.entity.PCBaseChestBlockEntity;
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib.core.animatable.model.CoreGeoBone;
 import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.model.GeoModel;
 
-public class ChestBlockModel extends GeoModel<PC_BaseChestBlockEntity> {
+public class ChestBlockModel extends GeoModel<PCBaseChestBlockEntity> {
 
     private final ResourceLocation model;
     private final ResourceLocation animation;
@@ -22,23 +22,23 @@ public class ChestBlockModel extends GeoModel<PC_BaseChestBlockEntity> {
     }
 
     @Override
-    public ResourceLocation getModelResource(PC_BaseChestBlockEntity entity) {
+    public ResourceLocation getModelResource(PCBaseChestBlockEntity entity) {
         return this.model;
     }
 
     @Override
-    public ResourceLocation getTextureResource(PC_BaseChestBlockEntity entity) {
+    public ResourceLocation getTextureResource(PCBaseChestBlockEntity entity) {
         return this.texture;
     }
 
     @Override
-    public ResourceLocation getAnimationResource(PC_BaseChestBlockEntity entity) {
+    public ResourceLocation getAnimationResource(PCBaseChestBlockEntity entity) {
         return this.animation;
     }
 
     @Override
-    public void setCustomAnimations(PC_BaseChestBlockEntity entity, long instanceId,
-                                    AnimationState<PC_BaseChestBlockEntity> state) {
+    public void setCustomAnimations(PCBaseChestBlockEntity entity, long instanceId,
+                                    AnimationState<PCBaseChestBlockEntity> state) {
         super.setCustomAnimations(entity, instanceId, state);
 
         CoreGeoBone lid = this.getAnimationProcessor().getBone("Lid");

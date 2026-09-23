@@ -23,7 +23,11 @@ public class ModBlockTagGenerator extends BlockTagsProvider {
         this.tag(BlockTags.MINEABLE_WITH_AXE)
                 .add(ModBlocks.LUSH_CHEST.get(),
               ModBlocks.NORMAL_CHEST.get(),
-              ModBlocks.CORAL_CHEST.get()
+              ModBlocks.CORAL_CHEST.get(),
+              ModBlocks.AZURE_CHEST.get(),
+              ModBlocks.GOLD_CHEST.get(),
+              ModBlocks.SHADOW_CHEST.get(),
+              ModBlocks.NETHER_CHEST.get()
               );
 
         this.tag(BlockTags.MINEABLE_WITH_PICKAXE)

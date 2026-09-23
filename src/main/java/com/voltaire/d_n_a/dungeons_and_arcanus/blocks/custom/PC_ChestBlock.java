@@ -1,7 +1,7 @@
 package com.voltaire.d_n_a.dungeons_and_arcanus.blocks.custom;
 
 import com.voltaire.d_n_a.dungeons_and_arcanus.Dungeons_and_arcanus;
-import com.voltaire.d_n_a.dungeons_and_arcanus.blocks.entity.PC_BaseChestBlockEntity;
+import com.voltaire.d_n_a.dungeons_and_arcanus.blocks.entity.PCBaseChestBlockEntity;
 import com.voltaire.d_n_a.dungeons_and_arcanus.item.ModItems;
 import com.voltaire.d_n_a.dungeons_and_arcanus.registry.PCProperties;
 import com.voltaire.d_n_a.dungeons_and_arcanus.registry.PCSounds;
@@ -45,7 +45,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import java.util.Map;
 import java.util.Objects;
 
-public class PC_ChestBlock extends AbstractChestBlock<PC_BaseChestBlockEntity> implements SimpleWaterloggedBlock {
+public class PC_ChestBlock extends AbstractChestBlock<PCBaseChestBlockEntity> implements SimpleWaterloggedBlock {
     public static final DirectionProperty FACING;
     public static final BooleanProperty WATERLOGGED;
     public static final EnumProperty<PCChestState> CHEST_STATE;
@@ -133,9 +133,9 @@ public class PC_ChestBlock extends AbstractChestBlock<PC_BaseChestBlockEntity> i
     }
 
     public boolean unlockBlock(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-        PC_BaseChestBlockEntity chest = MimicCreationUtils.getChestBlockFromWorld(world, pos);
+        PCBaseChestBlockEntity chest = MimicCreationUtils.getChestBlockFromWorld(world, pos);
         if (Dungeons_and_arcanus.loadedConfig.chestSettings.enableLockedChestOwners && chest.owner != null && !player.getUUID().equals(chest.owner)) {
-            PC_BaseChestBlockEntity.playSound(world, pos, state, PCSounds.APPLY_LOCK2.get(), 1.0F);
+            PCBaseChestBlockEntity.playSound(world, pos, state, PCSounds.APPLY_LOCK2.get(), 1.0F);
             return false;
         }
 
@@ -143,7 +143,7 @@ public class PC_ChestBlock extends AbstractChestBlock<PC_BaseChestBlockEntity> i
         ItemStack itemStack = player.getItemInHand(hand);
         if (chest.hasGoldLock && itemStack.is(ModItems.GOLD_KEY.get())) {
             chest.isLocked = false;
-            PC_BaseChestBlockEntity.playSound(world, pos, state, PCSounds.LOCK_UNLOCK.get(), 1.3F);
+            PCBaseChestBlockEntity.playSound(world, pos, state, PCSounds.LOCK_UNLOCK.get(), 1.3F);
             if (chest.isNatural && !chest.hasBeenInteractedWith) {
                 if (!player.getAbilities().instabuild) {
                     itemStack.shrink(1);
@@ -157,7 +157,7 @@ public class PC_ChestBlock extends AbstractChestBlock<PC_BaseChestBlockEntity> i
             return true;
         } else if (chest.hasVoidLock && itemStack.is(ModItems.VOID_KEY.get())) {
             chest.isLocked = false;
-            PC_BaseChestBlockEntity.playSound(world, pos, state, PCSounds.LOCK_UNLOCK.get(), 1.3F);
+            PCBaseChestBlockEntity.playSound(world, pos, state, PCSounds.LOCK_UNLOCK.get(), 1.3F);
             if (chest.isNatural && !chest.hasBeenInteractedWith) {
                 if (!player.getAbilities().instabuild) {
                     itemStack.shrink(1);
@@ -171,7 +171,7 @@ public class PC_ChestBlock extends AbstractChestBlock<PC_BaseChestBlockEntity> i
             return true;
         } else if (chest.hasIronLock && itemStack.is(ModItems.IRON_KEY.get())) {
             chest.isLocked = false;
-            PC_BaseChestBlockEntity.playSound(world, pos, state, PCSounds.LOCK_UNLOCK.get(), 1.3F);
+            PCBaseChestBlockEntity.playSound(world, pos, state, PCSounds.LOCK_UNLOCK.get(), 1.3F);
             if (chest.isNatural && !chest.hasBeenInteractedWith) {
                 if (!player.getAbilities().instabuild) {
                     itemStack.shrink(1);
@@ -184,28 +184,28 @@ public class PC_ChestBlock extends AbstractChestBlock<PC_BaseChestBlockEntity> i
 
             return true;
         } else {
-            PC_BaseChestBlockEntity.playSound(world, pos, state, PCSounds.APPLY_LOCK2.get(), 1.0F);
+            PCBaseChestBlockEntity.playSound(world, pos, state, PCSounds.APPLY_LOCK2.get(), 1.0F);
             return false;
         }
     }
 
     public boolean lockBlock(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-        PC_BaseChestBlockEntity chest = MimicCreationUtils.getChestBlockFromWorld(world, pos);
+        PCBaseChestBlockEntity chest = MimicCreationUtils.getChestBlockFromWorld(world, pos);
         if (Dungeons_and_arcanus.loadedConfig.chestSettings.enableLockedChestOwners && chest.owner != null && !player.getUUID().equals(chest.owner)) {
             return false;
         } else {
             ItemStack itemStack = player.getItemInHand(hand);
             if (chest.hasGoldLock && itemStack.is(ModItems.GOLD_KEY.get())) {
                 chest.isLocked = true;
-                PC_BaseChestBlockEntity.playSound(world, pos, state, PCSounds.LOCK_UNLOCK.get(), 0.6F);
+                PCBaseChestBlockEntity.playSound(world, pos, state, PCSounds.LOCK_UNLOCK.get(), 0.6F);
                 return true;
             } else if (chest.hasVoidLock && itemStack.is(ModItems.VOID_KEY.get())) {
                 chest.isLocked = true;
-                PC_BaseChestBlockEntity.playSound(world, pos, state, PCSounds.LOCK_UNLOCK.get(), 0.6F);
+                PCBaseChestBlockEntity.playSound(world, pos, state, PCSounds.LOCK_UNLOCK.get(), 0.6F);
                 return true;
             } else if (chest.hasIronLock && itemStack.is(ModItems.IRON_KEY.get())) {
                 chest.isLocked = true;
-                PC_BaseChestBlockEntity.playSound(world, pos, state, PCSounds.LOCK_UNLOCK.get(), 0.6F);
+                PCBaseChestBlockEntity.playSound(world, pos, state, PCSounds.LOCK_UNLOCK.get(), 0.6F);
                 return true;
             } else {
                 return false;
@@ -218,7 +218,7 @@ public class PC_ChestBlock extends AbstractChestBlock<PC_BaseChestBlockEntity> i
             return false;
         }
 
-        PC_BaseChestBlockEntity chest = MimicCreationUtils.getChestBlockFromWorld(world, pos);
+        PCBaseChestBlockEntity chest = MimicCreationUtils.getChestBlockFromWorld(world, pos);
         ItemStack itemStack = player.getItemInHand(hand);
         if (!chest.hasGoldLock && !chest.hasVoidLock && !chest.hasIronLock) {
             if (itemStack.is(ModItems.GOLD_LOCK.get()) && chest.type().equals(PCChestTypes.GOLD)) {
@@ -229,7 +229,7 @@ public class PC_ChestBlock extends AbstractChestBlock<PC_BaseChestBlockEntity> i
                     itemStack.shrink(1);
                 }
 
-                PC_BaseChestBlockEntity.playSound(world, pos, state, PCSounds.APPLY_LOCK1.get(), 0.6F);
+                PCBaseChestBlockEntity.playSound(world, pos, state, PCSounds.APPLY_LOCK1.get(), 0.6F);
                 return true;
             }
 
@@ -241,7 +241,7 @@ public class PC_ChestBlock extends AbstractChestBlock<PC_BaseChestBlockEntity> i
                     itemStack.shrink(1);
                 }
 
-                PC_BaseChestBlockEntity.playSound(world, pos, state, PCSounds.APPLY_LOCK1.get(), 0.6F);
+                PCBaseChestBlockEntity.playSound(world, pos, state, PCSounds.APPLY_LOCK1.get(), 0.6F);
                 return true;
             }
 
@@ -253,7 +253,7 @@ public class PC_ChestBlock extends AbstractChestBlock<PC_BaseChestBlockEntity> i
                     itemStack.shrink(1);
                 }
 
-                PC_BaseChestBlockEntity.playSound(world, pos, state, PCSounds.APPLY_LOCK1.get(), 0.6F);
+                PCBaseChestBlockEntity.playSound(world, pos, state, PCSounds.APPLY_LOCK1.get(), 0.6F);
                 return true;
             }
         }
@@ -274,7 +274,7 @@ public class PC_ChestBlock extends AbstractChestBlock<PC_BaseChestBlockEntity> i
             return InteractionResult.SUCCESS;
         }
 
-        PC_BaseChestBlockEntity chest = MimicCreationUtils.getChestBlockFromWorld(level, pos);
+        PCBaseChestBlockEntity chest = MimicCreationUtils.getChestBlockFromWorld(level, pos);
         PCConfig config = Dungeons_and_arcanus.loadedConfig;
         ItemStack itemStack = player.getItemInHand(hand);
         if (chest.isLocked) {
@@ -351,7 +351,7 @@ public class PC_ChestBlock extends AbstractChestBlock<PC_BaseChestBlockEntity> i
     public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
         if (!state.is(newState.getBlock())) {
             BlockEntity blockEntity = level.getBlockEntity(pos);
-            PC_BaseChestBlockEntity chest = MimicCreationUtils.getChestBlockFromWorld(level, pos);
+            PCBaseChestBlockEntity chest = MimicCreationUtils.getChestBlockFromWorld(level, pos);
             if (chest == null) {
                 super.onRemove(state, level, pos, newState, movedByPiston);
             } else {
@@ -383,7 +383,7 @@ public class PC_ChestBlock extends AbstractChestBlock<PC_BaseChestBlockEntity> i
     }
 
     public void setPlacedBy(Level level, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
-        PC_BaseChestBlockEntity chest = MimicCreationUtils.getChestBlockFromWorld(level, pos);
+        PCBaseChestBlockEntity chest = MimicCreationUtils.getChestBlockFromWorld(level, pos);
         if (chest != null && stack.hasCustomHoverName()) {
             chest.setCustomName(stack.getHoverName());
         }
@@ -392,7 +392,7 @@ public class PC_ChestBlock extends AbstractChestBlock<PC_BaseChestBlockEntity> i
 
     public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
         BlockEntity be = level.getBlockEntity(pos);
-        if (be instanceof PC_BaseChestBlockEntity chest) {
+        if (be instanceof PCBaseChestBlockEntity chest) {
             PCChestState current = chest.getChestState();
             if (current == PCChestState.OPEN) {
                 chest.setChestState(PCChestState.OPENED);
@@ -441,7 +441,7 @@ public class PC_ChestBlock extends AbstractChestBlock<PC_BaseChestBlockEntity> i
         return super.updateShape(state, direction, neighborState, level, pos, neighborPos);
     }
 
-    public BlockEntityType<? extends PC_BaseChestBlockEntity> getExpectedEntityType() {
+    public BlockEntityType<? extends PCBaseChestBlockEntity> getExpectedEntityType() {
         return (BlockEntityType)this.blockEntityType.get();
     }
 

@@ -1,4 +1,4 @@
-package com.voltaire.d_n_a.dungeons_and_arcanus.worldgen.feature;
+package com.voltaire.d_n_a.dungeons_and_arcanus.world.feature;
 
 import com.voltaire.d_n_a.dungeons_and_arcanus.Dungeons_and_arcanus;
 import com.voltaire.d_n_a.dungeons_and_arcanus.registry.PCFeatureRegistry;
@@ -20,6 +20,7 @@ import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConf
 import net.minecraft.world.level.levelgen.placement.*;
 
 import java.util.List;
+
 
 public class PCFeatures {
    private static final Feature<NoneFeatureConfiguration> UNDERGROUND_CHEST_FEATURE = PCFeatureRegistry.UNDERGROUND_CHEST.get();
@@ -57,74 +58,74 @@ public class PCFeatures {
       float potChance = config.worldGen.potSpawnChance;
       HolderGetter<ConfiguredFeature<?, ?>> lookup = context.lookup(Registries.CONFIGURED_FEATURE);
       registerPlaced(
-              context,
-              UNDERGROUND_CHEST_PLACED_KEY,
-              lookup.getOrThrow(UNDERGROUND_CHEST_KEY),
-              CountPlacement.of(2),
-              InSquarePlacement.spread(),
-              PCRarityFilterPlacementModifier.of(chestChance * 0.85F),
-              HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(6), VerticalAnchor.absolute(64)),
-              EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), 32),
-              BiomeFilter.biome()
+         context,
+         UNDERGROUND_CHEST_PLACED_KEY,
+         lookup.getOrThrow(UNDERGROUND_CHEST_KEY),
+         CountPlacement.of(2),
+         InSquarePlacement.spread(),
+         PCRarityFilterPlacementModifier.of(chestChance * 0.85F),
+         HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(6), VerticalAnchor.absolute(64)),
+         EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), 32),
+         BiomeFilter.biome()
       );
       registerPlaced(
-              context,
-              NETHER_CHEST_PLACED_KEY,
-              lookup.getOrThrow(NETHER_CHEST_KEY),
-              CountPlacement.of(2),
-              InSquarePlacement.spread(),
-              PCRarityFilterPlacementModifier.of(chestChance * 0.75F),
-              HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(6), VerticalAnchor.belowTop(6)),
-              EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), 12),
-              BiomeFilter.biome()
+         context,
+         NETHER_CHEST_PLACED_KEY,
+         lookup.getOrThrow(NETHER_CHEST_KEY),
+         CountPlacement.of(2),
+         InSquarePlacement.spread(),
+         PCRarityFilterPlacementModifier.of(chestChance * 0.75F),
+         HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(6), VerticalAnchor.belowTop(6)),
+         EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), 12),
+         BiomeFilter.biome()
       );
       registerPlaced(
-              context,
-              NORMAL_POT_PLACED_KEY,
-              lookup.getOrThrow(NORMAL_POT_KEY),
-              PCRarityFilterPlacementModifier.of(potChance),
-              CountPlacement.of(8),
-              InSquarePlacement.spread(),
-              PCGroundPlacementModifier.of(
-                      Direction.DOWN, BlockPredicate.hasSturdyFace(Direction.UP), BlockPredicate.ONLY_IN_AIR_PREDICATE, 20, Types.WORLD_SURFACE_WG, 300
-              ),
-              BiomeFilter.biome()
+         context,
+         NORMAL_POT_PLACED_KEY,
+         lookup.getOrThrow(NORMAL_POT_KEY),
+         PCRarityFilterPlacementModifier.of(potChance),
+         CountPlacement.of(8),
+         InSquarePlacement.spread(),
+         PCGroundPlacementModifier.of(
+            Direction.DOWN, BlockPredicate.hasSturdyFace(Direction.UP), BlockPredicate.ONLY_IN_AIR_PREDICATE, 20, Types.WORLD_SURFACE_WG, 300
+         ),
+         BiomeFilter.biome()
       );
       registerPlaced(
-              context,
-              LUSH_POT_PLACED_KEY,
-              lookup.getOrThrow(LUSH_POT_KEY),
-              PCRarityFilterPlacementModifier.of(potChance),
-              CountPlacement.of(8),
-              InSquarePlacement.spread(),
-              PCGroundPlacementModifier.of(
-                      Direction.DOWN, BlockPredicate.hasSturdyFace(Direction.UP), BlockPredicate.ONLY_IN_AIR_PREDICATE, 20, Types.WORLD_SURFACE_WG, 300
-              ),
-              BiomeFilter.biome()
+         context,
+         LUSH_POT_PLACED_KEY,
+         lookup.getOrThrow(LUSH_POT_KEY),
+         PCRarityFilterPlacementModifier.of(potChance),
+         CountPlacement.of(8),
+         InSquarePlacement.spread(),
+         PCGroundPlacementModifier.of(
+            Direction.DOWN, BlockPredicate.hasSturdyFace(Direction.UP), BlockPredicate.ONLY_IN_AIR_PREDICATE, 20, Types.WORLD_SURFACE_WG, 300
+         ),
+         BiomeFilter.biome()
       );
       registerPlaced(
-              context,
-              ROCKY_POT_PLACED_KEY,
-              lookup.getOrThrow(ROCKY_POT_KEY),
-              PCRarityFilterPlacementModifier.of(potChance),
-              CountPlacement.of(8),
-              InSquarePlacement.spread(),
-              PCGroundPlacementModifier.of(
-                      Direction.DOWN, BlockPredicate.hasSturdyFace(Direction.UP), BlockPredicate.ONLY_IN_AIR_PREDICATE, 20, Types.WORLD_SURFACE_WG, 300
-              ),
-              BiomeFilter.biome()
+         context,
+         ROCKY_POT_PLACED_KEY,
+         lookup.getOrThrow(ROCKY_POT_KEY),
+         PCRarityFilterPlacementModifier.of(potChance),
+         CountPlacement.of(8),
+         InSquarePlacement.spread(),
+         PCGroundPlacementModifier.of(
+            Direction.DOWN, BlockPredicate.hasSturdyFace(Direction.UP), BlockPredicate.ONLY_IN_AIR_PREDICATE, 20, Types.WORLD_SURFACE_WG, 300
+         ),
+         BiomeFilter.biome()
       );
       registerPlaced(
-              context,
-              NETHER_POT_PLACED_KEY,
-              lookup.getOrThrow(NETHER_POT_KEY),
-              PCRarityFilterPlacementModifier.of(potChance),
-              CountPlacement.of(8),
-              InSquarePlacement.spread(),
-              PCGroundPlacementModifier.of(
-                      Direction.DOWN, BlockPredicate.hasSturdyFace(Direction.UP), BlockPredicate.ONLY_IN_AIR_PREDICATE, 20, Types.WORLD_SURFACE_WG, 300
-              ),
-              BiomeFilter.biome()
+         context,
+         NETHER_POT_PLACED_KEY,
+         lookup.getOrThrow(NETHER_POT_KEY),
+         PCRarityFilterPlacementModifier.of(potChance),
+         CountPlacement.of(8),
+         InSquarePlacement.spread(),
+         PCGroundPlacementModifier.of(
+            Direction.DOWN, BlockPredicate.hasSturdyFace(Direction.UP), BlockPredicate.ONLY_IN_AIR_PREDICATE, 20, Types.WORLD_SURFACE_WG, 300
+         ),
+         BiomeFilter.biome()
       );
    }
 
@@ -137,13 +138,13 @@ public class PCFeatures {
    }
 
    private static <FC extends FeatureConfiguration, F extends Feature<FC>> void registerConfigured(
-           BootstapContext<ConfiguredFeature<?, ?>> context, ResourceKey<ConfiguredFeature<?, ?>> key, F feature, FC config
+      BootstapContext<ConfiguredFeature<?, ?>> context, ResourceKey<ConfiguredFeature<?, ?>> key, F feature, FC config
    ) {
       context.register(key, new ConfiguredFeature(feature, config));
    }
 
    private static void registerPlaced(
-           BootstapContext<PlacedFeature> context, ResourceKey<PlacedFeature> key, Holder<ConfiguredFeature<?, ?>> configured, PlacementModifier... modifiers
+      BootstapContext<PlacedFeature> context, ResourceKey<PlacedFeature> key, Holder<ConfiguredFeature<?, ?>> configured, PlacementModifier... modifiers
    ) {
       context.register(key, new PlacedFeature(configured, List.of(modifiers)));
    }

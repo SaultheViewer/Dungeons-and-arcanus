@@ -38,7 +38,7 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.UUID;
 
-public class PC_BaseChestBlockEntity extends RandomizableContainerBlockEntity implements GeoAnimatable {
+public class PCBaseChestBlockEntity extends RandomizableContainerBlockEntity implements GeoAnimatable {
     public static final EnumProperty<PCChestState> CHEST_STATE = PCProperties.PC_CHEST_STATE;
     private static final String CONTROLLER_NAME = "chestController";
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
@@ -58,21 +58,21 @@ public class PC_BaseChestBlockEntity extends RandomizableContainerBlockEntity im
     public UUID owner = null;
     private final ContainerOpenersCounter stateManager = new ContainerOpenersCounter() {
         protected void onOpen(Level level, BlockPos pos, BlockState state) {
-            PC_BaseChestBlockEntity.playSound(level, pos, state, SoundEvents.CHEST_OPEN);
+            PCBaseChestBlockEntity.playSound(level, pos, state, SoundEvents.CHEST_OPEN);
         }
 
         protected void onClose(Level level, BlockPos pos, BlockState state) {
-            PC_BaseChestBlockEntity.playSound(level, pos, state, SoundEvents.CHEST_CLOSE);
+            PCBaseChestBlockEntity.playSound(level, pos, state, SoundEvents.CHEST_CLOSE);
         }
 
         protected void openerCountChanged(Level level, BlockPos pos, BlockState state, int count, int openCount) {
-            PC_BaseChestBlockEntity.this.onInvOpenOrClose(level, pos, state, count, openCount);
+            PCBaseChestBlockEntity.this.onInvOpenOrClose(level, pos, state, count, openCount);
         }
 
         protected boolean isOwnContainer(Player player) {
             if (player.containerMenu instanceof PCChestScreenHandler) {
                 Container inventory = ((PCChestScreenHandler)player.containerMenu).getInventory();
-                return inventory == PC_BaseChestBlockEntity.this;
+                return inventory == PCBaseChestBlockEntity.this;
             } else {
                 return false;
             }
@@ -81,7 +81,7 @@ public class PC_BaseChestBlockEntity extends RandomizableContainerBlockEntity im
     PCChestTypes type;
     private NonNullList<ItemStack> inventory = NonNullList.withSize(54, ItemStack.EMPTY);
 
-    public PC_BaseChestBlockEntity(PCChestTypes type, BlockPos pos, BlockState state) {
+    public PCBaseChestBlockEntity(PCChestTypes type, BlockPos pos, BlockState state) {
         super(type.getBlockEntityType(), pos, state);
         this.type = type;
         this.setItems(NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY));
@@ -90,8 +90,8 @@ public class PC_BaseChestBlockEntity extends RandomizableContainerBlockEntity im
     public static int getPlayersLookingInChestCount(BlockGetter world, BlockPos pos) {
         BlockState blockState = world.getBlockState(pos);
         BlockEntity blockEntity;
-        return blockState.hasBlockEntity() && (blockEntity = world.getBlockEntity(pos)) instanceof PC_BaseChestBlockEntity
-                ? ((PC_BaseChestBlockEntity)blockEntity).stateManager.getOpenerCount()
+        return blockState.hasBlockEntity() && (blockEntity = world.getBlockEntity(pos)) instanceof PCBaseChestBlockEntity
+                ? ((PCBaseChestBlockEntity)blockEntity).stateManager.getOpenerCount()
                 : 0;
     }
 
@@ -110,7 +110,7 @@ public class PC_BaseChestBlockEntity extends RandomizableContainerBlockEntity im
         }
     }
 
-    public static void copyInventory(PC_BaseChestBlockEntity from, PC_BaseChestBlockEntity to) {
+    public static void copyInventory(PCBaseChestBlockEntity from, PCBaseChestBlockEntity to) {
         NonNullList<ItemStack> defaultedList = from.getItems();
         from.setItems(to.getItems());
         to.setItems(defaultedList);

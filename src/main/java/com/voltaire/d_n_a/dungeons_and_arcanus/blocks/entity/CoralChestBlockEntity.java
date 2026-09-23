@@ -5,7 +5,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.state.BlockState;
 
 
-public class CoralChestBlockEntity extends PC_BaseChestBlockEntity {
+public class CoralChestBlockEntity extends PCBaseChestBlockEntity {
    public CoralChestBlockEntity(BlockPos pos, BlockState state) {
       super(PCChestTypes.CORAL, pos, state);
    }

@@ -5,7 +5,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.state.BlockState;
 
 
-public class ShadowChestBlockEntity extends PC_BaseChestBlockEntity {
+public class ShadowChestBlockEntity extends PCBaseChestBlockEntity {
    public ShadowChestBlockEntity(BlockPos pos, BlockState state) {
       super(PCChestTypes.SHADOW, pos, state);
    }

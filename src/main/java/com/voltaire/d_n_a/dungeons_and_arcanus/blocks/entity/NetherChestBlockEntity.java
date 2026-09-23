@@ -5,7 +5,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.state.BlockState;
 
 
-public class NetherChestBlockEntity extends PC_BaseChestBlockEntity {
+public class NetherChestBlockEntity extends PCBaseChestBlockEntity {
    public NetherChestBlockEntity(BlockPos pos, BlockState state) {
       super(PCChestTypes.NETHER, pos, state);
    }
