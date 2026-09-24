@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "minecraft:amethyst_shard"
+    },
+    "I": {
+      "item": "minecraft:copper_ingot"
+    },
+    "S": {
+      "item": "minecraft:stick"
+    }
+  },
+  "pattern": [
+    " IA",
+    " SI",
+    "S  "
+  ],
+  "result": {
+    "item": "d_n_a:mimic_hand_bell"
+  },
+  "show_notification": true
+}

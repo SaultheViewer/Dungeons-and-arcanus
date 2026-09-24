@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_mimic_key": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "d_n_a:mimic_key"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "d_n_a:pet_mimic_key"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_mimic_key",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "d_n_a:pet_mimic_key"
+    ]
+  },
+  "sends_telemetry_event": false
+}

@@ -1,14 +1,7 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "FLF",
-    "VCV",
-    "FLF"
-  ],
+  "category": "misc",
   "key": {
-    "L": {
-      "tag": "minecraft:logs"
-    },
     "C": {
       "item": "minecraft:chest"
     },
@@ -23,12 +16,20 @@
         "item": "minecraft:horn_coral"
       }
     ],
+    "L": {
+      "tag": "minecraft:logs"
+    },
     "V": {
       "item": "minecraft:kelp"
     }
   },
+  "pattern": [
+    "FLF",
+    "VCV",
+    "FLF"
+  ],
   "result": {
-    "item": "d_n_a:coral_chest",
-    "count": 1
-  }
+    "item": "d_n_a:coral_chest"
+  },
+  "show_notification": true
 }

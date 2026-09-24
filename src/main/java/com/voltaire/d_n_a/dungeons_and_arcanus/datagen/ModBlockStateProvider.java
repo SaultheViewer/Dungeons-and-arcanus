@@ -33,11 +33,22 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
 
         //custom blocks go here
+        blockItem(ModBlocks.ROCKY_POT);
+        blockItem(ModBlocks.NETHER_POT);
+        blockItem(ModBlocks.NORMAL_POT);
+        blockItem(ModBlocks.LUSH_POT);
+
 
 
 
     }
     private void blockWithItem(RegistryObject<Block> blockRegistryObject) {
         simpleBlockWithItem(blockRegistryObject.get(), cubeAll(blockRegistryObject.get()));
+    }
+    private void blockItem(RegistryObject<Block> blockRegistryObject) {
+        simpleBlockItem(
+                blockRegistryObject.get(),
+                models().getExistingFile(modLoc("block/" + blockRegistryObject.getId().getPath()))
+        );
     }
 }

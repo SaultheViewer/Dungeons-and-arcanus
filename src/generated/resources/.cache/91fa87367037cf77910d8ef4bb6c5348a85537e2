@@ -1,4 +1,4 @@
-// 1.20.1	2026-07-21T16:05:32.0249893	Item Models: d_n_a
+// 1.20.1	2026-09-23T09:01:15.0318152	Item Models: d_n_a
 7926b5ad06eff2adf0765b2b0e4af21ae686f14c assets/d_n_a/models/item/gold_key.json
 e8e442042b677ba768e8c7028104fe0746209d2d assets/d_n_a/models/item/gold_lock.json
 f57b55182d5bc91cf2dade439e65701b207abf21 assets/d_n_a/models/item/iron_key.json
@@ -6,6 +6,7 @@ f57b55182d5bc91cf2dade439e65701b207abf21 assets/d_n_a/models/item/iron_key.json
 9950307aee2d191b44e0bdb3ae7f5a3a757b9992 assets/d_n_a/models/item/mimic_core.json
 4fabf0f5f567ff0a5c7c7ad2eeec0221fb393f37 assets/d_n_a/models/item/mimic_hand_bell.json
 a0f7a17741c3a9a08f9751ffc817da5bd93e182d assets/d_n_a/models/item/mimic_key.json
+f988ee3bc85ab351d06d6f39cf4f7ec02630088e assets/d_n_a/models/item/mimic_key_fragment.json
 f7811913357f086bf5a773242a965053c515f0d5 assets/d_n_a/models/item/mithril_ingot.json
 32639af39a59a20c3db278af58b5a94fab72198b assets/d_n_a/models/item/oricalcium_gem.json
 f35b6a4398062cb593dd95f59d469009f79831f1 assets/d_n_a/models/item/oricalcium_paste.json

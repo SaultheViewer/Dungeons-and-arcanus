@@ -12,9 +12,9 @@ import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
-import net.minecraftforge.registries.RegistryObject;
 
 import java.util.Collections;
+import java.util.List;
 
 public class ModBlockLootTables extends BlockLootSubProvider {
 
@@ -63,6 +63,18 @@ public class ModBlockLootTables extends BlockLootSubProvider {
 
     @Override
     protected Iterable<Block> getKnownBlocks() {
-        return ModBlocks.BLOCKS.getEntries().stream().map(RegistryObject::get)::iterator;
+        return List.of(
+                ModBlocks.MITHRIL_BLOCK.get(),
+                ModBlocks.RUBY_BLOCK.get(),
+                ModBlocks.SILVER_BLOCK.get(),
+                ModBlocks.ORICALCIUM_BLOCK.get(),
+                ModBlocks.RAW_SILVER_BLOCK.get(),
+                ModBlocks.DEEPSLATE_MITHRIL_ORE.get(),
+                ModBlocks.MITHRIL_ORE.get(),
+                ModBlocks.SILVER_ORE.get(),
+                ModBlocks.DEEPSLATE_SILVER_ORE.get(),
+                ModBlocks.RUBY_ORE.get(),
+                ModBlocks.ORICALCIUM_ORE.get()
+        );
     }
 }

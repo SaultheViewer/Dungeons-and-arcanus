@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "minecraft:chest"
+    },
+    "L": {
+      "tag": "minecraft:logs"
+    },
+    "V": {
+      "item": "minecraft:chiseled_sandstone"
+    }
+  },
+  "pattern": [
+    " L ",
+    "VCV",
+    " L "
+  ],
+  "result": {
+    "item": "d_n_a:azure_chest"
+  },
+  "show_notification": true
+}

@@ -1,26 +1,27 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "FLF",
-    "VCV",
-    "FLF"
-  ],
+  "category": "misc",
   "key": {
-    "L": {
-      "tag": "minecraft:logs"
-    },
     "C": {
       "item": "minecraft:chest"
     },
     "F": {
       "item": "minecraft:magma_block"
     },
+    "L": {
+      "tag": "minecraft:logs"
+    },
     "V": {
       "item": "minecraft:basalt"
     }
   },
+  "pattern": [
+    "FLF",
+    "VCV",
+    "FLF"
+  ],
   "result": {
-    "item": "d_n_a:nether_chest",
-    "count": 1
-  }
+    "item": "d_n_a:nether_chest"
+  },
+  "show_notification": true
 }

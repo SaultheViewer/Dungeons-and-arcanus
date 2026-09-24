@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shapeless",
+  "category": "misc",
   "ingredients": [
     {
       "item": "d_n_a:mimic_key"
@@ -9,7 +10,6 @@
     }
   ],
   "result": {
-    "item": "d_n_a:pet_mimic_key",
-    "count": 1
+    "item": "d_n_a:pet_mimic_key"
   }
 }

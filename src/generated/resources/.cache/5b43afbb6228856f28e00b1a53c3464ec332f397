@@ -1,4 +1,5 @@
-// 1.20.1	2026-07-16T20:33:10.410345	Tags for minecraft:block mod id d_n_a
+// 1.20.1	2026-09-23T09:01:15.0188499	Tags for minecraft:block mod id d_n_a
+81a46e6d16f4b3f9cca6e513f7af94995ec1883f data/minecraft/tags/blocks/mineable/axe.json
 42c4f273797d5cd2fb707002b270bcee59bf608c data/minecraft/tags/blocks/mineable/pickaxe.json
 0ce60836a1905453ba0bdc175812c1e2b06f5a4d data/minecraft/tags/blocks/needs_diamond_tool.json
 b6e730b272a389e718da1fa463ae4505a1809f3d data/minecraft/tags/blocks/needs_iron_tool.json
