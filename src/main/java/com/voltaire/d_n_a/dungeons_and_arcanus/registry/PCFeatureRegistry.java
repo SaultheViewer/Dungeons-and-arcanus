@@ -15,6 +15,9 @@ public class PCFeatureRegistry {
    public static final RegistryObject<Feature<NoneFeatureConfiguration>> UNDERGROUND_CHEST = FEATURES.register(
            "underground_chest", () -> new UndergroundChestFeature(NoneFeatureConfiguration.CODEC)
    );
+   public static final RegistryObject<Feature<NoneFeatureConfiguration>> SURFACE_CHEST = FEATURES.register(
+           "surface_chest", () -> new SurfaceChestFeature(NoneFeatureConfiguration.CODEC)
+   );
    public static final RegistryObject<Feature<PCPotFeatureConfig>> NORMAL_POT = FEATURES.register(
            "normal_pot", () -> new NormalPotFeature(PCPotFeatureConfig.CODEC)
    );
