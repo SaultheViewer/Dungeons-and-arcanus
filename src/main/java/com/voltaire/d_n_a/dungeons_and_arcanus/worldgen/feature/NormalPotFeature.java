@@ -1,4 +1,4 @@
-package com.voltaire.d_n_a.dungeons_and_arcanus.world.feature;
+package com.voltaire.d_n_a.dungeons_and_arcanus.worldgen.feature;
 
 import com.mojang.serialization.Codec;
 import com.voltaire.d_n_a.dungeons_and_arcanus.blocks.ModBlocks;
@@ -8,8 +8,9 @@ import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 
-public class LushPotFeature extends Feature<PCPotFeatureConfig> {
-   public LushPotFeature(Codec<PCPotFeatureConfig> configCodec) {
+
+public class NormalPotFeature extends Feature<PCPotFeatureConfig> {
+   public NormalPotFeature(Codec<PCPotFeatureConfig> configCodec) {
       super(configCodec);
    }
 
@@ -18,7 +19,7 @@ public class LushPotFeature extends Feature<PCPotFeatureConfig> {
       WorldGenLevel structureWorldAccess = context.level();
       BlockPos pos = context.origin();
       PCPotFeatureConfig config = (PCPotFeatureConfig)context.config();
-      structureWorldAccess.setBlock(pos, ModBlocks.LUSH_POT.get().defaultBlockState(), 3);
+      structureWorldAccess.setBlock(pos, ModBlocks.NORMAL_POT.get().defaultBlockState(), 3);
       return true;
    }
 }

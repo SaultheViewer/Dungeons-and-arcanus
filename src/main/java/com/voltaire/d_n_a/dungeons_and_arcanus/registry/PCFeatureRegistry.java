@@ -1,7 +1,7 @@
 package com.voltaire.d_n_a.dungeons_and_arcanus.registry;
 
 import com.voltaire.d_n_a.dungeons_and_arcanus.Dungeons_and_arcanus;
-import com.voltaire.d_n_a.dungeons_and_arcanus.world.feature.*;
+import com.voltaire.d_n_a.dungeons_and_arcanus.worldgen.feature.*;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.minecraftforge.registries.DeferredRegister;

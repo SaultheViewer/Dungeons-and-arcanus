@@ -3,18 +3,17 @@ package com.voltaire.d_n_a.dungeons_and_arcanus;
 import com.mojang.logging.LogUtils;
 import com.voltaire.d_n_a.dungeons_and_arcanus.blocks.ModBlocks;
 import com.voltaire.d_n_a.dungeons_and_arcanus.blocks.entity.ModBlockEntitys;
-import com.voltaire.d_n_a.dungeons_and_arcanus.client.PC_Client;
+import com.voltaire.d_n_a.dungeons_and_arcanus.client.PCClient;
 import com.voltaire.d_n_a.dungeons_and_arcanus.item.ModCreativeModeTabs;
 import com.voltaire.d_n_a.dungeons_and_arcanus.item.ModItems;
-import com.voltaire.d_n_a.dungeons_and_arcanus.registry.*;
+import com.voltaire.d_n_a.dungeons_and_arcanus.registry.ModEntitys;
+import com.voltaire.d_n_a.dungeons_and_arcanus.registry.PCFeatureRegistry;
+import com.voltaire.d_n_a.dungeons_and_arcanus.registry.PCScreenHandlerType;
+import com.voltaire.d_n_a.dungeons_and_arcanus.registry.PCSounds;
 import com.voltaire.d_n_a.dungeons_and_arcanus.utils.MimicDifficulty;
 import com.voltaire.d_n_a.dungeons_and_arcanus.utils.PCConfig;
 import com.voltaire.d_n_a.dungeons_and_arcanus.utils.PCEventHandler;
-import com.voltaire.d_n_a.dungeons_and_arcanus.world.feature.PCPlacementModifierType;
-import com.voltaire.d_n_a.dungeons_and_arcanus.world.gen.PCWorldGen;
-import me.shedaniel.autoconfig.AutoConfig;
-import me.shedaniel.autoconfig.ConfigHolder;
-import me.shedaniel.autoconfig.serializer.Toml4jConfigSerializer;
+import com.voltaire.d_n_a.dungeons_and_arcanus.worldgen.feature.PCPlacementModifierType;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
@@ -34,17 +33,11 @@ public class Dungeons_and_arcanus {
 
     public static final String MOD_ID = "d_n_a";
     private static final Logger LOGGER = LogUtils.getLogger();
-
-    public static ConfigHolder<PCConfig> configHolder;
-    public static PCConfig loadedConfig;
+    public static PCConfig loadedConfig = new PCConfig();
 
     public Dungeons_and_arcanus() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
-        // Config — register as early as possible
-        AutoConfig.register(PCConfig.class, Toml4jConfigSerializer::new);
-        configHolder = AutoConfig.getConfigHolder(PCConfig.class);
-        loadedConfig = getConfig();
 
         ModCreativeModeTabs.register(modEventBus);
         ModItems.register(modEventBus);
@@ -52,7 +45,7 @@ public class Dungeons_and_arcanus {
 
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(this::addCreative);
-        
+
         ModEntitys.ENTITY_TYPES.register(modEventBus);
         ModBlockEntitys.BLOCK_ENTITY_TYPES.register(modEventBus);
         PCSounds.SOUND_EVENTS.register(modEventBus);
@@ -60,11 +53,10 @@ public class Dungeons_and_arcanus {
         PCPlacementModifierType.PLACEMENT_MODIFIERS.register(modEventBus);
         PCFeatureRegistry.FEATURES.register(modEventBus);
 
-        modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(ModEntitys::registerAttributes);
         modEventBus.addListener(ModEntitys::registerSpawnPlacements);
-        modEventBus.addListener(PC_Client::registerRenderers);
-        modEventBus.addListener(PC_Client::clientSetup);
+        modEventBus.addListener(PCClient::registerRenderers);
+        modEventBus.addListener(PCClient::clientSetup);
 
         MinecraftForge.EVENT_BUS.register(this);
     }
@@ -74,8 +66,6 @@ public class Dungeons_and_arcanus {
             LOGGER.info("[Dungeons-And-Arcanus] is initializing.");
 
             PCEventHandler.registerEvents();
-            PCStatistics.init();
-            PCWorldGen.generatePCWorldGen();
         });
     }
 
@@ -93,7 +83,7 @@ public class Dungeons_and_arcanus {
     }
 
     public static PCConfig getConfig() {
-        return configHolder.getConfig();
+        return loadedConfig;
     }
 
     public static CompoundTag configToNBT() {

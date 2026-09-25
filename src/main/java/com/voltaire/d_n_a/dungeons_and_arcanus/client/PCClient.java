@@ -11,7 +11,7 @@ import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
-public class PC_Client {
+public class PCClient {
 
     public static void clientSetup(final FMLClientSetupEvent event) {
         event.enqueueWork(() -> {
