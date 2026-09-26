@@ -1,5 +1,6 @@
 package com.voltaire.d_n_a.dungeons_and_arcanus.worldgen.feature;
 
+import com.mojang.logging.LogUtils;
 import com.mojang.serialization.Codec;
 import com.voltaire.d_n_a.dungeons_and_arcanus.blocks.ModBlocks;
 import com.voltaire.d_n_a.dungeons_and_arcanus.blocks.entity.PCBaseChestBlockEntity;
@@ -21,6 +22,7 @@ import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.fml.loading.FMLLoader;
+import org.slf4j.Logger;
 
 import java.util.Optional;
 
@@ -31,6 +33,7 @@ public class UndergroundChestFeature extends Feature<NoneFeatureConfiguration> {
    }
 
    public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> context) {
+      Logger LOGGER = LogUtils.getLogger();
       RandomSource random = context.random();
       WorldGenLevel structureWorldAccess = context.level();
       BlockPos pos = context.origin().above();
@@ -124,8 +127,9 @@ public class UndergroundChestFeature extends Feature<NoneFeatureConfiguration> {
          chest.hasGoldLock = hasGoldLock;
          chest.isLocked = hasGoldLock;
       }
-
+      LOGGER.info("[D&A] Underground chest placed successfully at {}", context.origin());
       return true;
+
    }
 
    public static boolean canReplace(BlockState state) {

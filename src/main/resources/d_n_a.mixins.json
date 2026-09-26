@@ -3,7 +3,7 @@
   "minVersion": "0.8",
   "package": "com.voltaire.d_n_a.dungeons_and_arcanus.mixin",
   "compatibilityLevel": "JAVA_8",
-  "refmap": "dungeons_and_arcanus.refmap.json",
+  "refmap": "d_n_a.refmap.json",
   "mixins": [
     "ServerPlayerEntityMixin",
     "LivingEntityMixin"

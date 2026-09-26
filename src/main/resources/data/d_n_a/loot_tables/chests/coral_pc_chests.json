@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:loot_table",
-          "name": "dungeons_and_arcanus:chests/rare_items"
+          "name": "d_n_a:chests/rare_items"
         }
       ]
     },
@@ -15,7 +15,7 @@
       "entries": [
         {
           "type": "minecraft:loot_table",
-          "name": "dungeons_and_arcanus:chests/normal_items"
+          "name": "d_n_a:chests/normal_items"
         }
       ]
     },
@@ -25,12 +25,12 @@
         {
           "type": "minecraft:loot_table",
           "weight": 10,
-          "name": "dungeons_and_arcanus:chests/ocean_items"
+          "name": "d_n_a:chests/ocean_items"
         },
         {
           "type": "minecraft:loot_table",
           "weight": 1,
-          "name": "dungeons_and_arcanus:chests/mixed_items"
+          "name": "d_n_a:chests/mixed_items"
         }
       ]
     }

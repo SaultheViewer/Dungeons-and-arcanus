@@ -19,6 +19,8 @@ import net.minecraft.world.level.levelgen.placement.*;
 import java.util.List;
 
 public class ModPlaceFeatures {
+
+
     // --- ores ---
     public static final ResourceKey<PlacedFeature> MITHRIL_ORE_PLACED_KEY = registerKey("mithril_ore_placed");
     public static final ResourceKey<PlacedFeature> SILVER_ORE_PLACED_KEY = registerKey("silver_ore_placed");
@@ -54,7 +56,6 @@ public class ModPlaceFeatures {
         register(context, ORICALCIUM_ORE_PLACED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeatures.NETHER_ORICALCIUM_ORE_KEY),
                 ModOrePlacement.commonOrePlacement(12,
                         HeightRangePlacement.uniform(VerticalAnchor.absolute(1), VerticalAnchor.absolute(120))));
-
 
         // ========== SURFACE CHEST ==========
         register(context, SURFACE_CHEST_PLACED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeatures.SURFACE_CHEST_KEY),
@@ -122,7 +123,9 @@ public class ModPlaceFeatures {
                 ),
                 BiomeFilter.biome()
         );
+
     }
+
 
     private static ResourceKey<PlacedFeature> registerKey(String name) {
         return ResourceKey.create(Registries.PLACED_FEATURE, new ResourceLocation(Dungeons_and_arcanus.MOD_ID, name));

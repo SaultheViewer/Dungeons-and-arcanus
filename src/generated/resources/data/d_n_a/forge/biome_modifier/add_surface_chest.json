@@ -1,0 +1,6 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#minecraft:is_overworld",
+  "features": "d_n_a:surface_chest_placed",
+  "step": "surface_structures"
+}

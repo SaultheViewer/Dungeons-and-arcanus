@@ -6,10 +6,7 @@ import com.voltaire.d_n_a.dungeons_and_arcanus.blocks.entity.ModBlockEntitys;
 import com.voltaire.d_n_a.dungeons_and_arcanus.client.PCClient;
 import com.voltaire.d_n_a.dungeons_and_arcanus.item.ModCreativeModeTabs;
 import com.voltaire.d_n_a.dungeons_and_arcanus.item.ModItems;
-import com.voltaire.d_n_a.dungeons_and_arcanus.registry.ModEntitys;
-import com.voltaire.d_n_a.dungeons_and_arcanus.registry.PCFeatureRegistry;
-import com.voltaire.d_n_a.dungeons_and_arcanus.registry.PCScreenHandlerType;
-import com.voltaire.d_n_a.dungeons_and_arcanus.registry.PCSounds;
+import com.voltaire.d_n_a.dungeons_and_arcanus.registry.*;
 import com.voltaire.d_n_a.dungeons_and_arcanus.utils.MimicDifficulty;
 import com.voltaire.d_n_a.dungeons_and_arcanus.utils.PCConfig;
 import com.voltaire.d_n_a.dungeons_and_arcanus.utils.PCEventHandler;
@@ -37,7 +34,7 @@ public class Dungeons_and_arcanus {
 
     public Dungeons_and_arcanus() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
-
+        PCStatistics.CUSTOM_STATS.register(modEventBus);
 
         ModCreativeModeTabs.register(modEventBus);
         ModItems.register(modEventBus);

@@ -1,0 +1,6 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#minecraft:is_nether",
+  "features": "d_n_a:nether_pot_placed",
+  "step": "vegetal_decoration"
+}

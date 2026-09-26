@@ -72,7 +72,7 @@
         {
           "type": "minecraft:item",
           "weight": 5,
-          "name": "dungeons_and_arcanus:void_key",
+          "name": "d_n_a:void_key",
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -84,12 +84,12 @@
         {
           "type": "minecraft:item",
           "weight": 8,
-          "name": "dungeons_and_arcanus:gold_key"
+          "name": "d_n_a:gold_key"
         },
         {
           "type": "minecraft:item",
           "weight": 6,
-          "name": "dungeons_and_arcanus:gold_lock"
+          "name": "d_n_a:gold_lock"
         }
       ]
     }

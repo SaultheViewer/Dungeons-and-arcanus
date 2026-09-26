@@ -1,35 +1,35 @@
-[24Sep2026 17:08:11.070] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher running: args [--launchTarget, forgedatauserdev, --assetIndex, 5, --assetsDir, C:\Users\johnr\.gradle\caches\forge_gradle\assets, --gameDir, ., --fml.forgeVersion, 47.4.20, --fml.mcVersion, 1.20.1, --fml.forgeGroup, net.minecraftforge, --fml.mcpVersion, 20230612.114412, --mod, d_n_a, --all, --output, C:\Users\johnr\IdeaProjects\Dungeons and Arcanus\src\generated\resources, --existing, C:\Users\johnr\IdeaProjects\Dungeons and Arcanus\src\main\resources, --mixin.config, d_n_a.mixins.json]
-[24Sep2026 17:08:11.074] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher 10.0.9+10.0.9+main.dcd20f30 starting: java version 17.0.19 by Eclipse Adoptium; OS Windows 10 arch amd64 version 10.0
-[24Sep2026 17:08:11.238] [main/INFO] [net.minecraftforge.fml.loading.ImmediateWindowHandler/]: ImmediateWindowProvider not loading because launch target is forgedatauserdev
-[24Sep2026 17:08:11.325] [main/INFO] [mixin/]: SpongePowered MIXIN Subsystem Version=0.8.5 Source=union:/C:/Users/johnr/.gradle/caches/modules-2/files-2.1/org.spongepowered/mixin/0.8.5/9d1c0c3a304ae6697ecd477218fa61b850bf57fc/mixin-0.8.5.jar%23129!/ Service=ModLauncher Env=CLIENT
-[24Sep2026 17:08:11.761] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\johnr\.gradle\caches\modules-2\files-2.1\net.minecraftforge\javafmllanguage\1.20.1-47.4.20\c354b21002937b393c4f86163a98dccdf1d51e72\javafmllanguage-1.20.1-47.4.20.jar is missing mods.toml file
-[24Sep2026 17:08:11.767] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\johnr\.gradle\caches\modules-2\files-2.1\net.minecraftforge\lowcodelanguage\1.20.1-47.4.20\865d75f8c18329ddb31db5856701ab86609108b5\lowcodelanguage-1.20.1-47.4.20.jar is missing mods.toml file
-[24Sep2026 17:08:11.776] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\johnr\.gradle\caches\modules-2\files-2.1\net.minecraftforge\mclanguage\1.20.1-47.4.20\af599930362212ae937e392709f49047e6abbbf\mclanguage-1.20.1-47.4.20.jar is missing mods.toml file
-[24Sep2026 17:08:11.781] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\johnr\.gradle\caches\modules-2\files-2.1\net.minecraftforge\fmlcore\1.20.1-47.4.20\e8cc697c69f3911e76caa2f005d9486597cd7448\fmlcore-1.20.1-47.4.20.jar is missing mods.toml file
-[24Sep2026 17:08:12.032] [main/INFO] [net.minecraftforge.fml.loading.moddiscovery.JarInJarDependencyLocator/]: Found 1 dependencies adding them to mods collection
-[24Sep2026 17:08:13.987] [main/INFO] [mixin/]: Compatibility level set to JAVA_17
-[24Sep2026 17:08:13.991] [main/INFO] [cpw.mods.modlauncher.LaunchServiceHandler/MODLAUNCHER]: Launching target 'forgedatauserdev' with arguments [--gameDir, ., --assetsDir, C:\Users\johnr\.gradle\caches\forge_gradle\assets, --assetIndex, 5, --mod, d_n_a, --all, --output, C:\Users\johnr\IdeaProjects\Dungeons and Arcanus\src\generated\resources, --existing, C:\Users\johnr\IdeaProjects\Dungeons and Arcanus\src\main\resources]
-[24Sep2026 17:08:14.099] [main/WARN] [mixin/]: Reference map 'dungeons_and_arcanus.refmap.json' for d_n_a.mixins.json could not be read. If this is a development environment you can ignore this message
-[24Sep2026 17:08:14.476] [main/INFO] [mixin/]: Remapping refMap geckolib.refmap.json using C:\Users\johnr\IdeaProjects\Dungeons and Arcanus\build\createSrgToMcp\output.srg
-[24Sep2026 17:08:15.054] [main/INFO] [net.minecraftforge.data.loading.DatagenModLoader/]: Initializing Data Gatherer for mods [d_n_a]
-[24Sep2026 17:08:21.980] [modloading-worker-0/INFO] [net.minecraftforge.common.ForgeMod/FORGEMOD]: Forge mod loading, version 47.4.20, for MC 1.20.1 with MCP 20230612.114412
-[24Sep2026 17:08:21.999] [modloading-worker-0/INFO] [net.minecraftforge.common.MinecraftForge/FORGE]: MinecraftForge v47.4.20 Initialized
-[24Sep2026 17:08:22.127] [modloading-worker-0/WARN] [software.bernie.geckolib.GeckoLib/]: Minecraft.getInstance() was null, could not register reload listeners
-[24Sep2026 17:08:22.812] [main/WARN] [net.minecraft.server.packs.VanillaPackResourcesBuilder/]: Assets URL 'union:/C:/Users/johnr/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.20.1-47.4.20_mapped_parchment_2023.09.03-1.20.1/forge-1.20.1-47.4.20_mapped_parchment_2023.09.03-1.20.1-recomp.jar%23191!/assets/.mcassetsroot' uses unexpected schema
-[24Sep2026 17:08:22.812] [main/WARN] [net.minecraft.server.packs.VanillaPackResourcesBuilder/]: Assets URL 'union:/C:/Users/johnr/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.20.1-47.4.20_mapped_parchment_2023.09.03-1.20.1/forge-1.20.1-47.4.20_mapped_parchment_2023.09.03-1.20.1-recomp.jar%23191!/data/.mcassetsroot' uses unexpected schema
-[24Sep2026 17:08:23.082] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Recipes
-[24Sep2026 17:08:23.262] [main/INFO] [net.minecraft.data.DataGenerator/]: Recipes finished after 177 ms
-[24Sep2026 17:08:23.262] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Loot Tables
-[24Sep2026 17:08:23.343] [main/INFO] [net.minecraft.data.DataGenerator/]: Loot Tables finished after 81 ms
-[24Sep2026 17:08:23.343] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Block States: d_n_a
-[24Sep2026 17:08:23.582] [main/INFO] [net.minecraft.data.DataGenerator/]: Block States: d_n_a finished after 238 ms
-[24Sep2026 17:08:23.582] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Item Models: d_n_a
-[24Sep2026 17:08:23.586] [main/INFO] [net.minecraft.data.DataGenerator/]: Item Models: d_n_a finished after 3 ms
-[24Sep2026 17:08:23.586] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Tags for minecraft:block mod id d_n_a
-[24Sep2026 17:08:23.613] [main/INFO] [net.minecraft.data.DataGenerator/]: Tags for minecraft:block mod id d_n_a finished after 26 ms
-[24Sep2026 17:08:23.613] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Tags for minecraft:item mod id d_n_a
-[24Sep2026 17:08:23.614] [main/INFO] [net.minecraft.data.DataGenerator/]: Tags for minecraft:item mod id d_n_a finished after 0 ms
-[24Sep2026 17:08:23.614] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Registries
-[24Sep2026 17:08:23.630] [main/INFO] [net.minecraft.data.DataGenerator/]: Registries finished after 15 ms
-[24Sep2026 17:08:23.630] [main/INFO] [net.minecraft.data.DataGenerator/]: All providers took: 547 ms
-[24Sep2026 17:08:23.646] [main/INFO] [net.minecraft.data.HashCache/]: Caching: total files: 159, old count: 127, new count: 160, removed stale: 0, written: 32
+[25Sep2026 20:56:38.960] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher running: args [--launchTarget, forgedatauserdev, --assetIndex, 5, --assetsDir, C:\Users\johnr\.gradle\caches\forge_gradle\assets, --gameDir, ., --fml.forgeVersion, 47.4.20, --fml.mcVersion, 1.20.1, --fml.forgeGroup, net.minecraftforge, --fml.mcpVersion, 20230612.114412, --mod, d_n_a, --all, --output, C:\Users\johnr\IdeaProjects\Dungeons and Arcanus\src\generated\resources, --existing, C:\Users\johnr\IdeaProjects\Dungeons and Arcanus\src\main\resources, --mixin.config, d_n_a.mixins.json]
+[25Sep2026 20:56:38.971] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher 10.0.9+10.0.9+main.dcd20f30 starting: java version 17.0.19 by Eclipse Adoptium; OS Windows 10 arch amd64 version 10.0
+[25Sep2026 20:56:39.359] [main/INFO] [net.minecraftforge.fml.loading.ImmediateWindowHandler/]: ImmediateWindowProvider not loading because launch target is forgedatauserdev
+[25Sep2026 20:56:39.434] [main/INFO] [mixin/]: SpongePowered MIXIN Subsystem Version=0.8.5 Source=union:/C:/Users/johnr/.gradle/caches/modules-2/files-2.1/org.spongepowered/mixin/0.8.5/9d1c0c3a304ae6697ecd477218fa61b850bf57fc/mixin-0.8.5.jar%23129!/ Service=ModLauncher Env=CLIENT
+[25Sep2026 20:56:39.806] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\johnr\.gradle\caches\modules-2\files-2.1\net.minecraftforge\javafmllanguage\1.20.1-47.4.20\c354b21002937b393c4f86163a98dccdf1d51e72\javafmllanguage-1.20.1-47.4.20.jar is missing mods.toml file
+[25Sep2026 20:56:39.810] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\johnr\.gradle\caches\modules-2\files-2.1\net.minecraftforge\lowcodelanguage\1.20.1-47.4.20\865d75f8c18329ddb31db5856701ab86609108b5\lowcodelanguage-1.20.1-47.4.20.jar is missing mods.toml file
+[25Sep2026 20:56:39.814] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\johnr\.gradle\caches\modules-2\files-2.1\net.minecraftforge\mclanguage\1.20.1-47.4.20\af599930362212ae937e392709f49047e6abbbf\mclanguage-1.20.1-47.4.20.jar is missing mods.toml file
+[25Sep2026 20:56:39.817] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\johnr\.gradle\caches\modules-2\files-2.1\net.minecraftforge\fmlcore\1.20.1-47.4.20\e8cc697c69f3911e76caa2f005d9486597cd7448\fmlcore-1.20.1-47.4.20.jar is missing mods.toml file
+[25Sep2026 20:56:40.000] [main/INFO] [net.minecraftforge.fml.loading.moddiscovery.JarInJarDependencyLocator/]: Found 1 dependencies adding them to mods collection
+[25Sep2026 20:56:42.384] [main/INFO] [mixin/]: Compatibility level set to JAVA_17
+[25Sep2026 20:56:42.396] [main/INFO] [cpw.mods.modlauncher.LaunchServiceHandler/MODLAUNCHER]: Launching target 'forgedatauserdev' with arguments [--gameDir, ., --assetsDir, C:\Users\johnr\.gradle\caches\forge_gradle\assets, --assetIndex, 5, --mod, d_n_a, --all, --output, C:\Users\johnr\IdeaProjects\Dungeons and Arcanus\src\generated\resources, --existing, C:\Users\johnr\IdeaProjects\Dungeons and Arcanus\src\main\resources]
+[25Sep2026 20:56:42.529] [main/WARN] [mixin/]: Reference map 'dungeons_and_arcanus.refmap.json' for d_n_a.mixins.json could not be read. If this is a development environment you can ignore this message
+[25Sep2026 20:56:42.778] [main/INFO] [mixin/]: Remapping refMap geckolib.refmap.json using C:\Users\johnr\IdeaProjects\Dungeons and Arcanus\build\createSrgToMcp\output.srg
+[25Sep2026 20:56:43.346] [main/INFO] [net.minecraftforge.data.loading.DatagenModLoader/]: Initializing Data Gatherer for mods [d_n_a]
+[25Sep2026 20:56:56.459] [modloading-worker-0/INFO] [net.minecraftforge.common.ForgeMod/FORGEMOD]: Forge mod loading, version 47.4.20, for MC 1.20.1 with MCP 20230612.114412
+[25Sep2026 20:56:56.488] [modloading-worker-0/INFO] [net.minecraftforge.common.MinecraftForge/FORGE]: MinecraftForge v47.4.20 Initialized
+[25Sep2026 20:56:57.143] [modloading-worker-0/WARN] [software.bernie.geckolib.GeckoLib/]: Minecraft.getInstance() was null, could not register reload listeners
+[25Sep2026 20:56:58.573] [main/WARN] [net.minecraft.server.packs.VanillaPackResourcesBuilder/]: Assets URL 'union:/C:/Users/johnr/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.20.1-47.4.20_mapped_parchment_2023.09.03-1.20.1/forge-1.20.1-47.4.20_mapped_parchment_2023.09.03-1.20.1-recomp.jar%23191!/assets/.mcassetsroot' uses unexpected schema
+[25Sep2026 20:56:58.574] [main/WARN] [net.minecraft.server.packs.VanillaPackResourcesBuilder/]: Assets URL 'union:/C:/Users/johnr/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.20.1-47.4.20_mapped_parchment_2023.09.03-1.20.1/forge-1.20.1-47.4.20_mapped_parchment_2023.09.03-1.20.1-recomp.jar%23191!/data/.mcassetsroot' uses unexpected schema
+[25Sep2026 20:56:59.095] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Recipes
+[25Sep2026 20:56:59.540] [main/INFO] [net.minecraft.data.DataGenerator/]: Recipes finished after 444 ms
+[25Sep2026 20:56:59.541] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Loot Tables
+[25Sep2026 20:56:59.624] [main/INFO] [net.minecraft.data.DataGenerator/]: Loot Tables finished after 84 ms
+[25Sep2026 20:56:59.625] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Block States: d_n_a
+[25Sep2026 20:57:00.045] [main/INFO] [net.minecraft.data.DataGenerator/]: Block States: d_n_a finished after 419 ms
+[25Sep2026 20:57:00.045] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Item Models: d_n_a
+[25Sep2026 20:57:00.058] [main/INFO] [net.minecraft.data.DataGenerator/]: Item Models: d_n_a finished after 12 ms
+[25Sep2026 20:57:00.058] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Tags for minecraft:block mod id d_n_a
+[25Sep2026 20:57:00.096] [main/INFO] [net.minecraft.data.DataGenerator/]: Tags for minecraft:block mod id d_n_a finished after 37 ms
+[25Sep2026 20:57:00.096] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Tags for minecraft:item mod id d_n_a
+[25Sep2026 20:57:00.097] [main/INFO] [net.minecraft.data.DataGenerator/]: Tags for minecraft:item mod id d_n_a finished after 0 ms
+[25Sep2026 20:57:00.097] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Registries
+[25Sep2026 20:57:00.238] [main/INFO] [net.minecraft.data.DataGenerator/]: Registries finished after 141 ms
+[25Sep2026 20:57:00.238] [main/INFO] [net.minecraft.data.DataGenerator/]: All providers took: 1143 ms
+[25Sep2026 20:57:00.290] [main/INFO] [net.minecraft.data.HashCache/]: Caching: total files: 180, old count: 159, new count: 181, removed stale: 0, written: 21
