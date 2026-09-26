@@ -40,7 +40,7 @@ public class Mimic_Hand_Bell extends Item {
                 if (serverWorld.getBlockState(blockPos).is(Blocks.AMETHYST_CLUSTER)) {
                     int amount = ((PlayerEntityAccess)player).abandonMimics();
                     if (amount > 0) {
-                        player.awardStat(PCStatistics.ABANDONED_MIMICS, amount);
+                        player.awardStat(PCStatistics.ABANDONED_MIMICS.get(), amount);
                         CriteriaTriggers.ITEM_USED_ON_BLOCK.trigger(player, blockPos, context.getItemInHand());
                     }
 

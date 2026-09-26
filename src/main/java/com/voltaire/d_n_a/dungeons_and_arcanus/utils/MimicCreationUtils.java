@@ -13,6 +13,7 @@ import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.stats.Stats;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -64,7 +65,7 @@ public class MimicCreationUtils {
             } else {
                 mimic = new PCChestMimic(type.getMimicType(), world);
                 if (player != null) {
-                    player.awardStat(PCStatistics.MIMIC_ENCOUNTERS, 1);
+                    player.awardStat(Stats.CUSTOM.get(PCStatistics.MIMIC_ENCOUNTERS.get()));
                     if (player instanceof ServerPlayer serverPlayer) {
                         CriteriaTriggers.SUMMONED_ENTITY.trigger(serverPlayer, mimic);
                     }

@@ -1,0 +1,6 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#minecraft:is_overworld",
+  "features": "d_n_a:underground_chest_placed",
+  "step": "underground_structures"
+}

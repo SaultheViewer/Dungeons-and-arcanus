@@ -1,20 +1,19 @@
 package com.voltaire.d_n_a.dungeons_and_arcanus.registry;
 
 import com.voltaire.d_n_a.dungeons_and_arcanus.Dungeons_and_arcanus;
-import net.minecraft.core.Registry;
-import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.stats.StatFormatter;
-import net.minecraft.stats.Stats;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.RegistryObject;
 
 public class PCStatistics {
-   public static final ResourceLocation MIMIC_ENCOUNTERS = Dungeons_and_arcanus.id("mimic_encounters");
-   public static final ResourceLocation ABANDONED_MIMICS = Dungeons_and_arcanus.id("abandoned_mimics");
+   public static final DeferredRegister<ResourceLocation> CUSTOM_STATS =
+           DeferredRegister.create(Registries.CUSTOM_STAT, Dungeons_and_arcanus.MOD_ID);
 
-   public static void init() {
-      Registry.register(BuiltInRegistries.CUSTOM_STAT, "mimic_encounters", MIMIC_ENCOUNTERS);
-      Stats.CUSTOM.get(MIMIC_ENCOUNTERS, StatFormatter.DEFAULT);
-      Registry.register(BuiltInRegistries.CUSTOM_STAT, "abandoned_mimics", ABANDONED_MIMICS);
-      Stats.CUSTOM.get(ABANDONED_MIMICS, StatFormatter.DEFAULT);
-   }
+   public static final RegistryObject<ResourceLocation> MIMIC_ENCOUNTERS =
+           CUSTOM_STATS.register("mimic_encounters",
+                   () -> new ResourceLocation(Dungeons_and_arcanus.MOD_ID, "mimic_encounters"));
+   public static final RegistryObject<ResourceLocation> ABANDONED_MIMICS =
+           CUSTOM_STATS.register("abandoned_mimics",
+                   () -> new ResourceLocation(Dungeons_and_arcanus.MOD_ID, "abandoned_mimics"));
 }
