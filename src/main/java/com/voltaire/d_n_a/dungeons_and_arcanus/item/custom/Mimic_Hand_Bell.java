@@ -57,7 +57,6 @@ public class Mimic_Hand_Bell extends Item {
             pTooltipComponents.add(Component.translatable("item.d_n_a.mimicHandBell.tooltip.shift"));
             pTooltipComponents.add(Component.translatable("item.d_n_a.mimicHandBell.tooltip.shift2"));
             pTooltipComponents.add(Component.translatable("item.d_n_a.mimicHandBell.tooltip.shift3"));
-            pTooltipComponents.add(Component.translatable("item.d_n_a.temptooltip"));
         } else {
             pTooltipComponents.add(Component.translatable("item.d_n_a.shift.tooltip"));
 

@@ -10,7 +10,7 @@
     },
     {
       "type": "d_n_a:pc_rarity",
-      "chance": 0.45000002
+      "kind": "nether_chest"
     },
     {
       "type": "minecraft:height_range",

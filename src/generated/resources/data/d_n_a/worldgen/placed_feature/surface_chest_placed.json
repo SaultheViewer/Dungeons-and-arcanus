@@ -3,7 +3,7 @@
   "placement": [
     {
       "type": "d_n_a:pc_rarity",
-      "chance": 0.012
+      "kind": "surface_chest"
     },
     {
       "type": "minecraft:in_square"

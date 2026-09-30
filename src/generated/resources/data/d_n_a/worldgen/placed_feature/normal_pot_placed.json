@@ -3,11 +3,11 @@
   "placement": [
     {
       "type": "d_n_a:pc_rarity",
-      "chance": 0.4
+      "kind": "pot"
     },
     {
       "type": "minecraft:count",
-      "count": 8
+      "count": 4
     },
     {
       "type": "minecraft:in_square"

@@ -16,7 +16,7 @@ public class Void_key extends Item {
 
     @Override
     public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced) {
-        pTooltipComponents.add(Component.translatable("item.d_n_a.pet_void_key.tooltip"));
+        pTooltipComponents.add(Component.translatable("item.d_n_a.void_key.tooltip"));
         super.appendHoverText(pStack, pLevel, pTooltipComponents, pIsAdvanced);
     }
 

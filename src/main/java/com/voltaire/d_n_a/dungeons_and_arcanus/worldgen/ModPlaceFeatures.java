@@ -41,11 +41,8 @@ public class ModPlaceFeatures {
     public static void bootstrap(BootstapContext<PlacedFeature> context) {
         HolderGetter<ConfiguredFeature<?, ?>> configuredFeatures = context.lookup(Registries.CONFIGURED_FEATURE);
 
-        float chestChance = Dungeons_and_arcanus.loadedConfig.worldGen.chestSpawnChance;
-        float potChance = Dungeons_and_arcanus.loadedConfig.worldGen.potSpawnChance;
-
         register(context, MITHRIL_ORE_PLACED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeatures.OVERWORLD_MITHRIL_ORE_KEY),
-                ModOrePlacement.commonOrePlacement(10,
+                ModOrePlacement.commonOrePlacement(8,
                         HeightRangePlacement.triangle(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(70))));
         register(context, SILVER_ORE_PLACED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeatures.OVERWORLD_SILVER_ORE_KEY),
                 ModOrePlacement.commonOrePlacement(12,
@@ -60,7 +57,7 @@ public class ModPlaceFeatures {
         // ========== SURFACE CHEST ==========
         register(context, SURFACE_CHEST_PLACED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeatures.SURFACE_CHEST_KEY),
                 List.of(
-                        PCRarityFilterPlacementModifier.of(chestChance * 0.02F),
+                        PCRarityFilterPlacementModifier.of(PCRarityFilterPlacementModifier.Type.SURFACE_CHEST),
                         InSquarePlacement.spread(),
                         HeightmapPlacement.onHeightmap(Heightmap.Types.MOTION_BLOCKING),
                         BiomeFilter.biome()
@@ -72,7 +69,7 @@ public class ModPlaceFeatures {
                 List.of(
                         CountPlacement.of(2),
                         InSquarePlacement.spread(),
-                        PCRarityFilterPlacementModifier.of(chestChance * 0.85F),
+                        PCRarityFilterPlacementModifier.of(PCRarityFilterPlacementModifier.Type.UNDERGROUND_CHEST),
                         HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(6), VerticalAnchor.absolute(64)),
                         EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), 32),
                         BiomeFilter.biome()
@@ -84,7 +81,7 @@ public class ModPlaceFeatures {
                 List.of(
                         CountPlacement.of(2),
                         InSquarePlacement.spread(),
-                        PCRarityFilterPlacementModifier.of(chestChance * 0.75F),
+                        PCRarityFilterPlacementModifier.of(PCRarityFilterPlacementModifier.Type.NETHER_CHEST),
                         HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(6), VerticalAnchor.belowTop(6)),
                         EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), 12),
                         BiomeFilter.biome()
@@ -93,25 +90,25 @@ public class ModPlaceFeatures {
         // ========== POTS ==========
         register(context, NORMAL_POT_PLACED_KEY,
                 configuredFeatures.getOrThrow(ModConfiguredFeatures.NORMAL_POT_KEY),
-                potModifiers(potChance));
+                potModifiers());
 
         register(context, LUSH_POT_PLACED_KEY,
                 configuredFeatures.getOrThrow(ModConfiguredFeatures.LUSH_POT_KEY),
-                potModifiers(potChance));
+                potModifiers());
 
         register(context, ROCKY_POT_PLACED_KEY,
                 configuredFeatures.getOrThrow(ModConfiguredFeatures.ROCKY_POT_KEY),
-                potModifiers(potChance));
+                potModifiers());
 
         register(context, NETHER_POT_PLACED_KEY,
                 configuredFeatures.getOrThrow(ModConfiguredFeatures.NETHER_POT_KEY),
-                potModifiers(potChance));
+                potModifiers());
     }
 
-    private static List<PlacementModifier> potModifiers(float potChance) {
+    private static List<PlacementModifier> potModifiers() {
         return List.of(
-                PCRarityFilterPlacementModifier.of(potChance),
-                CountPlacement.of(8),
+                PCRarityFilterPlacementModifier.of(PCRarityFilterPlacementModifier.Type.POT),
+                CountPlacement.of(4),
                 InSquarePlacement.spread(),
                 PCGroundPlacementModifier.of(
                         Direction.DOWN,
@@ -123,7 +120,6 @@ public class ModPlaceFeatures {
                 ),
                 BiomeFilter.biome()
         );
-
     }
 
 

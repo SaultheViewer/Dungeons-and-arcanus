@@ -1,14 +1,13 @@
 {
   //debug
-  "item.d_n_a.temptooltip": "This item is waiting for the existence of other blocks/items some features may not work yet",
   //DNA translations
   "item.d_n_a.ruby": "Ruby",
   "item.d_n_a.raw_silver": "Raw silver",
   "item.d_n_a.raw_mithril": "Raw mithril",
   "item.d_n_a.mithril_ingot": "Mithril ingot",
   "item.d_n_a.silver_ingot": "Silver ingot",
-  "item.d_n_a.oricalcium_gem": "Oricalcium gem",
-  "item.d_n_a.oricalcium_paste": "Oricalcium paste",
+  "item.d_n_a.oricalcium_gem": "Orichalcum gem",
+  "item.d_n_a.oricalcium_paste": "Orichalcum paste",
 
   "block.d_n_a.silver_ore": "Silver ore",
   "block.d_n_a.oricalcium_ore": "Oricalcium ore",
@@ -17,8 +16,8 @@
   "block.d_n_a.deepslate_mithril_ore": "Deepslate Mithril ore",
   "block.d_n_a.raw_silver_block": "Raw Silver block",
   "block.d_n_a.oricalcium_block": "Oricalcium block",
-  "block.d_n_a.silver_block": "silver block",
-  "block.d_n_a.ruby_block": "ruby block",
+  "block.d_n_a.silver_block": "Silver block",
+  "block.d_n_a.ruby_block": "Ruby block",
   "block.d_n_a.ruby_ore": "Ruby ore",
   "block.d_n_a.mithril_block": "Mithril block",
 

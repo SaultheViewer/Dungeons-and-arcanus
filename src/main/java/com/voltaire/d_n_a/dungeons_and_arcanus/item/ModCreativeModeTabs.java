@@ -76,6 +76,7 @@ public class ModCreativeModeTabs {
                         pOutput.accept(ModBlocks.GOLD_CHEST.get());
                         pOutput.accept(ModBlocks.SHADOW_CHEST.get());
                         pOutput.accept(ModBlocks.CORAL_CHEST.get());
+                        pOutput.accept(ModBlocks.STONE_CHEST.get());
 
                     })
                     .build());
