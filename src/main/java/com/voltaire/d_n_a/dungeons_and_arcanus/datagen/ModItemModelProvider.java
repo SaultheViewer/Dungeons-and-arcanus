@@ -20,6 +20,14 @@ public class ModItemModelProvider extends ItemModelProvider {
         basicItem(ModItems.ORICALCIUM_GEM.get());
         basicItem(ModItems.ORICALCIUM_PASTE.get());
         basicItem(ModItems.SILVER_INGOT.get());
+        //threads
+        basicItem(ModItems.LINEN_THREAD.get());
+        basicItem(ModItems.COTTON_THREAD.get());
+        basicItem(ModItems.SILK_THREAD.get());
+        basicItem(ModItems.YARN.get());
+
+        basicItem(ModItems.COTTON_SEEDS.get());
+        basicItem(ModItems.COTTON_POD.get());
 
         basicItem(ModItems.GOLD_LOCK.get());
         basicItem(ModItems.GOLD_KEY.get());

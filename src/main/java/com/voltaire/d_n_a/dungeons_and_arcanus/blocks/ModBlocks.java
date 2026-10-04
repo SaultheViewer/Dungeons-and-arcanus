@@ -1,10 +1,7 @@
 package com.voltaire.d_n_a.dungeons_and_arcanus.blocks;
 
 import com.voltaire.d_n_a.dungeons_and_arcanus.Dungeons_and_arcanus;
-import com.voltaire.d_n_a.dungeons_and_arcanus.blocks.custom.PCChestTypes;
-import com.voltaire.d_n_a.dungeons_and_arcanus.blocks.custom.PC_ChestBlock;
-import com.voltaire.d_n_a.dungeons_and_arcanus.blocks.custom.PC_PotTypes;
-import com.voltaire.d_n_a.dungeons_and_arcanus.blocks.custom.PotBlock;
+import com.voltaire.d_n_a.dungeons_and_arcanus.blocks.custom.*;
 import com.voltaire.d_n_a.dungeons_and_arcanus.item.ModItems;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.item.BlockItem;
@@ -87,6 +84,10 @@ public static final  RegistryObject<Block> STONE_CHEST = registerBlock( "stone_c
         () -> new PC_ChestBlock(PCChestTypes.STONE.setting(), PCChestTypes.STONE));
 public static final  RegistryObject<Block> ICE_CHEST = registerBlock( "ice_chest",
         () -> new PC_ChestBlock(PCChestTypes.ICE.setting(), PCChestTypes.ICE));
+//plants
+public static final  RegistryObject<Block> COTTON_CROP = BLOCKS.register( "cotton_crop",
+        () -> new Cotton_crop(BlockBehaviour.Properties.copy(Blocks.WHEAT)
+                .noOcclusion().noCollission()));
 
 
 

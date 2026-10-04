@@ -1,8 +1,10 @@
 package com.voltaire.d_n_a.dungeons_and_arcanus.item;
 
 import com.voltaire.d_n_a.dungeons_and_arcanus.Dungeons_and_arcanus;
+import com.voltaire.d_n_a.dungeons_and_arcanus.blocks.ModBlocks;
 import com.voltaire.d_n_a.dungeons_and_arcanus.item.custom.*;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemNameBlockItem;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -50,6 +52,20 @@ public class ModItems {
             () -> new Void_Lock(new Item.Properties()));
     public static final RegistryObject<Item> MIMIC_KEY_FRAGMENT = ITEMS.register("mimic_key_fragment",
             () -> new Item(new Item.Properties()));
+
+    //threads
+    public static final RegistryObject<Item> LINEN_THREAD = ITEMS.register("linen_thread",
+            () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> SILK_THREAD = ITEMS.register("silk_thread",
+            () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> COTTON_THREAD = ITEMS.register("cotton_thread",
+            () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> YARN = ITEMS.register("yarn",
+            () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> COTTON_POD = ITEMS.register("cotton_pod",
+            () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> COTTON_SEEDS = ITEMS.register("cotton_seeds",
+            () -> new ItemNameBlockItem(ModBlocks.COTTON_CROP.get(), new Item.Properties()));
 
 
 

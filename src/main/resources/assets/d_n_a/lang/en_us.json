@@ -1,5 +1,4 @@
 {
-  //debug
   //DNA translations
   "item.d_n_a.ruby": "Ruby",
   "item.d_n_a.raw_silver": "Raw silver",
@@ -8,6 +7,13 @@
   "item.d_n_a.silver_ingot": "Silver ingot",
   "item.d_n_a.oricalcium_gem": "Orichalcum gem",
   "item.d_n_a.oricalcium_paste": "Orichalcum paste",
+
+  "item.d_n_a.linen_thread": "Linen thread",
+  "item.d_n_a.cotton_thread": "Cotton thread",
+  "item.d_n_a.silk_thread": "Silk thread",
+  "item.d_n_a.yarn": "Yarn",
+  "item.d_n_a.cotton_seeds": "Cotton seeds",
+  "item.d_n_a.cotton_pod": "Cotton pod",
 
   "block.d_n_a.silver_ore": "Silver ore",
   "block.d_n_a.oricalcium_ore": "Oricalcium ore",

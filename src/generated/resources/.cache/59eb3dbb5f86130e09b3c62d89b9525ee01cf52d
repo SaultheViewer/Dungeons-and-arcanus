@@ -1,4 +1,5 @@
-// 1.20.1	2026-09-23T09:01:15.0387995	Loot Tables
+// 1.20.1	2026-10-04T11:15:47.669244	Loot Tables
+fda899028998b228fac4c4572548f6d3c66ee605 data/d_n_a/loot_tables/blocks/cotton_crop.json
 f0123c1fe8fe6a97c6007430681d2b9b14d1870e data/d_n_a/loot_tables/blocks/deepslate_mithril_ore.json
 fbd59c6223d7b4ed6a48872edd5d1d41e87c7d9b data/d_n_a/loot_tables/blocks/deepslate_silver_ore.json
 d8324b52b856fdb75c3f131053d25518ed99db3d data/d_n_a/loot_tables/blocks/mithril_block.json

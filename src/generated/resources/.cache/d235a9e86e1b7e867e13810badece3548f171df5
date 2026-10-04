@@ -1,4 +1,5 @@
-// 1.20.1	2026-09-24T16:18:07.8636536	Block States: d_n_a
+// 1.20.1	2026-10-04T11:15:47.6662535	Block States: d_n_a
+5dcc5b2926cbd03a3a0df7007bccf83c7f71d67f assets/d_n_a/blockstates/cotton_crop.json
 cfea1627eaf32b5dba8e6cddeff46824af1aca9b assets/d_n_a/blockstates/deepslate_mithril_ore.json
 17af9b23e8af835d6322b662a7fae238f2644a51 assets/d_n_a/blockstates/deepslate_silver_ore.json
 2934032301b2f8ee915b310c156d714342b3ddec assets/d_n_a/blockstates/mithril_block.json
@@ -10,6 +11,11 @@ f3c197f37bf5f22a38dd2e77aae67a03eab91db3 assets/d_n_a/blockstates/ruby_block.jso
 96aeaf07bbc4479f8e39db64d732ff41f0c7c61e assets/d_n_a/blockstates/ruby_ore.json
 3ec8b32f435bf175a312a9ed372b8bb625c74753 assets/d_n_a/blockstates/silver_block.json
 03cc9d0c978e93a04c44cec10a54e4a847f56338 assets/d_n_a/blockstates/silver_ore.json
+4da965700da5e763689accd70986031728a98489 assets/d_n_a/models/block/cotton_stage0.json
+2b86b681159f4a914accefb048dbb7f7383541f3 assets/d_n_a/models/block/cotton_stage1.json
+74837fdfcb8bcaec89b995f8dd5dbb9402bb1d58 assets/d_n_a/models/block/cotton_stage2.json
+e6a248da7670d55de1130120a40ee517f1f1169a assets/d_n_a/models/block/cotton_stage3.json
+1f95ae921d518e818ae87e5ad2c0339985b92e87 assets/d_n_a/models/block/cotton_stage4.json
 7a778dcfd0fa5f131b80a3cd893f81a6c02dc476 assets/d_n_a/models/block/deepslate_mithril_ore.json
 c61f43fedba609c1f7754a8d62108af727afbb9b assets/d_n_a/models/block/deepslate_silver_ore.json
 bf91a5d89a394a26b737a3491ffd5daf0cc86e7b assets/d_n_a/models/block/mithril_block.json

@@ -1,7 +1,9 @@
 package com.voltaire.d_n_a.dungeons_and_arcanus.datagen.loot;
 
 import com.voltaire.d_n_a.dungeons_and_arcanus.blocks.ModBlocks;
+import com.voltaire.d_n_a.dungeons_and_arcanus.blocks.custom.Cotton_crop;
 import com.voltaire.d_n_a.dungeons_and_arcanus.item.ModItems;
+import net.minecraft.advancements.critereon.StatePropertiesPredicate;
 import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Item;
@@ -11,6 +13,8 @@ import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
+import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
 import java.util.Collections;
@@ -30,6 +34,14 @@ public class ModBlockLootTables extends BlockLootSubProvider {
         this.dropSelf(ModBlocks.SILVER_BLOCK.get());
         this.dropSelf(ModBlocks.ORICALCIUM_BLOCK.get());
         this.dropSelf(ModBlocks.RAW_SILVER_BLOCK.get());
+
+        //crops
+        LootItemCondition.Builder lootitemcondition$builder = LootItemBlockStatePropertyCondition
+                .hasBlockStateProperties(ModBlocks.COTTON_CROP.get())
+                .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(Cotton_crop.AGE, 4));
+
+        this.add(ModBlocks.COTTON_CROP.get(), createCropDrops(ModBlocks.COTTON_CROP.get(), ModItems.COTTON_POD.get(),
+                ModItems.COTTON_SEEDS.get(), lootitemcondition$builder));
 
 
         //ores
@@ -74,7 +86,8 @@ public class ModBlockLootTables extends BlockLootSubProvider {
                 ModBlocks.SILVER_ORE.get(),
                 ModBlocks.DEEPSLATE_SILVER_ORE.get(),
                 ModBlocks.RUBY_ORE.get(),
-                ModBlocks.ORICALCIUM_ORE.get()
+                ModBlocks.ORICALCIUM_ORE.get(),
+                ModBlocks.COTTON_CROP.get()
         );
     }
 }

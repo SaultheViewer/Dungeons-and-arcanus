@@ -1,8 +1,12 @@
-// 1.20.1	2026-09-23T09:01:15.0318152	Item Models: d_n_a
+// 1.20.1	2026-10-03T19:13:32.778084	Item Models: d_n_a
+18f54d705ce6f015109fb282d372a228dae1859d assets/d_n_a/models/item/cotton_pod.json
+eca82538c270593f3c202fe1465d3301e3dcb1a4 assets/d_n_a/models/item/cotton_seeds.json
+ac74c044f080a921c6ef263067158e607d8a1924 assets/d_n_a/models/item/cotton_thread.json
 7926b5ad06eff2adf0765b2b0e4af21ae686f14c assets/d_n_a/models/item/gold_key.json
 e8e442042b677ba768e8c7028104fe0746209d2d assets/d_n_a/models/item/gold_lock.json
 f57b55182d5bc91cf2dade439e65701b207abf21 assets/d_n_a/models/item/iron_key.json
 4e1df62d0551282259015d6c53b9bc1043dec801 assets/d_n_a/models/item/iron_lock.json
+0ecb8c733dd7ea41853430990d3841e5878295ee assets/d_n_a/models/item/linen_thread.json
 9950307aee2d191b44e0bdb3ae7f5a3a757b9992 assets/d_n_a/models/item/mimic_core.json
 4fabf0f5f567ff0a5c7c7ad2eeec0221fb393f37 assets/d_n_a/models/item/mimic_hand_bell.json
 a0f7a17741c3a9a08f9751ffc817da5bd93e182d assets/d_n_a/models/item/mimic_key.json
@@ -14,6 +18,8 @@ f35b6a4398062cb593dd95f59d469009f79831f1 assets/d_n_a/models/item/oricalcium_pas
 983463b0af6053f6d8ed5801bd71ce22d2395b00 assets/d_n_a/models/item/raw_mithril.json
 f11490738d62a945df9d63579b3703558aa98e21 assets/d_n_a/models/item/raw_silver.json
 a5ee6891eed328d6f67cd1c2cbdd76b218486f8c assets/d_n_a/models/item/ruby.json
+dde34e57fb50cae9b37399377768241e2034aa4e assets/d_n_a/models/item/silk_thread.json
 7752ac8ce8fe13e7e0f6f0521b50de8cac7283b3 assets/d_n_a/models/item/silver_ingot.json
 47a8a34077e3a7192d0d2ee57794317458afb408 assets/d_n_a/models/item/void_key.json
 ad34c880cc1cb31aa75227a6470da782e694a0d9 assets/d_n_a/models/item/void_lock.json
+f9cbcc782eaf02ca213c73d9bdd0b9921e2018f8 assets/d_n_a/models/item/yarn.json

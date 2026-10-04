@@ -25,8 +25,6 @@ public class ModCreativeModeTabs {
                         pOutput.accept(ModItems.ORICALCIUM_GEM.get());
                         pOutput.accept(ModItems.ORICALCIUM_PASTE.get());
                         pOutput.accept(ModItems.RAW_SILVER.get());
-
-
                         //example block output
                         pOutput.accept(ModBlocks.DEEPSLATE_SILVER_ORE.get());
                         pOutput.accept(ModBlocks.DEEPSLATE_MITHRIL_ORE.get());
@@ -39,9 +37,14 @@ public class ModCreativeModeTabs {
                         pOutput.accept(ModBlocks.SILVER_BLOCK.get());
                         pOutput.accept(ModBlocks.RUBY_BLOCK.get());
                         pOutput.accept(ModBlocks.RUBY_ORE.get());
-
-
-
+                        // threads
+                        pOutput.accept(ModItems.LINEN_THREAD.get());
+                        pOutput.accept(ModItems.COTTON_THREAD.get());
+                        pOutput.accept(ModItems.SILK_THREAD.get());
+                        pOutput.accept(ModItems.YARN.get());
+                       // plants
+                        pOutput.accept(ModItems.COTTON_SEEDS.get());
+                        pOutput.accept(ModItems.COTTON_POD.get());
                         // example vanilla item inclusion
                         // pOutput.accept(Items.SUGAR);
 
