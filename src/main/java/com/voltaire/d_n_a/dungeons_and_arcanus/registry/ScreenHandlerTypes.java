@@ -11,7 +11,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 
-public class PCScreenHandlerType {
+public class ScreenHandlerTypes {
    public static final DeferredRegister<MenuType<?>> MENUS = DeferredRegister.create(ForgeRegistries.MENU_TYPES, Dungeons_and_arcanus.MOD_ID);
 
    public static final RegistryObject<MenuType<PCChestScreenHandler>> PC_CHEST = MENUS.register(

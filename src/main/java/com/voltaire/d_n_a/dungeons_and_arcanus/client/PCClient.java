@@ -4,7 +4,7 @@ import com.voltaire.d_n_a.dungeons_and_arcanus.client.entity.*;
 import com.voltaire.d_n_a.dungeons_and_arcanus.registry.ModEntitys;
 import com.voltaire.d_n_a.dungeons_and_arcanus.blocks.custom.PCChestTypes;
 import com.voltaire.d_n_a.dungeons_and_arcanus.blocks.entity.ModBlockEntitys;
-import com.voltaire.d_n_a.dungeons_and_arcanus.registry.PCScreenHandlerType;
+import com.voltaire.d_n_a.dungeons_and_arcanus.registry.ScreenHandlerTypes;
 import com.voltaire.d_n_a.dungeons_and_arcanus.screen.PCChestScreen;
 import com.voltaire.d_n_a.dungeons_and_arcanus.screen.PCMimicScreen;
 import net.minecraft.client.gui.screens.MenuScreens;
@@ -15,8 +15,8 @@ public class PCClient {
 
     public static void clientSetup(final FMLClientSetupEvent event) {
         event.enqueueWork(() -> {
-            MenuScreens.register(PCScreenHandlerType.PC_CHEST.get(), PCChestScreen::new);
-            MenuScreens.register(PCScreenHandlerType.PC_CHEST_MIMIC.get(), PCMimicScreen::new);
+            MenuScreens.register(ScreenHandlerTypes.PC_CHEST.get(), PCChestScreen::new);
+            MenuScreens.register(ScreenHandlerTypes.PC_CHEST_MIMIC.get(), PCMimicScreen::new);
         });
     }
     

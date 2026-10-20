@@ -37,4 +37,8 @@ public class ModBlockEntitys {
     public static final RegistryObject<BlockEntityType<CoralChestBlockEntity>> CORAL_CHEST_BLOCK_ENTITY = BLOCK_ENTITY_TYPES.register(
             "coral_chest_block_entity", () -> BlockEntityType.Builder.of(CoralChestBlockEntity::new, ModBlocks.CORAL_CHEST.get()).build(null)
     );
+    public static final RegistryObject<BlockEntityType<Spinning_Wheel_BlockEntity>> SPINNING_BE = BLOCK_ENTITY_TYPES.register(
+            "spinning_wheel_block_entity", () -> BlockEntityType.Builder.of(Spinning_Wheel_BlockEntity::new, ModBlocks.SPINNING_WHEEL.get()).build(null)
+    );
+
 }

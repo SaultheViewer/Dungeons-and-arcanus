@@ -1,6 +1,6 @@
 package com.voltaire.d_n_a.dungeons_and_arcanus.screenhandlers;
 
-import com.voltaire.d_n_a.dungeons_and_arcanus.registry.PCScreenHandlerType;
+import com.voltaire.d_n_a.dungeons_and_arcanus.registry.ScreenHandlerTypes;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
@@ -17,11 +17,11 @@ public class PCChestScreenHandler extends AbstractContainerMenu {
    private final int rows = 4;
 
    public PCChestScreenHandler(int syncId, Inventory playerInventory) {
-      this(PCScreenHandlerType.PC_CHEST.get(), syncId, playerInventory, new SimpleContainer(36));
+      this(ScreenHandlerTypes.PC_CHEST.get(), syncId, playerInventory, new SimpleContainer(36));
    }
 
    public static PCChestScreenHandler createScreenHandler(int syncId, Inventory playerInventory, Container inventory) {
-      return new PCChestScreenHandler(PCScreenHandlerType.PC_CHEST.get(), syncId, playerInventory, inventory);
+      return new PCChestScreenHandler(ScreenHandlerTypes.PC_CHEST.get(), syncId, playerInventory, inventory);
    }
 
    public PCChestScreenHandler(MenuType<?> type, int syncId, Inventory playerInventory, Container inventory) {

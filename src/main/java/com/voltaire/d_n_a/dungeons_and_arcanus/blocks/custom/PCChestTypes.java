@@ -6,7 +6,7 @@ import com.voltaire.d_n_a.dungeons_and_arcanus.Entity.PCChestMimic;
 import com.voltaire.d_n_a.dungeons_and_arcanus.blocks.entity.ModBlockEntitys;
 import com.voltaire.d_n_a.dungeons_and_arcanus.blocks.entity.PCBaseChestBlockEntity;
 import com.voltaire.d_n_a.dungeons_and_arcanus.registry.PCLootTables;
-import com.voltaire.d_n_a.dungeons_and_arcanus.registry.PCScreenHandlerType;
+import com.voltaire.d_n_a.dungeons_and_arcanus.registry.ScreenHandlerTypes;
 import com.voltaire.d_n_a.dungeons_and_arcanus.screenhandlers.PCChestScreenHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
@@ -92,7 +92,7 @@ public enum PCChestTypes {
     }
 
     public MenuType<PCChestScreenHandler> getScreenHandlerType() {
-        return PCScreenHandlerType.PC_CHEST.get();
+        return ScreenHandlerTypes.PC_CHEST.get();
     }
 
     public BlockBehaviour.Properties setting() {

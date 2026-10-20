@@ -7,10 +7,12 @@ import com.voltaire.d_n_a.dungeons_and_arcanus.client.PCClient;
 import com.voltaire.d_n_a.dungeons_and_arcanus.item.ModCreativeModeTabs;
 import com.voltaire.d_n_a.dungeons_and_arcanus.item.ModItems;
 import com.voltaire.d_n_a.dungeons_and_arcanus.registry.*;
+import com.voltaire.d_n_a.dungeons_and_arcanus.screen.SpinningWheelScreen;
 import com.voltaire.d_n_a.dungeons_and_arcanus.utils.MimicDifficulty;
 import com.voltaire.d_n_a.dungeons_and_arcanus.utils.PCConfig;
 import com.voltaire.d_n_a.dungeons_and_arcanus.utils.PCEventHandler;
 import com.voltaire.d_n_a.dungeons_and_arcanus.worldgen.feature.PCPlacementModifierType;
+import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
@@ -46,9 +48,10 @@ public class Dungeons_and_arcanus {
         ModEntitys.ENTITY_TYPES.register(modEventBus);
         ModBlockEntitys.BLOCK_ENTITY_TYPES.register(modEventBus);
         PCSounds.SOUND_EVENTS.register(modEventBus);
-        PCScreenHandlerType.MENUS.register(modEventBus);
+        ScreenHandlerTypes.MENUS.register(modEventBus);
         PCPlacementModifierType.PLACEMENT_MODIFIERS.register(modEventBus);
         PCFeatureRegistry.FEATURES.register(modEventBus);
+        ModMenuTypes.register(modEventBus);
 
         modEventBus.addListener(ModEntitys::registerAttributes);
         modEventBus.addListener(ModEntitys::registerSpawnPlacements);
@@ -130,6 +133,7 @@ public class Dungeons_and_arcanus {
         public static void onClientSetup(FMLClientSetupEvent event) {
             event.enqueueWork(() -> {
                 // MenuScreens, client-only setup
+                MenuScreens.register(ModMenuTypes.SPINNING_WHEEL_MENU.get(), SpinningWheelScreen:: new);
             });
         }
     }

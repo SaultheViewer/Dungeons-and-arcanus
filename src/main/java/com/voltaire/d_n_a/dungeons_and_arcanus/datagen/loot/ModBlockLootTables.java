@@ -34,6 +34,7 @@ public class ModBlockLootTables extends BlockLootSubProvider {
         this.dropSelf(ModBlocks.SILVER_BLOCK.get());
         this.dropSelf(ModBlocks.ORICALCIUM_BLOCK.get());
         this.dropSelf(ModBlocks.RAW_SILVER_BLOCK.get());
+        this.dropSelf(ModBlocks.SPINNING_WHEEL.get());
 
         //crops
         LootItemCondition.Builder lootitemcondition$builder = LootItemBlockStatePropertyCondition
@@ -87,7 +88,8 @@ public class ModBlockLootTables extends BlockLootSubProvider {
                 ModBlocks.DEEPSLATE_SILVER_ORE.get(),
                 ModBlocks.RUBY_ORE.get(),
                 ModBlocks.ORICALCIUM_ORE.get(),
-                ModBlocks.COTTON_CROP.get()
+                ModBlocks.COTTON_CROP.get(),
+                ModBlocks.SPINNING_WHEEL.get()
         );
     }
 }

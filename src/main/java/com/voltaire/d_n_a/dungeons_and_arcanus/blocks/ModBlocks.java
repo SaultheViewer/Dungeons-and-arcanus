@@ -88,7 +88,9 @@ public static final  RegistryObject<Block> ICE_CHEST = registerBlock( "ice_chest
 public static final  RegistryObject<Block> COTTON_CROP = BLOCKS.register( "cotton_crop",
         () -> new Cotton_crop(BlockBehaviour.Properties.copy(Blocks.WHEAT)
                 .noOcclusion().noCollission()));
-
+//Workstations
+public static final RegistryObject<Block> SPINNING_WHEEL = registerBlock("spinning_wheel",
+        () -> new Spinning_Wheel(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).noCollission()));
 
 
 

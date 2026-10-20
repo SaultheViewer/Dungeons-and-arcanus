@@ -10,6 +10,7 @@ import net.minecraft.world.level.block.CropBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.client.model.generators.ConfiguredModel;
+import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.RegistryObject;
 
@@ -47,6 +48,11 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
         //plants
         makeCottonCrop((CropBlock) ModBlocks.COTTON_CROP.get(), "cotton_stage", "cotton_stage");
+
+        //Workstaitons
+        simpleBlock(ModBlocks.SPINNING_WHEEL.get(),
+        new ModelFile.UncheckedModelFile(modLoc("block/spinning_wheel")));
+        blockItem((ModBlocks.SPINNING_WHEEL));
 
 
 
