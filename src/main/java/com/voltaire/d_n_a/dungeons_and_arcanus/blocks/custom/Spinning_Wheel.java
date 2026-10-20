@@ -62,6 +62,10 @@ public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, Co
 
         super.onRemove(pState, pLevel, pPos, pNewState, pIsMoving);
     }
+    @Override
+    public VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+        return SHAPE;
+    }
 
 
     @Override
