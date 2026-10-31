@@ -33,8 +33,8 @@ public class SpinningWheelMenu extends AbstractContainerMenu {
         addPlayerHotbar(inv);
 
         this.blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(iItemHandler -> {
-            this.addSlot(new SlotItemHandler(iItemHandler, 0, 56, 42));
-            this.addSlot(new SlotItemHandler(iItemHandler, 1, 123, 42));
+            this.addSlot(new SlotItemHandler(iItemHandler, 0, 50, 34));
+            this.addSlot(new SlotItemHandler(iItemHandler, 1, 115, 34));
         });
 
         addDataSlots(data);
@@ -46,10 +46,12 @@ public class SpinningWheelMenu extends AbstractContainerMenu {
 
     public int getScaledProgress() {
         int progress = this.data.get(0);
-        int maxProgress = this.data.get(1);  // Max Progress
-        int progressArrowSize = 26; // This is the height in pixels of your arrow
+        int maxProgress = this.data.get(1);
+        int progressArrowSize = 22; // width of your horizontal arrow in pixels
 
-        return maxProgress != 0 && progress != 0 ? progress * progressArrowSize / maxProgress : 0;
+        return maxProgress != 0 && progress != 0
+                ? progress * progressArrowSize / maxProgress
+                : 0;
     }
 
     private static final int HOTBAR_SLOT_COUNT = 9;

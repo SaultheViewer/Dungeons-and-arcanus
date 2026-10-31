@@ -20,8 +20,9 @@ public class SpinningWheelScreen extends AbstractContainerScreen<SpinningWheelMe
     @Override
     protected void init() {
         super.init();
-        this.inventoryLabelY = 10000;
-        this.titleLabelY = 10000;
+        this.inventoryLabelY = 70;
+        this.titleLabelY = 8;
+
     }
 
     @Override
@@ -38,8 +39,8 @@ public class SpinningWheelScreen extends AbstractContainerScreen<SpinningWheelMe
     }
 
     private void renderProgressArrow(GuiGraphics guiGraphics, int x, int y) {
-        if(menu.isCrafting()) {
-            guiGraphics.blit(TEXTURE, x + 85, y + 30, 176, 0, menu.getScaledProgress(), 8);
+        if (menu.isCrafting()) {
+            guiGraphics.blit(TEXTURE, x + 80, y + 35, 180, 35, menu.getScaledProgress(), 15);
         }
     }
 
