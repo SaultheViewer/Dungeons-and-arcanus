@@ -6,6 +6,7 @@ import com.voltaire.d_n_a.dungeons_and_arcanus.blocks.entity.ModBlockEntitys;
 import com.voltaire.d_n_a.dungeons_and_arcanus.client.PCClient;
 import com.voltaire.d_n_a.dungeons_and_arcanus.item.ModCreativeModeTabs;
 import com.voltaire.d_n_a.dungeons_and_arcanus.item.ModItems;
+import com.voltaire.d_n_a.dungeons_and_arcanus.recipe.ModRecipes;
 import com.voltaire.d_n_a.dungeons_and_arcanus.registry.*;
 import com.voltaire.d_n_a.dungeons_and_arcanus.screen.SpinningWheelScreen;
 import com.voltaire.d_n_a.dungeons_and_arcanus.utils.MimicDifficulty;
@@ -42,9 +43,11 @@ public class Dungeons_and_arcanus {
         ModItems.register(modEventBus);
         ModBlocks.register(modEventBus);
 
+
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(this::addCreative);
 
+        ModRecipes.register(modEventBus);
         ModEntitys.ENTITY_TYPES.register(modEventBus);
         ModBlockEntitys.BLOCK_ENTITY_TYPES.register(modEventBus);
         PCSounds.SOUND_EVENTS.register(modEventBus);

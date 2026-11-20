@@ -1,0 +1,13 @@
+{
+  "type": "d_n_a:spinning",
+  "ingredients": [
+    {
+      "item": "d_n_a:cotton_pod"
+    }
+  ],
+  "count": 3,
+  "output": {
+    "count": 1,
+    "item": "d_n_a:cotton_thread"
+  }
+}

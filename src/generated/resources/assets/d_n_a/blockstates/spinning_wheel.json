@@ -1,7 +1,19 @@
 {
   "variants": {
-    "": {
+    "facing=east": {
+      "model": "d_n_a:block/spinning_wheel",
+      "y": 90
+    },
+    "facing=north": {
       "model": "d_n_a:block/spinning_wheel"
+    },
+    "facing=south": {
+      "model": "d_n_a:block/spinning_wheel",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "d_n_a:block/spinning_wheel",
+      "y": 270
     }
   }
 }

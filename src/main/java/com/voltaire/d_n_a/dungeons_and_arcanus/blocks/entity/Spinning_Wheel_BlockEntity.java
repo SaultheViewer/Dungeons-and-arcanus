@@ -1,6 +1,6 @@
 package com.voltaire.d_n_a.dungeons_and_arcanus.blocks.entity;
 
-import com.voltaire.d_n_a.dungeons_and_arcanus.item.ModItems;
+import com.voltaire.d_n_a.dungeons_and_arcanus.recipe.SpinningWheenRecipie;
 import com.voltaire.d_n_a.dungeons_and_arcanus.screen.SpinningWheelMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -25,6 +25,8 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Optional;
 
 public class Spinning_Wheel_BlockEntity extends BlockEntity implements MenuProvider {
     private final ItemStackHandler itemHandler = new ItemStackHandler(2);
@@ -137,9 +139,10 @@ public class Spinning_Wheel_BlockEntity extends BlockEntity implements MenuProvi
     }
 
     private void craftItem() {
-    //temp
-        ItemStack result = new ItemStack(ModItems.COTTON_POD.get(),1);
-        this.itemHandler.extractItem(INPUT, 3, false);
+        Optional<SpinningWheenRecipie> recipe = getCurrentRecipe();
+        ItemStack result = recipe.get().getResultItem(null);
+
+        this.itemHandler.extractItem(INPUT, recipe.get().getInputCount(), false);
 
         this.itemHandler.setStackInSlot(OUTPUT, new ItemStack(result.getItem(),
             this.itemHandler.getStackInSlot(OUTPUT).getCount() + result.getCount()));
@@ -154,10 +157,23 @@ public class Spinning_Wheel_BlockEntity extends BlockEntity implements MenuProvi
     }
 
     private boolean hasRecipe() {
-        boolean hasCraftingItem = this.itemHandler.getStackInSlot(INPUT).getItem() == ModItems.COTTON_POD.get();
-        ItemStack result = new ItemStack(ModItems.COTTON_THREAD.get());
+        Optional<SpinningWheenRecipie> recipe = getCurrentRecipe();
 
-        return hasCraftingItem && canInsertAmountIntoOutputSlot(result.getCount()) && canInsertItemIntoOutputSlot(result.getItem());
+        if (recipe.isEmpty()){
+            return false;
+        }
+        ItemStack result = recipe.get().getResultItem(null);
+
+        return canInsertAmountIntoOutputSlot(result.getCount()) && canInsertItemIntoOutputSlot(result.getItem());
+    }
+
+    private Optional<SpinningWheenRecipie> getCurrentRecipe() {
+        SimpleContainer inventory = new SimpleContainer(this.itemHandler.getSlots());
+        for(int i = 0; i < itemHandler.getSlots(); i++) {
+            inventory.setItem(i, this.itemHandler.getStackInSlot(i));
+        }
+
+        return this.level.getRecipeManager().getRecipeFor(SpinningWheenRecipie.Type.INSTANCE, inventory, level);
     }
 
     private boolean canInsertItemIntoOutputSlot(Item item) {

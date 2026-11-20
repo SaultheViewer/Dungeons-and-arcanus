@@ -50,7 +50,9 @@ public class ModBlockStateProvider extends BlockStateProvider {
         makeCottonCrop((CropBlock) ModBlocks.COTTON_CROP.get(), "cotton_stage", "cotton_stage");
 
         //Workstaitons
-        simpleBlockWithItem(ModBlocks.SPINNING_WHEEL.get(),
+        simpleBlockItem(ModBlocks.SPINNING_WHEEL.get(),
+                new ModelFile.UncheckedModelFile(modLoc("block/spinning_wheel")));
+        horizontalBlock(ModBlocks.SPINNING_WHEEL.get(),
                 new ModelFile.UncheckedModelFile(modLoc("block/spinning_wheel")));
 
 
